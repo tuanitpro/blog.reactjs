@@ -1,0 +1,102 @@
+/* 
+  ##Device = Desktops
+  ##Screen = 1281px to higher resolution desktops
+*/
+
+@media (min-width: 1281px) {
+  /* CSS */
+  .navigation-icon {
+    display: none;
+  }
+}
+
+/* 
+  ##Device = Laptops, Desktops
+  ##Screen = B/w 1025px to 1280px
+*/
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+  /* CSS */
+}
+
+/* 
+  ##Device = Tablets, Ipads (portrait)
+  ##Screen = B/w 768px to 1024px
+*/
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  /* CSS */
+}
+
+/* 
+  ##Device = Tablets, Ipads (landscape)
+  ##Screen = B/w 768px to 1024px
+*/
+
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+  /* CSS */
+
+  .secondary {
+    float: left;
+    display: block;
+  }
+}
+
+/* 
+  ##Device = Low Resolution Tablets, Mobiles (Landscape)
+  ##Screen = B/w 481px to 767px
+*/
+
+@media (min-width: 481px) and (max-width: 767px) {
+  /* CSS */
+
+  .secondary {
+    float: left;
+    display: block;
+    width: 100%;
+  }
+}
+
+/* 
+  ##Device = Most of the Smartphones Mobiles (Portrait)
+  ##Screen = B/w 320px to 479px
+*/
+
+@media (min-width: 320px) and (max-width: 480px) {
+  /* CSS */
+  .site-header {
+    float: left;
+    display: block;
+    width: 100%;
+  }
+  .site-branding {
+    margin-right: 40px;
+  }
+  .site-branding img {
+    float: right;
+    position: fixed;
+    right: 32px;
+  }
+
+  .site-description {
+    float: left;
+  }
+
+  .secondary {
+    float: left;
+    display: block;
+    width: 100%;
+  }
+
+  .hentry {
+    background-color: #fff;
+    padding-top: 7.6923%;
+    float: left;
+    width: 100%;
+  }
+
+  .navigation-icon {
+    float: left;
+    width: 100%;
+  }
+}
