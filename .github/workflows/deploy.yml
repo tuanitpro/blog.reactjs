@@ -43,3 +43,13 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: app
+          path: distfiles
+      - name: Copy artifact to server
+        uses: appleboy/scp-action@v1
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          source: distfiles/*
+          target: /www/wwwroot/tuanitpro.com
