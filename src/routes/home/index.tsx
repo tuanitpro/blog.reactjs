@@ -44,7 +44,7 @@ const Home = () => {
           </div>
         </article>
       </header>
-      <article>
+      <article className="hentry">
         <div className={isMobile ? "" : "entry-content"}>
           {isPending && "Loading..."}
           <ul>

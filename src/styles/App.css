@@ -1362,6 +1362,7 @@ img.aligncenter {
 .custom-logo {
   max-height: 84px;
   width: auto;
+  border-radius: 50%;
 }
 
 .page-title {
@@ -2849,14 +2850,6 @@ p > video {
     margin-bottom: 2.4em;
   }
 
-  .entry-header {
-    padding: 0 9.0909%;
-  }
-
-  .entry-content,
-  .entry-summary {
-    padding: 0 9.0909% 9.0909%;
-  }
 
   .entry-footer {
     padding: 4.5454% 9.0909%;
@@ -4523,11 +4516,6 @@ p > video {
     line-height: 1.5;
   }
 
-  .hentry,
-  .page-header,
-  .page-content {
-    margin: 0 8.3333%;
-  }
 
   .hentry {
     padding-top: 8.3333%;
@@ -4553,11 +4541,6 @@ p > video {
     font-size: 3.1rem;
     line-height: 1.1613;
     margin-bottom: 1.1613em;
-  }
-
-  .entry-content,
-  .entry-summary {
-    padding: 0 10% 10%;
   }
 
   .entry-content h1,
@@ -6086,9 +6069,6 @@ p > video {
   }
 }
 
-.custom-logo {
-  border-radius: 50%;
-}
 .site-content ul {
   list-style: none;
 }
@@ -6105,20 +6085,19 @@ p > video {
 .site-content .my-thumbnail {
   float: left;
   border: solid 1px #ccc;
-  margin-right: 30px;
+  margin-right: 16px;
 }
-a {
-  text-decoration: none;
+
+
+.site-content .description {
+  padding: 16px;
 }
+
 .site-content ul li a {
   text-decoration: none;
   border: none;
   font-weight: 600;
   font-weight: 14px;
-}
-
-.wpcf7 form .wpcf7-response-output {
-  margin: none !important;
 }
 
 .list-style-none {
@@ -6127,12 +6106,11 @@ a {
   float: right;
   padding-top: 15px;
 }
-.list-style-none li {
-  padding-left: 15px;
-}
+
 .list-style-none li:hover {
   text-decoration: none;
 }
+
 .list-style-none li a:hover {
   text-decoration: none !important;
   border-bottom: unset !important;
