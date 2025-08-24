@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import IonIcon from "@reacticons/ionicons";
 import { useMediaQuery } from "react-responsive";
 import Logo from "@components/Logo";
-import Hero from "../../components/Hero";
-import Navigation from "../../components/Navigation";
+import Hero from "@components/Hero";
+import Navigation from "@components/Navigation";
 import Category from "./Category";
 import ExternalLink from "./ExternalLink";
 

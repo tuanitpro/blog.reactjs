@@ -7,7 +7,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import Home from "./routes/home";
 import About from "./routes/about";
 import Contact from "./routes/contact";
-import Sidebar from "./layouts/Sidebar";
+import Sidebar from "@components/Sidebar";
 
 const App = () => {
   const queryClient = new QueryClient();

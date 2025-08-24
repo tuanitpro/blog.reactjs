@@ -2,9 +2,50 @@ import PageLayout from "@layouts/PageLayout";
 import IonIcon from "@reacticons/ionicons";
 
 import contact from "@static/image/contact.jpg";
+import { useMutation } from "@tanstack/react-query";
+
+type FormModel = {
+  name?: string;
+  email?: string;
+  subject?: string;
+  message?: string;
+};
 
 const Contact = () => {
   const title = "Liên hệ";
+  const sendMutation = useMutation({
+    mutationFn: async (variables: FormModel) => {
+      const telegramUrl = `https://api.telegram.org/bot${process.env.REACT_APP_TELEGRAM_TOKEN}/sendMessage`;
+
+      const text = `
+New message from ${variables.name}
+Email: ${variables.email}
+Subject: ${variables.subject}
+Message: ${variables.message}
+          `;
+      const response = await fetch(telegramUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          chat_id: process.env.REACT_APP_TELEGRAM_TO,
+          text: text,
+        }),
+      });
+      return response.ok;
+    },
+    onSuccess: () => console.log("Sent"),
+  });
+  async function formPost(formData: FormData) {
+    const rawFormData: any = {
+      name: formData?.get("your-name"),
+      email: formData?.get("your-email"),
+      subject: formData?.get("your-subject"),
+      message: formData?.get("your-message"),
+    };
+    sendMutation.mutateAsync(rawFormData);
+  }
   return (
     <PageLayout title={title}>
       <article className="has-post-thumbnail hentry">
@@ -30,16 +71,13 @@ const Contact = () => {
           </span>
           <hr />
           <div>
-            <form method="post" name="contact">
+            <form action={formPost}>
               <p>
                 <label>
                   {" "}
                   Tên bạn
                   <br />
-                  <span
-                    className="wpcf7-form-control-wrap"
-                    data-name="your-name"
-                  >
+                  <span data-name="your-name">
                     <input
                       size={40}
                       maxLength={400}
@@ -91,7 +129,11 @@ const Contact = () => {
                   </span>
                 </label>
               </p>
-              <input type="submit" value="Gửi ngay" />
+              <input
+                type="submit"
+                value={sendMutation?.isPending ? "Sending..." : "Gửi ngay"}
+              />
+              {sendMutation?.isSuccess && "Sent"}
             </form>
           </div>
         </div>

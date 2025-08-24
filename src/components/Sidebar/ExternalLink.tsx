@@ -21,7 +21,8 @@ const ExternalLink = () => {
     queryKey: ["menuItems"],
     queryFn: async () =>
       request("https://blog.tuanitpro.com/graphql", menuItemsQuery),
-    select: (res) => res?.menu?.menuItems?.nodes,
+    select: (res: { menu: { menuItems: { nodes: any } } }) =>
+      res?.menu?.menuItems?.nodes,
   });
 
   return (

@@ -1,7 +1,39 @@
 import PageLayout from "@layouts/PageLayout";
 
+import { useQuery } from "@tanstack/react-query";
+import { gql, request } from "graphql-request";
+
 const Home = () => {
   const title = "Tuấn - Hãy theo đuổi đam mê, nợ nần sẽ theo đuổi bạn";
+
+  const postQuery = gql`
+    {
+      posts {
+        nodes {
+          excerpt
+          id
+          title
+          slug
+          link
+          featuredImage {
+            node {
+              mediaItemUrl
+            }
+          }
+        }
+      }
+    }
+  `;
+
+  const { data, isPending } = useQuery({
+    queryKey: ["posts"],
+    queryFn: async () =>
+      request("https://blog.tuanitpro.com/graphql", postQuery),
+    select: (res: { posts: { nodes: any } }) => res?.posts?.nodes,
+  });
+
+  console.log(import.meta.env?.REACT_APP_TELEGRAM_TO);
+
   return (
     <PageLayout title={title}>
       <header className="page-title">
@@ -11,9 +43,40 @@ const Home = () => {
           </div>
         </article>
       </header>
-      <article className="hentry">
+      <article>
         <div className="entry-content">
-          <p>Hello world.</p>
+          {isPending && "Loading..."}
+          <ul>
+            {data?.map(
+              (post: {
+                id: string;
+                featuredImage: any;
+                title: string;
+                link: string;
+                excerpt: string;
+              }) => (
+                <li key={post.id}>
+                  {post?.featuredImage?.node?.mediaItemUrl && (
+                    <div className="my-thumbnail">
+                      <img
+                        width={150}
+                        height={150}
+                        src={post?.featuredImage?.node?.mediaItemUrl}
+                        alt={post.title}
+                      />
+                    </div>
+                  )}
+                  <a href={post?.link}>{post.title}</a>
+                  <div
+                    className="description"
+                    dangerouslySetInnerHTML={{
+                      __html: post?.excerpt,
+                    }}
+                  />
+                </li>
+              )
+            )}
+          </ul>
         </div>
       </article>
     </PageLayout>

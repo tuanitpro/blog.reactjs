@@ -13,12 +13,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
-
+      
+      - name: Create .env
+        run: |
+          echo "NODE_ENV=production" >> .env
+          echo "REACT_APP_TELEGRAM_TO=${{ secrets.TELEGRAM_TO }}" >> .env
+          echo "REACT_APP_TELEGRAM_TOKEN=${{ secrets.TELEGRAM_TOKEN }}" >> .env
+      
       - name: npm install, build, and test
         run: |
           npm install

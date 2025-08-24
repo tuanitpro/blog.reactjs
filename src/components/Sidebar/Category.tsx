@@ -19,7 +19,7 @@ const Category = () => {
     queryKey: ["categories"],
     queryFn: async () =>
       request("https://blog.tuanitpro.com/graphql", categoriesQuery),
-    select: (res) => res?.categories?.nodes,
+    select: (res: { categories: { nodes: any } }) => res?.categories?.nodes,
   });
 
   return (
