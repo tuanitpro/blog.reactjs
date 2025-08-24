@@ -32,8 +32,6 @@ const Home = () => {
     select: (res: { posts: { nodes: any } }) => res?.posts?.nodes,
   });
 
-  console.log(import.meta.env?.REACT_APP_TELEGRAM_TO);
-
   return (
     <PageLayout title={title}>
       <header className="page-title">

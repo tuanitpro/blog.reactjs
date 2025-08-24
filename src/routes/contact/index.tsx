@@ -35,7 +35,6 @@ Message: ${variables.message}
       });
       return response.ok;
     },
-    onSuccess: () => console.log("Sent"),
   });
   async function formPost(formData: FormData) {
     const rawFormData: any = {
