@@ -3,6 +3,7 @@ import IonIcon from "@reacticons/ionicons";
 
 import contact from "@static/image/contact.jpg";
 import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
 
 type FormModel = {
   name?: string;
@@ -23,17 +24,10 @@ Email: ${variables.email}
 Subject: ${variables.subject}
 Message: ${variables.message}
           `;
-      const response = await fetch(telegramUrl, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          chat_id: process.env.REACT_APP_TELEGRAM_TO,
-          text: text,
-        }),
+      return await axios.post(telegramUrl, {
+        chat_id: process.env.REACT_APP_TELEGRAM_TO,
+        text: text,
       });
-      return response.ok;
     },
   });
   async function formPost(formData: FormData) {

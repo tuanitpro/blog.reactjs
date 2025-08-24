@@ -2,6 +2,7 @@ import PageLayout from "@layouts/PageLayout";
 
 import { useQuery } from "@tanstack/react-query";
 import { gql, request } from "graphql-request";
+import { useMediaQuery } from "react-responsive";
 
 const Home = () => {
   const title = "Tuấn - Hãy theo đuổi đam mê, nợ nần sẽ theo đuổi bạn";
@@ -32,6 +33,8 @@ const Home = () => {
     select: (res: { posts: { nodes: any } }) => res?.posts?.nodes,
   });
 
+  const isMobile = useMediaQuery({ maxWidth: 767 });
+
   return (
     <PageLayout title={title}>
       <header className="page-title">
@@ -42,7 +45,7 @@ const Home = () => {
         </article>
       </header>
       <article>
-        <div className="entry-content">
+        <div className={isMobile ? "" : "entry-content"}>
           {isPending && "Loading..."}
           <ul>
             {data?.map(
