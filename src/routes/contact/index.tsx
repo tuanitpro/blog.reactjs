@@ -126,7 +126,7 @@ Message: ${variables.message}
                 type="submit"
                 value={sendMutation?.isPending ? "Đang gửi..." : "Gửi ngay"}
               />
-              {sendMutation?.isSuccess && "Sent"}
+              {sendMutation?.isSuccess && " Cảm ơn bạn đã để lại liên hệ."}
             </form>
           </div>
         </div>
