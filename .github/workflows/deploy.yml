@@ -23,11 +23,13 @@ jobs:
       - name: Create .env
         uses: SpicyPizza/create-envfile@v2.0
         with:
+          envkey_NODE_ENV: production
           envkey_REACT_APP_TELEGRAM_TO: ${{ secrets.TELEGRAM_TO }}
           envkey_REACT_APP_TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
       - name: Check files
         run: |
           ls -lla
+          cat .env
       - name: npm install, build, and test
         run: |
           npm install
