@@ -25,7 +25,9 @@ jobs:
         with:
           envkey_REACT_APP_TELEGRAM_TO: ${{ secrets.TELEGRAM_TO }}
           envkey_REACT_APP_TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
-      
+      - name: Check files
+        run: |
+          ls -lla
       - name: npm install, build, and test
         run: |
           npm install
