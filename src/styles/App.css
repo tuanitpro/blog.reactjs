@@ -880,8 +880,7 @@ img.aligncenter {
 }
  
 .page-title .hentry {
-  border-left: 5px solid #333;
-  border-bottom: 1px solid rgba(51, 51, 51, 0.1);
+  border-left: 2px solid var(--foreground);
 }
 
 .wp-custom-logo .site-title {
@@ -1021,10 +1020,6 @@ img.aligncenter {
 
 .textwidget > :last-child {
   margin-bottom: 0;
-}
-
-.textwidget a {
-  border-bottom: 1px solid #333;
 }
 
 .textwidget a:hover,
@@ -1269,54 +1264,6 @@ a.post-thumbnail:focus {
 
 .author-title {
   clear: none;
-}
-
-.author-bio {
-  font-size: 12px;
-  font-size: 1.2rem;
-  line-height: 1.5;
-  overflow: hidden;
-  padding-bottom: 1px;
-}
-
-.author-description {
-  -webkit-hyphens: auto;
-  -moz-hyphens: auto;
-  -ms-hyphens: auto;
-  hyphens: auto;
-  word-wrap: break-word;
-}
-
-.author-description a {
-  border-bottom: 1px solid #333;
-}
-
-.author-description a:hover,
-.author-description a:focus {
-  border-bottom: 0;
-}
-
-.author-description > :last-child {
-  margin-bottom: 0;
-}
-
-.author-link {
-  white-space: nowrap;
-}
-
-.author-link:after {
-  content: "\f429";
-  position: relative;
-  top: 1px;
-}
-
-.entry-footer {
-   
-
-  font-size: 12px;
-  font-size: 1.2rem;
-  line-height: 1.5;
-  padding: 3.8461% 7.6923%;
 }
  
 .updated:not(.published) {
@@ -1568,11 +1515,6 @@ a.post-thumbnail:focus {
 
 .comment-content > :last-child {
   margin-bottom: 0;
-}
-
-.logged-in-as a:hover {
-  border-bottom: 1px solid #333;
-}
 }
 
 .comment-navigation + .no-comments {
