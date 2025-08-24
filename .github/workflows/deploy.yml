@@ -21,10 +21,10 @@ jobs:
           cache: 'npm'
       
       - name: Create .env
-        run: |
-          echo "NODE_ENV=production" >> .env
-          echo "REACT_APP_TELEGRAM_TO=${{ secrets.TELEGRAM_TO }}" >> .env
-          echo "REACT_APP_TELEGRAM_TOKEN=${{ secrets.TELEGRAM_TOKEN }}" >> .env
+        uses: SpicyPizza/create-envfile@v2.0
+        with:
+          envkey_REACT_APP_TELEGRAM_TO: ${{ secrets.TELEGRAM_TO }}
+          envkey_REACT_APP_TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
       
       - name: npm install, build, and test
         run: |

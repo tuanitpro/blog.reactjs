@@ -2,6 +2,7 @@ import { defineConfig, loadEnv } from "@rsbuild/core";
 import { pluginReact } from "@rsbuild/plugin-react";
 
 import path from "path";
+
 const { publicVars, rawPublicVars } = loadEnv({ prefixes: ['REACT_APP_'] })
 export default defineConfig({
   html: {
