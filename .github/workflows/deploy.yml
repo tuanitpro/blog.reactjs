@@ -69,7 +69,7 @@ jobs:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
-            ${{ github.actor }} Deploy successfully.
+            The GitHub ${{ github.actor }} has been deployed successfully.
             
             Repository: ${{ github.repository }}
             
