@@ -11,6 +11,8 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment:
+      name: 'Production'
     steps:
       - uses: actions/checkout@v4
       
@@ -28,7 +30,6 @@ jobs:
           envkey_REACT_APP_TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
       - name: Check files
         run: |
-          echo  ${{ secrets.TELEGRAM_TO }} - ${{ secrets.TELEGRAM_TOKEN }}
           ls -lla
           cat .env
       - name: npm install, build, and test
