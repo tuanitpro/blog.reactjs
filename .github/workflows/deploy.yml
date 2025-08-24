@@ -5,6 +5,7 @@ on:
 
 env:
   NODE_VERSION: '22.x'
+  TELEGRAM_TO: ${{ secrets.TELEGRAM_TO }}
 
 permissions:
   contents: read
@@ -24,7 +25,7 @@ jobs:
         uses: SpicyPizza/create-envfile@v2.0
         with:
           envkey_NODE_ENV: production
-          envkey_REACT_APP_TELEGRAM_TO: ${{ secrets.TELEGRAM_TO }}
+          envkey_REACT_APP_TELEGRAM_TO: ${{ env.TELEGRAM_TO }}
           envkey_REACT_APP_TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
       - name: Check files
         run: |
