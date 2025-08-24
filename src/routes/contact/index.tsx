@@ -16,7 +16,7 @@ const Contact = () => {
   const title = "Liên hệ";
   const sendMutation = useMutation({
     mutationFn: async (variables: FormModel) => {
-      const telegramUrl = `https://api.telegram.org/bot${process.env.REACT_APP_TELEGRAM_TOKEN}/sendMessage`;
+      const telegramUrl = `https://api.telegram.org/bot${import.meta.env.REACT_APP_TELEGRAM_TOKEN}/sendMessage`;
 
       const text = `
 New message from ${variables.name}
@@ -25,7 +25,7 @@ Subject: ${variables.subject}
 Message: ${variables.message}
           `;
       return await axios.post(telegramUrl, {
-        chat_id: process.env.REACT_APP_TELEGRAM_TO,
+        chat_id: import.meta.env.REACT_APP_TELEGRAM_TO,
         text: text,
       });
     },
@@ -124,7 +124,7 @@ Message: ${variables.message}
               </p>
               <input
                 type="submit"
-                value={sendMutation?.isPending ? "Sending..." : "Gửi ngay"}
+                value={sendMutation?.isPending ? "Đang gửi..." : "Gửi ngay"}
               />
               {sendMutation?.isSuccess && "Sent"}
             </form>
