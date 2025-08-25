@@ -51,10 +51,14 @@ const Home = () => {
         </article>
       </header>
       {open && post && (
-        <Modal title={post?.title} open={open} onClose={() => {
-          setOpen(false)
-          setPost(undefined)
-        }}>
+        <Modal
+          title={post?.title}
+          open={open}
+          onClose={() => {
+            setOpen(false);
+            setPost(undefined);
+          }}
+        >
           <div
             dangerouslySetInnerHTML={{
               __html: post?.content,
@@ -86,6 +90,7 @@ const Home = () => {
                     </div>
                   )}
                   <a
+                    href="#"
                     onClick={() => {
                       setOpen(true);
                       setPost(post);
