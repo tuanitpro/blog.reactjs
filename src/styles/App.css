@@ -577,7 +577,6 @@ a {
 .main-navigation a {
   display: block;
   padding: 0.8em 0;
-  position: relative;
   text-decoration: none;
 }
 
@@ -1536,10 +1535,6 @@ p > video {
     padding: 7.6923% 7.6923% 1.6923%;
   }
 
-  .main-navigation {
-    margin-bottom: 11.1111%;
-  }
-
   .main-navigation ul {
     border-top: 1px solid var(--border-color);
     border-bottom: 1px solid var(--border-color);
@@ -1718,16 +1713,6 @@ p > video {
   input[type="search"],
   textarea {
     padding: 0.5em;
-  }
-
-  .main-navigation {
-    font-size: 14px;
-    font-size: 1.4rem;
-    line-height: 1.5;
-  }
-
-  .main-navigation a {
-    padding: 1em 0;
   }
 
   .main-navigation ul ul {
@@ -2364,16 +2349,6 @@ p > video {
     padding: 0.5278em;
   }
 
-  .main-navigation {
-    font-size: 16px;
-    font-size: 1.6rem;
-    line-height: 1.5;
-  }
-
-  .main-navigation a {
-    padding: 0.75em 0;
-  }
-
   .main-navigation .menu-item-description {
     font-size: 16px;
     font-size: 1.6rem;
@@ -2979,17 +2954,8 @@ p > video {
   }
 
   .main-navigation {
-    font-size: 12px;
-    font-size: 1.2rem;
+    font-size: 1.6rem;
     margin: 0 20% 20%;
-  }
-
-  .main-navigation a {
-    padding: 0.5em 0;
-  }
-
-  .main-navigation .menu-item-has-children > a {
-    padding-right: 30px;
   }
 
   .main-navigation .menu-item-description {
@@ -3608,15 +3574,6 @@ p > video {
     padding: 0.5em;
   }
 
-  .main-navigation {
-    font-size: 14px;
-    font-size: 1.4rem;
-  }
-
-  .main-navigation a {
-    padding: 0.4643em 0;
-  }
-
   .main-navigation .menu-item-has-children > a {
     padding-right: 34px;
   }
@@ -4151,15 +4108,6 @@ p > video {
   input[type="search"],
   textarea {
     padding: 0.5278em;
-  }
-
-  .main-navigation {
-    font-size: 16px;
-    font-size: 1.6rem;
-  }
-
-  .main-navigation a {
-    padding: 0.5em 0;
   }
 
   .main-navigation .menu-item-has-children > a {
