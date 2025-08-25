@@ -1,6 +1,6 @@
 :root {
   /* Default light */
-  --bg-primary: #fff;
+  --bg-primary: #ffffff;
   --bg-secondary: #e8e8e8;
   --background: #ffffff;
   --foreground: #121212;
@@ -15,7 +15,7 @@
     --box-color: #303030;
     --border-color: #303030;
     --bg-primary: #212121;
-    --bg-secondary: #303030;
+    --bg-secondary: #121212;
   }
 }
 

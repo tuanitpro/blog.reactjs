@@ -1,17 +1,23 @@
 import PageLayout from "@layouts/PageLayout";
 
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { gql, request } from "graphql-request";
 import { useMediaQuery } from "react-responsive";
+import Modal from "@components/Modal";
 
 const Home = () => {
   const title = "Tuấn - Hãy theo đuổi đam mê, nợ nần sẽ theo đuổi bạn";
+
+  const [open, setOpen] = useState<boolean>(false);
+  const [post, setPost] = useState<any>(undefined);
 
   const postQuery = gql`
     {
       posts {
         nodes {
           excerpt
+          content
           id
           title
           slug
@@ -44,6 +50,14 @@ const Home = () => {
           </div>
         </article>
       </header>
+
+      <Modal title={post?.title} open={open} onClose={() => setOpen(false)}>
+        <div
+          dangerouslySetInnerHTML={{
+            __html: post?.content,
+          }}
+        />
+      </Modal>
       <article className="hentry">
         <div className={isMobile ? "" : "entry-content"}>
           {isPending && "Loading..."}
@@ -67,7 +81,15 @@ const Home = () => {
                       />
                     </div>
                   )}
-                  <a href={post?.link}>{post.title}</a>
+                  <a
+                    onClick={() => {
+                      setOpen(true);
+                      setPost(post);
+                    }}
+                    style={{ cursor: "pointer" }}
+                  >
+                    {post.title}
+                  </a>
                   <div
                     className="description"
                     dangerouslySetInnerHTML={{
