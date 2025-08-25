@@ -553,12 +553,10 @@ textarea:focus {
   outline: 0;
 }
 
-
 input[type="checkbox"],
 input[type="radio"] {
   padding: 0;
 }
-
 
 /**
  * 6.0 Navigations
@@ -571,7 +569,6 @@ input[type="radio"] {
 a {
   text-decoration: none;
 }
-
 
 /**
  * 6.2 Menus
@@ -652,7 +649,6 @@ a {
   line-height: 1.5;
   text-transform: uppercase;
 }
-
 
 .image-navigation .nav-previous:not(:empty),
 .image-navigation .nav-next:not(:empty),
@@ -833,22 +829,8 @@ img.aligncenter {
  */
 
 .site-header {
-  
-  border-bottom: 1px solid rgba(51, 51, 51, 0.1);
+  border-bottom: 1px solid var(--border-color);
   padding: 7.6923%;
-}
-
-.site-branding {
-  min-height: 2em;
-  position: relative;
-}
-
-.site-title {
-  font-size: 28px;
-  font-size: 2.2rem;
-  font-weight: 700;
-  line-height: 1.3636;
-  margin-bottom: 0;
 }
 
 .custom-logo {
@@ -860,13 +842,9 @@ img.aligncenter {
 .page-title {
   margin-bottom: 5%;
 }
- 
-.page-title .hentry {
-  border-left: 2px solid var(--foreground);
-}
 
-.wp-custom-logo .site-title {
-  margin-top: 0.545454545em;
+.page-title .hentry {
+  border-left: 3px solid var(--border-color);
 }
 
 /**
@@ -998,7 +976,6 @@ img.aligncenter {
   padding: 0.7667em 0;
 }
 
-
 .textwidget > :last-child {
   margin-bottom: 0;
 }
@@ -1026,9 +1003,7 @@ img.aligncenter {
  */
 
 .secondary {
-  
   padding: 7.6923%;
-  
 }
 
 .secondary.toggled-on {
@@ -1224,7 +1199,6 @@ a.post-thumbnail:focus {
   top: 5px;
 }
 
-
 .author-info .avatar {
   float: left;
   height: 36px;
@@ -1235,7 +1209,7 @@ a.post-thumbnail:focus {
 .author-title {
   clear: none;
 }
- 
+
 .updated:not(.published) {
   display: none;
 }
@@ -1334,7 +1308,6 @@ a.post-thumbnail:focus {
 .edit-link {
   white-space: nowrap;
 }
-
 
 .taxonomy-description a:hover,
 .taxonomy-description a:focus {
@@ -1444,7 +1417,6 @@ a.post-thumbnail:focus {
 /**
  * 13.0 Footer
  */
-
 
 .site-info span[role="separator"] {
   padding: 0 0.25em 0 0.5em;
@@ -1601,7 +1573,6 @@ p > video {
     margin: 0 7.6923%;
   }
 
-
   .hentry + .hentry {
     border-top: 0;
   }
@@ -1609,7 +1580,6 @@ p > video {
   .post-thumbnail {
     margin-bottom: 2.4em;
   }
-
 
   .entry-footer {
     padding: 4.5454% 9.0909%;
@@ -2882,7 +2852,6 @@ p > video {
 
 @media screen and (min-width: 59.6875em) {
   body:before {
-    
     box-shadow: 0 0 1px var(--box-color);
     content: "";
     display: block;
@@ -3275,7 +3244,6 @@ p > video {
     font-size: 1.2rem;
     line-height: 1.5;
   }
-
 
   .post-thumbnail {
     margin-bottom: 2.4em;
@@ -4688,7 +4656,6 @@ p > video {
   margin-right: 16px;
 }
 
-
 .site-content .description {
   padding: 16px;
 }
@@ -4706,4 +4673,3 @@ p > video {
   float: right;
   padding-top: 15px;
 }
-
