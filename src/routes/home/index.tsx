@@ -50,14 +50,18 @@ const Home = () => {
           </div>
         </article>
       </header>
-
-      <Modal title={post?.title} open={open} onClose={() => setOpen(false)}>
-        <div
-          dangerouslySetInnerHTML={{
-            __html: post?.content,
-          }}
-        />
-      </Modal>
+      {open && post && (
+        <Modal title={post?.title} open={open} onClose={() => {
+          setOpen(false)
+          setPost(undefined)
+        }}>
+          <div
+            dangerouslySetInnerHTML={{
+              __html: post?.content,
+            }}
+          />
+        </Modal>
+      )}
       <article className="hentry">
         <div className={isMobile ? "" : "entry-content"}>
           {isPending && "Loading..."}
