@@ -76,6 +76,7 @@ const Home = () => {
                 featuredImage: any;
                 title: string;
                 link: string;
+                slug: string;
                 excerpt: string;
               }) => (
                 <li key={post.id}>
@@ -90,7 +91,7 @@ const Home = () => {
                     </div>
                   )}
                   <a
-                    href="#"
+                    href={`#${post?.slug}`}
                     onClick={() => {
                       setOpen(true);
                       setPost(post);
