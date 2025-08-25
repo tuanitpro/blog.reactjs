@@ -41,7 +41,7 @@ const About = () => {
               <Link title="ASP.NET" to="https://tuanitpro.com/category/asp-net">
                 ASP.NET
               </Link>
-              , Java
+              , Java, NodeJs, NestJS, ReactJs, NextJS
             </p>
             <p>
               Tôi có các kỹ năng cần thiết để làm việc hiệu quả và có thể giúp
@@ -57,7 +57,7 @@ const About = () => {
               <li>
                 <p dir="auto">
                   Frontend Proficiency: Deep knowledge of frontend technologies
-                  like HTML, CSS, JavaScript, and frameworks such as React and
+                  like HTML, CSS, JavaScript, and frameworks such as React, NextJS and
                   Vue.js.
                 </p>
               </li>
@@ -66,7 +66,7 @@ const About = () => {
                   Backend Development: Experience in backend technologies like
                   Node.js, C#, ADO.NET NET Core, MVC, LINQ, Entity Framework,
                   Dapper, WebServices, RESTful API, IdentityServer4, RabbitMQ,
-                  Redis, NodeJS, NestJS. Knowledge of some well-known Unit Test
+                  Redis, NextJS, NestJS. Knowledge of some well-known Unit Test
                   with xUnit, NSubtitue. (The art of unit testing)
                 </p>
               </li>
