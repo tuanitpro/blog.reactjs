@@ -42,6 +42,10 @@
   line-height: 50px;
   font-size: 16px;
   display: inline-block;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 85%;
 }
 .modal-header label {
   box-sizing: border-box;
@@ -58,5 +62,6 @@
 @media (min-width: 320px) and (max-width: 480px) {
   .modal {
     width: 90%;
+    height: 90%;
   }
 }
