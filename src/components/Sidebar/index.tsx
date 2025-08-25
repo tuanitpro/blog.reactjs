@@ -48,26 +48,17 @@ const Sidebar = () => {
             <div className="secondary">
               <Navigation toggleVisibility={toggleVisibility} />
 
-              <div className="widget-area">
-                <aside className="widget widget_block widget_search">
-                  <form
-                    role="search"
-                    method="get"
-                    action="https://blog.tuanitpro.com/"
-                  >
-                    <div className="wp-block-search__inside-wrapper ">
-                      <input
-                        className="wp-block-search__input"
-                        placeholder="Search"
-                        type="search"
-                        name="s"
-                      />
-                    </div>
-                  </form>
-                </aside>
-                <Category />
-                <ExternalLink />
-              </div>
+              <aside className="widget widget_block widget_search">
+                <form
+                  role="search"
+                  method="get"
+                  action="https://blog.tuanitpro.com/"
+                >
+                  <input placeholder="Search" type="search" name="s" />
+                </form>
+              </aside>
+              <Category />
+              <ExternalLink />
             </div>
           )}
         </div>

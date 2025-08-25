@@ -15,13 +15,7 @@ const About = () => {
               Tôi là Tuấn, và tôi chia sẻ những điều mình cho rằng nó là thú vị,
               hay giúp ích cho bạn!
               <br />
-              <img
-                className="size-full  alignright"
-                src={logo}
-                alt="Tuấn"
-                width="160"
-                height="160"
-              />
+              <img className="size-full alignright" src={logo} alt="Tuấn" />
               <br />
               Tôi làm quen với máy tính bắt đầu vào năm 2007, khi vào Đại học.
               Các trang web là niềm say mê của tôi, bắt đầu bằng Yahoo Blog.
@@ -57,8 +51,8 @@ const About = () => {
               <li>
                 <p dir="auto">
                   Frontend Proficiency: Deep knowledge of frontend technologies
-                  like HTML, CSS, JavaScript, and frameworks such as React, NextJS and
-                  Vue.js.
+                  like HTML, CSS, JavaScript, and frameworks such as React,
+                  NextJS and Vue.js.
                 </p>
               </li>
               <li>

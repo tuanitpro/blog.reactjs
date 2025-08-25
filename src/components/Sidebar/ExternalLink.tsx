@@ -37,7 +37,9 @@ const ExternalLink = () => {
               {data?.map((c) => {
                 return (
                   <li key={c.id} className={`menu-item-${c.id}`}>
-                    <a href={c.link}>{c.label}</a>
+                    <a href={c.url} target="_blank" rel="noreferrer nofollow">
+                      {c.label}
+                    </a>
                   </li>
                 );
               })}
