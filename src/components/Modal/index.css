@@ -34,14 +34,14 @@
   background: var(--bg-secondary);
   border-bottom: 1px solid var(--border-color);
   box-sizing: border-box;
-  height: 56px;
+  height: 50px;
 }
 
 .modal-header h3 {
   margin: 0;
   box-sizing: border-box;
   padding-left: 15px;
-  line-height: 56px;
+  line-height: 50px;
   font-size: 16px;
   display: inline-block;
   white-space: nowrap;
@@ -54,7 +54,7 @@
   box-sizing: border-box;
   border-left: 1px solid var(--border-color);
   float: right;
-  line-height: 56px;
+  line-height: 50px;
   padding: 0 15px 0 15px;
   cursor: pointer;
   background-color: unset;
