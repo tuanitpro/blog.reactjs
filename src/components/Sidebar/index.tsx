@@ -9,8 +9,8 @@ import ExternalLink from "./ExternalLink";
 
 const Sidebar = () => {
   const isMobile = useMediaQuery({ maxWidth: 767 });
-  const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 991 });
-  const [isVisible, setIsVisible] = useState(!isMobile);
+  const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1024 });
+  const [isVisible, setIsVisible] = useState(!(isMobile || isTablet));
 
   const toggleVisibility = () => {
     if (!isMobile && !isTablet) return;
@@ -26,7 +26,7 @@ const Sidebar = () => {
               <Logo />
               <Hero />
             </div>
-            {isMobile && (
+            {(isMobile || isTablet)  && (
               <div className="navigation-icon">
                 {isVisible ? (
                   <IonIcon
