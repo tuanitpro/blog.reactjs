@@ -7,6 +7,10 @@ const Navigation = ({ toggleVisibility }: Props) => {
 
   const menuItems = [
     {
+      name: "TRANG CHỦ",
+      link: "/",
+    },
+    {
       name: "TÔI LÀ AI",
       link: "/about",
     },
