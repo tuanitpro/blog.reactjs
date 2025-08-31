@@ -1,13 +1,18 @@
-import PageLayout from "@layouts/PageLayout";
+import { useEffect, useState } from "react";
 
-import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { gql, request } from "graphql-request";
 import { useMediaQuery } from "react-responsive";
+
+import PageLayout from "@layouts/PageLayout";
 import Modal from "@components/Modal";
 
 const Home = () => {
   const title = "Tuấn - Hãy theo đuổi đam mê, nợ nần sẽ theo đuổi bạn";
+
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const [open, setOpen] = useState<boolean>(false);
   const [post, setPost] = useState<any>(undefined);
@@ -41,6 +46,19 @@ const Home = () => {
 
   const isMobile = useMediaQuery({ maxWidth: 767 });
 
+  useEffect(() => {
+    if (location?.hash && data && !open) {
+      const findPost = data?.find(
+        (p) => p?.slug === location?.hash?.replace("#", "")
+      );
+      if (findPost) {
+        setOpen(true);
+        setPost(findPost);
+        document.title = findPost?.title;
+      }
+    }
+  }, [location, data]);
+
   return (
     <PageLayout title={title}>
       <header className="page-title">
@@ -57,6 +75,8 @@ const Home = () => {
           onClose={() => {
             setOpen(false);
             setPost(undefined);
+            navigate("/", { replace: true });
+            document.title = title;
           }}
         >
           <div
@@ -90,14 +110,7 @@ const Home = () => {
                       />
                     </div>
                   )}
-                  <a
-                    href={`#${post?.slug}`}
-                    onClick={() => {
-                      setOpen(true);
-                      setPost(post);
-                    }}
-                    style={{ cursor: "pointer" }}
-                  >
+                  <a href={`#${post?.slug}`} style={{ cursor: "pointer" }}>
                     {post.title}
                   </a>
                   <div
