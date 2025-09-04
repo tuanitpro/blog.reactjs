@@ -71,20 +71,6 @@ jobs:
     environment:
       name: 'Production'
     steps:
-      # - uses: actions/checkout@v4
-      # - name: Create .env
-      #   uses: SpicyPizza/create-envfile@v2.0
-      #   with:
-      #     envkey_NODE_ENV: production
-      #     envkey_REACT_APP_TELEGRAM_TO: ${{ secrets.TELEGRAM_TO }}
-      #     envkey_REACT_APP_TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
-      - name: Download artifact from build job
-        uses: actions/download-artifact@v4
-        with:
-          name: app
-          path: .
-      - name: Display structure of downloaded files
-        run: ls -R
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
       - name: Set up Docker Buildx
