@@ -28,6 +28,24 @@
   /* CSS */
 }
 
+/* iPad Pro 11 (2021) Media Query for min-width: */
+
+@media only screen and (min-width: 834px)
+{ /* Your Styles... */ }
+
+
+/* iPad Pro 11 (2021) Media Query for min-height: */
+@media only screen and (min-height: 1194px)
+{ /* Your Styles... */ }
+
+/* iPad Pro 11 (2021) Media Query for landscape orientation: */
+@media only screen and (min-width: 834px) and (orientation: landscape)
+{ /* Your Styles... */ }
+
+/* iPad Pro 11 (2021) Media Query for portrait orientation: */
+@media only screen and (min-height: 1194px) and (orientation: portrait)
+{ /* Your Styles... */ }
+
 /* 
   ##Device = Tablets, Ipads (landscape)
   ##Screen = B/w 768px to 1024px
