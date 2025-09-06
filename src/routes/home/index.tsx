@@ -15,7 +15,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   const [open, setOpen] = useState<boolean>(false);
-  const [post, setPost] = useState<any>(undefined);
+  const [post, setPost] = useState<unknown>(undefined);
 
   const postQuery = gql`
     {
@@ -37,7 +37,7 @@ const Home = () => {
     }
   `;
 
-  const { data, isPending } = useQuery({
+  const { data, isPending } = useQuery<any>({
     queryKey: ["posts"],
     queryFn: async () =>
       request("https://blog.tuanitpro.com/graphql", postQuery),
@@ -49,7 +49,7 @@ const Home = () => {
   useEffect(() => {
     if (location?.hash && data && !open) {
       const findPost = data?.find(
-        (p) => p?.slug === location?.hash?.replace("#", "")
+        (p: { slug: string }) => p?.slug === location?.hash?.replace("#", "")
       );
       if (findPost) {
         setOpen(true);

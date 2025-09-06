@@ -2,6 +2,20 @@ import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { gql, request } from "graphql-request";
 
+type node = {
+  id: string;
+  name: string;
+  link: string;
+};
+
+type categories = {
+  nodes: node[];
+};
+
+type root = {
+  categories: categories;
+};
+
 const Category = () => {
   const categoriesQuery = gql`
     {
@@ -15,11 +29,10 @@ const Category = () => {
     }
   `;
 
-  const { data, isPending } = useQuery({
+  const { data, isPending } = useQuery<root>({
     queryKey: ["categories"],
     queryFn: async () =>
       request("https://blog.tuanitpro.com/graphql", categoriesQuery),
-    select: (res: { categories: { nodes: any } }) => res?.categories?.nodes,
   });
 
   return (
@@ -31,7 +44,7 @@ const Category = () => {
         <nav className="menu-blog-hay-container" aria-label="Blog">
           {data && (
             <ul className="wp-block-categories-list wp-block-categories">
-              {data?.map((c) => {
+              {data?.categories?.nodes?.map((c) => {
                 return (
                   <li key={c.id} className={`cat-item cat-item-${c.id}`}>
                     <a href={c.link}>{c.name}</a>

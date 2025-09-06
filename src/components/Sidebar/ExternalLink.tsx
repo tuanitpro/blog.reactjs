@@ -2,6 +2,22 @@ import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { gql, request } from "graphql-request";
 
+type node = {
+  id: string;
+  url: string;
+  label: string;
+};
+
+type menu = {
+  menuItems: {
+    nodes: node[];
+  };
+};
+
+type root = {
+  menu: menu;
+};
+
 const ExternalLink = () => {
   const menuItemsQuery = gql`
     {
@@ -17,12 +33,10 @@ const ExternalLink = () => {
     }
   `;
 
-  const { data, isPending } = useQuery({
+  const { data, isPending } = useQuery<root>({
     queryKey: ["menuItems"],
     queryFn: async () =>
       request("https://blog.tuanitpro.com/graphql", menuItemsQuery),
-    select: (res: { menu: { menuItems: { nodes: any } } }) =>
-      res?.menu?.menuItems?.nodes,
   });
 
   return (
@@ -34,7 +48,7 @@ const ExternalLink = () => {
         <nav className="menu-blog-hay-container" aria-label="Liên kết">
           {data && (
             <ul className="menu">
-              {data?.map((c) => {
+              {data?.menu?.menuItems?.nodes?.map((c) => {
                 return (
                   <li key={c.id} className={`menu-item-${c.id}`}>
                     <a href={c.url} target="_blank" rel="noreferrer nofollow">
