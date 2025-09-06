@@ -20,6 +20,7 @@ export default defineConfig({
       ...publicVars,
       'process.env': JSON.stringify(rawPublicVars),
     },
+    assetsInclude: /\.lottie$/,
   },
   resolve: {
     alias: {

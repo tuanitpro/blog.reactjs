@@ -1,6 +1,7 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { gql, request } from "graphql-request";
+import { Loader } from "../Loader";
 
 type node = {
   id: string;
@@ -35,7 +36,7 @@ const ExternalLink = () => {
 
   const { data, isPending } = useQuery<root>({
     queryKey: ["menuItems"],
-    queryFn: async () =>
+    queryFn: () =>
       request("https://blog.tuanitpro.com/graphql", menuItemsQuery),
   });
 
@@ -44,7 +45,7 @@ const ExternalLink = () => {
       <aside className="widget widget_block widget_nav_menu">
         <h2 className="widget-title">Liên kết</h2>
 
-        {isPending && "Loading..."}
+        {isPending && <Loader />}
         <nav className="menu-blog-hay-container" aria-label="Liên kết">
           {data && (
             <ul className="menu">

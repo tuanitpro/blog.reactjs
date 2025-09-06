@@ -4,9 +4,31 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { gql, request } from "graphql-request";
 import { useMediaQuery } from "react-responsive";
-
 import PageLayout from "@layouts/PageLayout";
 import Modal from "@components/Modal";
+import { Loader } from "@components/Loader";
+
+type featuredImage = {
+  node: {
+    mediaItemUrl: string;
+  };
+};
+
+type post = {
+  excerpt: string;
+  content: string;
+  id: string;
+  title?: string;
+  slug: string;
+  link: string;
+  featuredImage: featuredImage;
+};
+
+type root = {
+  posts: {
+    nodes: post[];
+  };
+};
 
 const Home = () => {
   const title = "Tuấn - Hãy theo đuổi đam mê, nợ nần sẽ theo đuổi bạn";
@@ -15,7 +37,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   const [open, setOpen] = useState<boolean>(false);
-  const [post, setPost] = useState<unknown>(undefined);
+  const [post, setPost] = useState<post>();
 
   const postQuery = gql`
     {
@@ -37,24 +59,22 @@ const Home = () => {
     }
   `;
 
-  const { data, isPending } = useQuery<any>({
+  const { data, isPending } = useQuery<root>({
     queryKey: ["posts"],
-    queryFn: async () =>
-      request("https://blog.tuanitpro.com/graphql", postQuery),
-    select: (res: { posts: { nodes: any } }) => res?.posts?.nodes,
+    queryFn: () => request("https://blog.tuanitpro.com/graphql", postQuery),
   });
 
   const isMobile = useMediaQuery({ maxWidth: 767 });
 
   useEffect(() => {
     if (location?.hash && data && !open) {
-      const findPost = data?.find(
-        (p: { slug: string }) => p?.slug === location?.hash?.replace("#", "")
+      const findPost = data?.posts?.nodes?.find(
+        (p) => p?.slug === location?.hash?.replace("#", "")
       );
       if (findPost) {
         setOpen(true);
         setPost(findPost);
-        document.title = findPost?.title;
+        document.title = findPost?.title || title;
       }
     }
   }, [location, data]);
@@ -70,7 +90,7 @@ const Home = () => {
       </header>
       {open && post && (
         <Modal
-          title={post?.title}
+          title={post?.title || "Not Found"}
           open={open}
           onClose={() => {
             setOpen(false);
@@ -88,40 +108,31 @@ const Home = () => {
       )}
       <article className="hentry">
         <div className={isMobile ? "" : "entry-content"}>
-          {isPending && "Loading..."}
+          {isPending && <Loader />}
           <ul>
-            {data?.map(
-              (post: {
-                id: string;
-                featuredImage: any;
-                title: string;
-                link: string;
-                slug: string;
-                excerpt: string;
-              }) => (
-                <li key={post.id}>
-                  {post?.featuredImage?.node?.mediaItemUrl && (
-                    <div className="my-thumbnail">
-                      <img
-                        width={150}
-                        height={150}
-                        src={post?.featuredImage?.node?.mediaItemUrl}
-                        alt={post.title}
-                      />
-                    </div>
-                  )}
-                  <a href={`#${post?.slug}`} style={{ cursor: "pointer" }}>
-                    {post.title}
-                  </a>
-                  <div
-                    className="description"
-                    dangerouslySetInnerHTML={{
-                      __html: post?.excerpt,
-                    }}
-                  />
-                </li>
-              )
-            )}
+            {data?.posts?.nodes?.map((post) => (
+              <li key={post.id}>
+                {post?.featuredImage?.node?.mediaItemUrl && (
+                  <div className="my-thumbnail">
+                    <img
+                      width={150}
+                      height={150}
+                      src={post?.featuredImage?.node?.mediaItemUrl}
+                      alt={post.title}
+                    />
+                  </div>
+                )}
+                <a href={`#${post?.slug}`} style={{ cursor: "pointer" }}>
+                  {post.title}
+                </a>
+                <div
+                  className="description"
+                  dangerouslySetInnerHTML={{
+                    __html: post?.excerpt,
+                  }}
+                />
+              </li>
+            ))}
           </ul>
         </div>
       </article>

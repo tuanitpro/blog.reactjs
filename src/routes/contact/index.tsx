@@ -4,6 +4,7 @@ import IonIcon from "@reacticons/ionicons";
 import contact from "@static/image/contact.jpg";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
+import { Loader } from "@components/Loader";
 
 type FormModel = {
   name?: string;
@@ -65,7 +66,7 @@ Message: ${variables.message}
             <IonIcon name="call" /> 097 6060 432
           </span>
           <hr />
-          <div>
+          <div style={{ position: "relative", width: "100%", height: "100%" }}>
             <form action={formPost}>
               <p>
                 <label>
@@ -127,8 +128,27 @@ Message: ${variables.message}
               <button type="submit">
                 {sendMutation?.isPending ? "Đang gửi..." : "Gửi ngay"}
               </button>
+
+              {sendMutation?.isPending && <Loader />}
               {sendMutation?.isSuccess && " Cảm ơn bạn đã để lại liên hệ."}
             </form>
+            {sendMutation?.isPending && (
+              <div
+                style={{
+                  position: "absolute",
+                  cursor: "pointer",
+                  width: "100%",
+                  height: "100%",
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  zIndex: 2,
+                }}
+              >
+                <Loader />
+              </div>
+            )}
           </div>
         </div>
       </article>

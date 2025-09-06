@@ -1,6 +1,7 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { gql, request } from "graphql-request";
+import { Loader } from "../Loader";
 
 type node = {
   id: string;
@@ -31,7 +32,7 @@ const Category = () => {
 
   const { data, isPending } = useQuery<root>({
     queryKey: ["categories"],
-    queryFn: async () =>
+    queryFn: () =>
       request("https://blog.tuanitpro.com/graphql", categoriesQuery),
   });
 
@@ -40,7 +41,7 @@ const Category = () => {
       <aside className="widget widget_block widget_categories">
         <h2 className="widget-title">Blog</h2>
 
-        {isPending && "Loading..."}
+        {isPending && <Loader />}
         <nav className="menu-blog-hay-container" aria-label="Blog">
           {data && (
             <ul className="wp-block-categories-list wp-block-categories">
