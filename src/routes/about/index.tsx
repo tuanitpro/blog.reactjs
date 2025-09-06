@@ -2,7 +2,8 @@ import PageLayout from "@layouts/PageLayout";
 
 import logo from "@static/image/logo.jpg";
 import { Link } from "react-router";
-import IonIcon from "@reacticons/ionicons";
+
+import { IoMailOutline, IoCallOutline, IoLogoLinkedin, IoLogoFacebook, IoLogoTwitter } from "react-icons/io5";
 const About = () => {
   const title = "Về tôi";
   return (
@@ -248,7 +249,7 @@ const About = () => {
                 target="_blank"
                 rel="tooltip noopener noreferrer"
               >
-                <IonIcon name="logo-twitter" /> Twitter
+                <IoLogoTwitter /> Twitter
               </Link>
               &nbsp;,&nbsp;
               <Link
@@ -257,7 +258,7 @@ const About = () => {
                 target="_blank"
                 rel="tooltip noopener noreferrer"
               >
-                <IonIcon name="logo-facebook" /> Facebook
+                <IoLogoFacebook /> Facebook
               </Link>
               &nbsp;hoặc&nbsp;
               <Link
@@ -266,16 +267,16 @@ const About = () => {
                 target="_blank"
                 rel="tooltip noopener noreferrer"
               >
-                <IonIcon name="logo-linkedin" /> LinkedIn
+                <IoLogoLinkedin /> LinkedIn
               </Link>
             </p>
             <Link title="Liên hệ" to="/contact" rel="tooltip">
               Liên hệ
             </Link>
             &nbsp;với tôi qua email:&nbsp;
-            <IonIcon name="mail" />
+            <IoMailOutline />
             tuanitpro@gmail.com &nbsp;hoặc:&nbsp;
-            <IonIcon name="call" />
+            <IoCallOutline />
             097 6060 432
           </div>
         </div>

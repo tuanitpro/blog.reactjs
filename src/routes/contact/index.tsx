@@ -1,9 +1,9 @@
-import PageLayout from "@layouts/PageLayout";
-import IonIcon from "@reacticons/ionicons";
-
+import { ToastContainer, toast } from "react-toastify";
+import { IoMailOutline, IoCallOutline } from "react-icons/io5";
 import contact from "@static/image/contact.jpg";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
+import PageLayout from "@layouts/PageLayout";
 import { Loader } from "@components/Loader";
 
 type FormModel = {
@@ -31,6 +31,12 @@ Message: ${variables.message}
         chat_id: import.meta.env.REACT_APP_TELEGRAM_TO,
         text: text,
       });
+    },
+    onSettled() {
+      toast("🦄 Cảm ơn bạn đã để lại liên hệ.");
+    },
+    onError() {
+      toast.error("Có lỗi xảy ra. Vui lòng thử lại");
     },
   });
   async function formPost(formData: FormData) {
@@ -61,9 +67,9 @@ Message: ${variables.message}
             cung cấp sự hỗ trợ tốt nhất cho bạn. Nếu bạn muốn tôi thiết kế
             website hay cài đặt blog của bạn, hãy liên hệ với tôi.
             <br />
-            Tôi trả lời cho tất cả các email phản hồi. <IonIcon name="mail" />{" "}
+            Tôi trả lời cho tất cả các email phản hồi. <IoMailOutline />{" "}
             tuanitpro@gmail.com hoặc: <br />
-            <IonIcon name="call" /> 097 6060 432
+            <IoCallOutline name="call" /> 097 6060 432
           </span>
           <hr />
           <div style={{ position: "relative", width: "100%", height: "100%" }}>
@@ -130,7 +136,6 @@ Message: ${variables.message}
               </button>
 
               {sendMutation?.isPending && <Loader />}
-              {sendMutation?.isSuccess && " Cảm ơn bạn đã để lại liên hệ."}
             </form>
             {sendMutation?.isPending && (
               <div
@@ -152,6 +157,7 @@ Message: ${variables.message}
           </div>
         </div>
       </article>
+      <ToastContainer />
     </PageLayout>
   );
 };

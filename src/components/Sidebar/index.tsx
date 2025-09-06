@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import IonIcon from "@reacticons/ionicons";
+
+import { IoClose, IoMenu } from "react-icons/io5";
 import { useMediaQuery } from "react-responsive";
 import Logo from "@components/Logo";
 import Hero from "@components/Hero";
@@ -26,20 +27,12 @@ const Sidebar = () => {
               <Logo />
               <Hero />
             </div>
-            {(isMobile || isTablet)  && (
+            {(isMobile || isTablet) && (
               <div className="navigation-icon">
                 {isVisible ? (
-                  <IonIcon
-                    name="close"
-                    size="large"
-                    onClick={toggleVisibility}
-                  />
+                  <IoClose size={48} onClick={toggleVisibility} />
                 ) : (
-                  <IonIcon
-                    name="menu"
-                    size="large"
-                    onClick={toggleVisibility}
-                  />
+                  <IoMenu size={48} onClick={toggleVisibility} />
                 )}
               </div>
             )}
