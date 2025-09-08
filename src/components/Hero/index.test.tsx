@@ -1,8 +1,10 @@
 import { render, screen } from "@testing-library/react";
-import Hero from "./index";
+
 import { MemoryRouter } from "react-router-dom";
 
-test("renders hello world", () => {
+import Hero from "./index";
+
+test("renders Hero", () => {
   render(
     <MemoryRouter>
       <Hero />

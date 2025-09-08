@@ -2,11 +2,12 @@ import js from "@eslint/js";
 import reactPlugin from "eslint-plugin-react";
 import tsPlugin from "@typescript-eslint/eslint-plugin";
 import tsParser from "@typescript-eslint/parser";
+import jestPlugin from "eslint-plugin-jest";
 import globals from "globals";
 
 export default [
   {
-    ignores: ["dist/**", "node_modules/**", "public/**"],
+    ignores: ["dist/**", "node_modules/**", "public/**", "setupTests.ts"],
   },
 
   js.configs.recommended,
@@ -26,6 +27,7 @@ export default [
         ...globals.browser,
         ...globals.serviceworker,
         __dirname: "readonly",
+        ...globals.jest, // ✅ adds `test`, `describe`, `expect`, etc.
       },
     },
     settings: {
@@ -36,11 +38,13 @@ export default [
     plugins: {
       react: reactPlugin,
       "@typescript-eslint": tsPlugin,
+      jest: jestPlugin,
     },
     rules: {
       ...reactPlugin.configs.flat.recommended.rules,
       ...reactPlugin.configs.flat["jsx-runtime"].rules,
       ...tsPlugin.configs.recommended.rules,
+      ...jestPlugin.configs.recommended.rules,
       "react/jsx-uses-react": "error",
       "react/jsx-uses-vars": "error",
       "no-console": "error",

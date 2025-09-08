@@ -1,8 +1,10 @@
 import { render, screen } from "@testing-library/react";
-import Logo from "./index";
+
 import { MemoryRouter } from "react-router-dom";
 
-test("renders hello world", () => {
+import Logo from "./index";
+
+test("renders Logo", () => {
   render(
     <MemoryRouter>
       <Logo />
