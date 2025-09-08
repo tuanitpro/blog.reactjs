@@ -8,7 +8,7 @@ type Props = {
   children: ReactElement;
 };
 
-const Modal = ({ title, open, onClose, children }: Props) => {
+const Modal = ({ title, open, onClose, children }: Readonly<Props>) => {
   return !open ? null : (
     <div className="modal-background">
       <div className="modal">

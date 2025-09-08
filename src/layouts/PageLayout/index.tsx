@@ -1,6 +1,11 @@
 import React from "react";
 
-const PageLayout = ({ title, children }) => {
+type Props = {
+  title: string;
+  children: React.ReactElement;
+};
+
+const PageLayout = ({ title, children }: Readonly<Props>) => {
   return (
     <React.Suspense fallback={<>Loading...</>}>
       <title>{title}</title>

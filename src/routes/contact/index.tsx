@@ -40,11 +40,11 @@ Message: ${variables.message}
     },
   });
   async function formPost(formData: FormData) {
-    const rawFormData: any = {
-      name: formData?.get("your-name"),
-      email: formData?.get("your-email"),
-      subject: formData?.get("your-subject"),
-      message: formData?.get("your-message"),
+    const rawFormData: FormModel = {
+      name: formData?.get("your-name") as string,
+      email: formData?.get("your-email") as string,
+      subject: formData?.get("your-subject") as string,
+      message: formData?.get("your-message") as string,
     };
     sendMutation.mutateAsync(rawFormData);
   }
