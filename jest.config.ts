@@ -1,6 +1,8 @@
 import type { Config } from "jest";
 
 const config: Config = {
+  collectCoverage: true,
+  coverageReporters: ["lcov"],
   preset: "ts-jest",
   testEnvironment: "jsdom", // ✅ needed for React (browser APIs)
   moduleFileExtensions: ["ts", "tsx", "js", "jsx"],
@@ -13,8 +15,8 @@ const config: Config = {
     // ✅ mock CSS, images, etc.
     "\\.(css|less|scss|sass)$": "identity-obj-proxy",
     "\\.(jpg|jpeg|png|gif|webp|svg)$": "<rootDir>/src/__mocks__/fileMock.ts",
-    
-    "^@static/(.*)$": "<rootDir>/src/static/$1"
+
+    "^@static/(.*)$": "<rootDir>/src/static/$1",
   },
 };
 
