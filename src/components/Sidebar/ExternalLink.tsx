@@ -19,6 +19,8 @@ type root = {
   menu: menu;
 };
 
+const CACHE_KEY = "menus";
+
 const ExternalLink = () => {
   const menuItemsQuery = gql`
     {
@@ -34,11 +36,18 @@ const ExternalLink = () => {
     }
   `;
 
-  const { data, isPending } = useQuery<root>({
+  const { data, isPending, isFetched } = useQuery<root>({
     queryKey: ["menuItems"],
     queryFn: () =>
       request("https://blog.tuanitpro.com/graphql", menuItemsQuery),
+    initialData: localStorage.getItem(CACHE_KEY)
+      ? JSON.parse(localStorage.getItem(CACHE_KEY) as string)
+      : undefined,
   });
+
+  if (data && isFetched) {
+    localStorage.setItem(CACHE_KEY, JSON.stringify(data));
+  }
 
   return (
     <React.Suspense fallback={<>Loading...</>}>

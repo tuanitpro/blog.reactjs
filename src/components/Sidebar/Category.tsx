@@ -17,6 +17,8 @@ type root = {
   categories: categories;
 };
 
+const CACHE_KEY = "categories";
+
 const Category = () => {
   const categoriesQuery = gql`
     {
@@ -30,11 +32,18 @@ const Category = () => {
     }
   `;
 
-  const { data, isPending } = useQuery<root>({
+  const { data, isPending, isFetched } = useQuery<root>({
     queryKey: ["categories"],
     queryFn: () =>
       request("https://blog.tuanitpro.com/graphql", categoriesQuery),
+    initialData: localStorage.getItem(CACHE_KEY)
+      ? JSON.parse(localStorage.getItem(CACHE_KEY) as string)
+      : undefined,
   });
+
+  if (data && isFetched) {
+    localStorage.setItem(CACHE_KEY, JSON.stringify(data));
+  }
 
   return (
     <React.Suspense fallback={<>Loading...</>}>
