@@ -103,8 +103,4 @@ jobs:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
-            The GitHub ${{ github.actor }} has been deployed successfully.
-            
-            Repository: ${{ github.repository }}
-            
-            See changes: https://tuanitpro.com
+            https://tuanitpro.com has been deployed successfully.
