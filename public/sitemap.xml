@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+    
+    <!-- Trang chủ -->
+    <url>
+        <loc>https://tuanitpro.com/</loc>
+        <lastmod>2024-01-15</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+    </url>
+    
+    <!-- Trang giới thiệu -->
+    <url>
+        <loc>https://tuanitpro.com/about</loc>
+        <lastmod>2024-01-15</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <!-- Trang liên hệ -->
+    <url>
+        <loc>https://tuanitpro.com/contact</loc>
+        <lastmod>2024-01-15</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    
+    <!-- Trang khoá học -->
+    <url>
+        <loc>https://khoahoc.tuanitpro.com</loc>
+        <lastmod>2024-01-15</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- Hình ảnh cho SEO -->
+    <url>
+        <loc>https://khoahoc.tuanitpro.com/img/fullstack.jpg</loc>
+        <lastmod>2024-01-15</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+        <image:image>
+            <image:loc>https://khoahoc.tuanitpro.com/img/fullstack.jpg</image:loc>
+            <image:title>Khóa học Lập trình Fullstack với NestJS + React JS</image:title>
+            <image:caption>Học lập trình Fullstack với NestJS Backend và React Frontend</image:caption>
+        </image:image>
+    </url>
+    
+    <url>
+        <loc>https://khoahoc.tuanitpro.com/img/home-bg.jpg</loc>
+        <lastmod>2024-01-15</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.4</priority>
+        <image:image>
+            <image:loc>https://khoahoc.tuanitpro.com/img/home-bg.jpg</image:loc>
+            <image:title>Background Khóa học NestJS ReactJS</image:title>
+        </image:image>
+    </url>
+
+</urlset>
