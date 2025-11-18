@@ -30,21 +30,24 @@
 
 /* iPad Pro 11 (2021) Media Query for min-width: */
 
-@media only screen and (min-width: 834px)
-{ /* Your Styles... */ }
-
+@media only screen and (min-width: 834px) {
+  /* Your Styles... */
+}
 
 /* iPad Pro 11 (2021) Media Query for min-height: */
-@media only screen and (min-height: 1194px)
-{ /* Your Styles... */ }
+@media only screen and (min-height: 1194px) {
+  /* Your Styles... */
+}
 
 /* iPad Pro 11 (2021) Media Query for landscape orientation: */
-@media only screen and (min-width: 834px) and (orientation: landscape)
-{ /* Your Styles... */ }
+@media only screen and (min-width: 834px) and (orientation: landscape) {
+  /* Your Styles... */
+}
 
 /* iPad Pro 11 (2021) Media Query for portrait orientation: */
-@media only screen and (min-height: 1194px) and (orientation: portrait)
-{ /* Your Styles... */ }
+@media only screen and (min-height: 1194px) and (orientation: portrait) {
+  /* Your Styles... */
+}
 
 /* 
   ##Device = Tablets, Ipads (landscape)
@@ -85,16 +88,18 @@
     width: 100%;
   }
   .site-branding {
-    margin-right: 40px;
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
   }
   .site-branding img {
-    float: right;
-    position: fixed;
-    right: 32px;
   }
 
   .site-description {
     float: left;
+    display: none;
   }
 
   .secondary {
@@ -109,12 +114,21 @@
   }
 
   .hentry {
-    float: left;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 
   .navigation-icon {
-    float: left;
-    width: 100%;
+    float: right;
+  }
+
+  .site-title {
+    font-size: 48px;
+  }
+
+  .main-navigation {
+    margin-top: 10%;
   }
 }

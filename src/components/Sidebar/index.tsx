@@ -26,7 +26,7 @@ const Sidebar = () => {
             <div className="site-branding">
               <Logo />
               <Hero />
-            </div>
+          
             {(isMobile || isTablet) && (
               <div className="navigation-icon">
                 {isVisible ? (
@@ -36,9 +36,13 @@ const Sidebar = () => {
                 )}
               </div>
             )}
+              </div>
           </header>
           {isVisible && (
             <div className="secondary">
+              <div className="navigation-icon">
+              <IoClose size={48} onClick={toggleVisibility} />
+              </div>
               <Navigation toggleVisibility={toggleVisibility} />
 
               <aside className="widget widget_block widget_search">
