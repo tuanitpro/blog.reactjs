@@ -50,7 +50,7 @@ const Sidebar = () => {
                   <input placeholder="Search" type="search" name="s" />
                 </form>
               </aside>
-              <Category />
+              <Category toggleVisibility={toggleVisibility} />
               <ExternalLink />
             </div>
           )}

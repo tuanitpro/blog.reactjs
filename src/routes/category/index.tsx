@@ -128,7 +128,7 @@ const Category = () => {
     <PageLayout title={category?.name || title}>
       <header className="page-title">
         <article className="hentry">
-          <div className={isMobile ? "" : "entry-content"}>
+          <div className="entry-content">
             <h1>{category?.name || "..."} </h1>
           </div>
         </article>

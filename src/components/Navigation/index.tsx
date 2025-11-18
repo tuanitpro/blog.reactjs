@@ -1,7 +1,9 @@
 import { Link, useLocation } from "react-router";
+
 type Props = {
   toggleVisibility?: () => void;
 };
+
 const Navigation = ({ toggleVisibility }: Props) => {
   const location = useLocation();
 

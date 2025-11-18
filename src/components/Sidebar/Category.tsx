@@ -21,7 +21,11 @@ type root = {
 
 const CACHE_KEY = "categories";
 
-const Category = () => {
+type Props = {
+  toggleVisibility?: () => void;
+};
+
+const Category = ({ toggleVisibility }: Props) => {
   const categoriesQuery = gql`
     {
       categories {
@@ -60,7 +64,9 @@ const Category = () => {
               {data?.categories?.nodes?.map((c) => {
                 return (
                   <li key={c.id} className={`cat-item cat-item-${c.id}`}>
-                    <Link to={c.slug}>{c.name}</Link>
+                    <Link to={c.slug} onClick={() => toggleVisibility?.()}>
+                      {c.name}
+                    </Link>
                   </li>
                 );
               })}
