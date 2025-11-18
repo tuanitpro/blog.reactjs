@@ -1,29 +1,51 @@
-import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useInfiniteQuery, useMutation } from "@tanstack/react-query";
-import { gql, GraphQLClient } from "graphql-request";
-import { useInfiniteScroll } from "@hooks/useInfiniteScroll";
-import { useMediaQuery } from "react-responsive";
 import PageLayout from "@layouts/PageLayout";
-import Modal from "@components/Modal";
+
+import { useLocation, useNavigate, useParams } from "react-router";
+
+import { gql, GraphQLClient } from "graphql-request";
+import { useInfiniteQuery, useMutation, useQuery } from "@tanstack/react-query";
 import { Loader } from "@components/Loader";
+import { useMediaQuery } from "react-responsive";
+
+import { post } from "@types/posts.type";
 import { LoadMoreStatus } from "@components/LoadMoreSpinner";
-import { post, root } from "@types/posts.type";
+import { useInfiniteScroll } from "@hooks/useInfiniteScroll";
+import { useEffect, useState } from "react";
+import Modal from "@components/Modal";
 
-const Home = () => {
-  const title = "Tuấn - Hãy theo đuổi đam mê, nợ nần sẽ theo đuổi bạn";
-
+const Category = () => {
+  const isMobile = useMediaQuery({ maxWidth: 767 });
+  const title = "Category";
+  const { slug } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
+  const [open, setOpen] = useState<boolean>(false);
+
   const client = new GraphQLClient(
     import.meta.env.REACT_APP_GRAPHQL_ENDPOINT || ""
   );
+  const categoryQuery = gql`
+    query getSingleCategory($id: ID!) {
+      category(id: $id, idType: SLUG) {
+        id
+        name
+      }
+    }
+  `;
 
-  const [open, setOpen] = useState<boolean>(false);
+  const { data: category } = useQuery({
+    queryKey: ["category", slug],
+    queryFn: () => client.request(categoryQuery, { id: slug }),
+    select: (data) => data?.category,
+  });
 
   const postsPagingQuery = gql`
-    query getManyPosts($first: Int!, $after: String) {
-      posts(first: $first, after: $after) {
+    query getManyPosts($categoryName: String!, $first: Int!, $after: String) {
+      posts(
+        where: { categoryName: $categoryName }
+        first: $first
+        after: $after
+      ) {
         pageInfo {
           hasNextPage
           endCursor
@@ -46,9 +68,10 @@ const Home = () => {
 
   const { data, isPending, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useInfiniteQuery({
-      queryKey: ["posts"],
+      queryKey: ["posts", slug],
       queryFn: ({ pageParam = "" }) =>
-        client.request<root>(postsPagingQuery, {
+        client.request(postsPagingQuery, {
+          categoryName: slug,
           first: 10,
           after: pageParam,
         }),
@@ -62,7 +85,6 @@ const Home = () => {
     });
 
   const posts = data?.pages?.flatMap((p) => p.posts.nodes) || [];
-  const isMobile = useMediaQuery({ maxWidth: 767 });
 
   const loaderRef = useInfiniteScroll({
     hasNextPage,
@@ -103,11 +125,11 @@ const Home = () => {
   }, [location, data]);
 
   return (
-    <PageLayout title={title}>
+    <PageLayout title={category?.name || title}>
       <header className="page-title">
         <article className="hentry">
-          <div className="entry-content">
-            <h1>code, eat, sleep, repeat</h1>
+          <div className={isMobile ? "" : "entry-content"}>
+            <h1>{category?.name || "..."} </h1>
           </div>
         </article>
       </header>
@@ -140,7 +162,7 @@ const Home = () => {
             ))}
           </ul>
         </div>
-        {!isPending && posts?.length > 0 && (
+        {!isPending && posts?.length >= 10 && (
           <div
             ref={loaderRef}
             style={{ paddingBottom: "100px", textAlign: "center" }}
@@ -154,7 +176,6 @@ const Home = () => {
           </div>
         )}
       </article>
-
       {open && (
         <Modal
           title={
@@ -164,7 +185,7 @@ const Home = () => {
           open={open}
           onClose={() => {
             setOpen(false);
-            navigate("/", { replace: true });
+            navigate("/" + slug, { replace: true });
             document.title = title;
           }}
         >
@@ -182,4 +203,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Category;

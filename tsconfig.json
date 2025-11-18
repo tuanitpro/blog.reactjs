@@ -27,7 +27,8 @@
       "@layouts/*": ["src/layouts/*"],
       "@components/*": ["src/components/*"],
       "@static/*": ["static/*"],
-      "@hooks/*": ["hooks/*"]
+      "@hooks/*": ["hooks/*"],
+      "@types/*": ["types/*"]
     }
   },
   "include": ["src", "src/**/*.test.ts", "src/**/*.test.tsx"]

@@ -2,11 +2,13 @@ import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { gql, request } from "graphql-request";
 import { Loader } from "../Loader";
+import { Link } from "react-router";
 
 type node = {
   id: string;
   name: string;
   link: string;
+  slug: string;
 };
 
 type categories = {
@@ -27,6 +29,7 @@ const Category = () => {
           id
           name
           link
+          slug
         }
       }
     }
@@ -57,7 +60,7 @@ const Category = () => {
               {data?.categories?.nodes?.map((c) => {
                 return (
                   <li key={c.id} className={`cat-item cat-item-${c.id}`}>
-                    <a href={c.link}>{c.name}</a>
+                    <Link to={c.slug}>{c.name}</Link>
                   </li>
                 );
               })}

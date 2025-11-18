@@ -4,10 +4,13 @@ import "./styles/media-query.css";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
+import Sidebar from "@components/Sidebar";
+
 import Home from "./routes/home";
 import About from "./routes/about";
 import Contact from "./routes/contact";
-import Sidebar from "@components/Sidebar";
+import Category from "./routes/category";
 
 const App = () => {
   const queryClient = new QueryClient();
@@ -21,6 +24,7 @@ const App = () => {
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path=":slug" element={<Category />} />
             </Routes>
             <Outlet />
           </main>
