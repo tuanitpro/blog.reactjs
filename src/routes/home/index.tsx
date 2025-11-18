@@ -87,6 +87,7 @@ const Home = () => {
       });
     },
     onMutate: () => {
+      document.title = "Đang tải bài viết...";
       setOpen(true);
     },
     onSuccess: (data) => {

@@ -2,7 +2,7 @@ import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { gql, request } from "graphql-request";
 import { Loader } from "../Loader";
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 
 type node = {
   id: string;
@@ -26,6 +26,7 @@ type Props = {
 };
 
 const Category = ({ toggleVisibility }: Props) => {
+  const location = useLocation();
   const categoriesQuery = gql`
     {
       categories {
@@ -63,7 +64,12 @@ const Category = ({ toggleVisibility }: Props) => {
             <ul className="wp-block-categories-list wp-block-categories">
               {data?.categories?.nodes?.map((c) => {
                 return (
-                  <li key={c.id} className={`cat-item cat-item-${c.id}`}>
+                  <li
+                    key={c.id}
+                    className={`menu-item ${
+                      location?.pathname.includes(c.slug) ? "menu-active" : ""
+                    }`}
+                  >
                     <Link to={c.slug} onClick={() => toggleVisibility?.()}>
                       {c.name}
                     </Link>

@@ -109,6 +109,7 @@ const Category = () => {
       });
     },
     onMutate: () => {
+      document.title = "Đang tải bài viết...";
       setOpen(true);
     },
     onSuccess: (data) => {
@@ -136,6 +137,9 @@ const Category = () => {
       <article className="hentry">
         <div className={isMobile ? "" : "entry-content"}>
           {isPending && <Loader />}
+          {posts?.length === 0 && !isPending && (
+            <>Không tìm thấy bài viết nào</>
+          )}
           <ul>
             {posts?.map((post: post) => (
               <li key={post.id}>
@@ -186,7 +190,7 @@ const Category = () => {
           onClose={() => {
             setOpen(false);
             navigate("/" + slug, { replace: true });
-            document.title = title;
+            document.title = category?.name || title;
           }}
         >
           {getPostMutation.isSuccess && getPostMutation?.data?.post && (
