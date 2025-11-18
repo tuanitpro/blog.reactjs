@@ -35,7 +35,7 @@ const Category = () => {
   const { data, isPending, isFetched } = useQuery<root>({
     queryKey: ["categories"],
     queryFn: () =>
-      request("https://blog.tuanitpro.com/graphql", categoriesQuery),
+      request(import.meta.env.REACT_APP_GRAPHQL_ENDPOINT, categoriesQuery),
     initialData: localStorage.getItem(CACHE_KEY)
       ? JSON.parse(localStorage.getItem(CACHE_KEY) as string)
       : undefined,

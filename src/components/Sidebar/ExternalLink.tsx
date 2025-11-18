@@ -39,7 +39,7 @@ const ExternalLink = () => {
   const { data, isPending, isFetched } = useQuery<root>({
     queryKey: ["menuItems"],
     queryFn: () =>
-      request("https://blog.tuanitpro.com/graphql", menuItemsQuery),
+      request(import.meta.env.REACT_APP_GRAPHQL_ENDPOINT, menuItemsQuery),
     initialData: localStorage.getItem(CACHE_KEY)
       ? JSON.parse(localStorage.getItem(CACHE_KEY) as string)
       : undefined,

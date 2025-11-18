@@ -23,6 +23,7 @@ export default defineConfig({
       "@layouts": path.resolve(__dirname, "src/layouts/"),
       "@components": path.resolve(__dirname, "src/components/"),
       "@static": path.resolve(__dirname, "src/static/"),
+      "@hooks": path.resolve(__dirname, "src/hooks/"),
     },
   },
   tools: {},

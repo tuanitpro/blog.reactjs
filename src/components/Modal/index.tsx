@@ -9,7 +9,7 @@ type Props = {
 };
 
 const Modal = ({ title, open, onClose, children }: Readonly<Props>) => {
-  return !open ? null : (
+  return open ? (
     <div className="modal-background">
       <div className="modal">
         <div className="modal-header">
@@ -26,7 +26,7 @@ const Modal = ({ title, open, onClose, children }: Readonly<Props>) => {
         <div className="modal-content">{children}</div>
       </div>
     </div>
-  );
+  ) : null;
 };
 
 export default Modal;

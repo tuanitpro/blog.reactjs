@@ -1,0 +1,146 @@
+/* Spinner Animation */
+.spinner {
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #3b82f6;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Pulse Loader */
+.pulse-loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.pulse-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: #3b82f6;
+  animation: pulse 1.4s ease-in-out infinite both;
+}
+
+.pulse-dot:nth-child(1) {
+  animation-delay: -0.32s;
+}
+.pulse-dot:nth-child(2) {
+  animation-delay: -0.16s;
+}
+
+@keyframes pulse {
+  0%,
+  80%,
+  100% {
+    transform: scale(0.8);
+    opacity: 0.5;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Bouncing Loader */
+.bouncing-loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.bouncing-loader > div {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: #3b82f6;
+  animation: bouncing 1.4s ease-in-out infinite both;
+}
+
+.bouncing-loader > div:nth-child(1) {
+  animation-delay: -0.32s;
+}
+.bouncing-loader > div:nth-child(2) {
+  animation-delay: -0.16s;
+}
+
+@keyframes bouncing {
+  0%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Load More Status Container */
+.load-more-status {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  gap: 12px;
+  color: #6b7280;
+}
+
+.load-more-status.loading {
+  /* background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); */
+}
+
+.load-more-status.end {
+}
+
+.load-more-status.empty {
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  color: #6b7280;
+}
+
+.end-icon {
+  font-size: 2.5rem;
+  animation: fadeIn 0.5s ease-in;
+}
+
+.empty-icon {
+  font-size: 2rem;
+  animation: bounce 2s infinite;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes bounce {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-5px);
+  }
+  60% {
+    transform: translateY(-3px);
+  }
+}

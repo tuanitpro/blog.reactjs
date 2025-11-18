@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
-
 import { useLocation, useNavigate } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
-import { gql, request } from "graphql-request";
+import { useInfiniteQuery, useMutation } from "@tanstack/react-query";
+import { gql, GraphQLClient } from "graphql-request";
+import { useInfiniteScroll } from "@hooks/useInfiniteScroll";
 import { useMediaQuery } from "react-responsive";
 import PageLayout from "@layouts/PageLayout";
 import Modal from "@components/Modal";
 import { Loader } from "@components/Loader";
+import { LoadMoreStatus } from "@components/LoadMoreSpinner";
 
 type featuredImage = {
   node: {
@@ -27,7 +28,13 @@ type post = {
 type root = {
   posts: {
     nodes: post[];
+    pageInfo: pageInfo;
   };
+};
+
+type pageInfo = {
+  hasNextPage: boolean;
+  endCursor: string;
 };
 
 const Home = () => {
@@ -35,16 +42,19 @@ const Home = () => {
 
   const location = useLocation();
   const navigate = useNavigate();
+  const client = new GraphQLClient(import.meta.env.REACT_APP_GRAPHQL_ENDPOINT || "");
 
   const [open, setOpen] = useState<boolean>(false);
-  const [post, setPost] = useState<post>();
 
-  const postQuery = gql`
-    {
-      posts {
+  const postsPagingQuery = gql`
+    query getManyPosts($first: Int!, $after: String) {
+      posts(first: $first, after: $after) {
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
         nodes {
           excerpt
-          content
           id
           title
           slug
@@ -59,23 +69,61 @@ const Home = () => {
     }
   `;
 
-  const { data, isPending } = useQuery<root>({
-    queryKey: ["posts"],
-    queryFn: () => request("https://blog.tuanitpro.com/graphql", postQuery),
+  const { data, isPending, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    useInfiniteQuery({
+      queryKey: ["posts"],
+      queryFn: ({ pageParam = "" }) =>
+        client.request<root>(postsPagingQuery, {
+          first: 10,
+          after: pageParam,
+        }),
+      getNextPageParam: (lastPage) => {
+        return lastPage?.posts?.pageInfo?.hasNextPage
+          ? lastPage?.posts?.pageInfo?.endCursor
+          : undefined;
+      },
+      initialPageParam: "",
+      staleTime: 5 * 60 * 1000,
+    });
+
+  const posts = data?.pages?.flatMap((p) => p.posts.nodes) || [];
+  const isMobile = useMediaQuery({ maxWidth: 767 });
+
+  const loaderRef = useInfiniteScroll({
+    hasNextPage,
+    fetchNextPage,
+    isFetchingNextPage,
   });
 
-  const isMobile = useMediaQuery({ maxWidth: 767 });
+  const postQuery = gql`
+    query getSinglePost($id: ID!) {
+      post(id: $id, idType: SLUG) {
+        id
+        title
+        content
+      }
+    }
+  `;
+
+  const getPostMutation = useMutation({
+    mutationFn: async (slug: string) => {
+      return client.request<{ post: post }>(postQuery, {
+        id: slug,
+      });
+    },
+    onMutate: () => {
+      setOpen(true);
+    },
+    onSuccess: (data) => {
+      document.title = data?.post?.title || title;
+    },
+    onError: () => {},
+  });
 
   useEffect(() => {
     if (location?.hash && data && !open) {
-      const findPost = data?.posts?.nodes?.find(
-        (p) => p?.slug === location?.hash?.replace("#", "")
-      );
-      if (findPost) {
-        setOpen(true);
-        setPost(findPost);
-        document.title = findPost?.title || title;
-      }
+      const slug = location?.hash?.replace("#", "");
+      getPostMutation.mutate(slug);
     }
   }, [location, data]);
 
@@ -88,29 +136,11 @@ const Home = () => {
           </div>
         </article>
       </header>
-      {open && post && (
-        <Modal
-          title={post?.title || "Not Found"}
-          open={open}
-          onClose={() => {
-            setOpen(false);
-            setPost(undefined);
-            navigate("/", { replace: true });
-            document.title = title;
-          }}
-        >
-          <div
-            dangerouslySetInnerHTML={{
-              __html: post?.content,
-            }}
-          />
-        </Modal>
-      )}
       <article className="hentry">
         <div className={isMobile ? "" : "entry-content"}>
           {isPending && <Loader />}
           <ul>
-            {data?.posts?.nodes?.map((post) => (
+            {posts?.map((post: post) => (
               <li key={post.id}>
                 {post?.featuredImage?.node?.mediaItemUrl && (
                   <div className="my-thumbnail">
@@ -135,7 +165,41 @@ const Home = () => {
             ))}
           </ul>
         </div>
+        {!isPending && posts?.length > 0 && (
+          <div
+            ref={loaderRef}
+            style={{ paddingBottom: "100px", textAlign: "center" }}
+          >
+            <LoadMoreStatus
+              isFetchingNextPage={isFetchingNextPage}
+              hasNextPage={hasNextPage}
+              itemsLength={posts.length}
+              variant="bouncing" // Try: 'spinner', 'pulse', or 'bouncing'
+            />
+          </div>
+        )}
       </article>
+
+      {open && (
+        <Modal
+          title={getPostMutation?.data?.post?.title || "Bạn đợi chút, tôi đang tải bài viết..."}
+          open={open}
+          onClose={() => {
+            setOpen(false);
+            navigate("/", { replace: true });
+            document.title = title;
+          }}
+        >
+          {getPostMutation.isSuccess && getPostMutation?.data?.post && (
+            <div
+              dangerouslySetInnerHTML={{
+                __html: getPostMutation?.data?.post?.content,
+              }}
+            />
+          )}
+          {getPostMutation.isPending && <Loader />}
+        </Modal>
+      )}
     </PageLayout>
   );
 };

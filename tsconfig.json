@@ -26,7 +26,8 @@
     "paths": {
       "@layouts/*": ["src/layouts/*"],
       "@components/*": ["src/components/*"],
-      "@static/*": ["static/*"]
+      "@static/*": ["static/*"],
+      "@hooks/*": ["hooks/*"]
     }
   },
   "include": ["src", "src/**/*.test.ts", "src/**/*.test.tsx"]

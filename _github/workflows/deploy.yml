@@ -28,6 +28,7 @@ jobs:
           envkey_NODE_ENV: production
           envkey_REACT_APP_TELEGRAM_TO: ${{ secrets.TELEGRAM_TO }}
           envkey_REACT_APP_TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          envkey_REACT_APP_GRAPHQL_ENDPOINT: https://blog.tuanitpro.com/graphql
      
       - name: npm install, lint, build, and test
         run: |
