@@ -15,7 +15,7 @@ if (rootEl) {
     "padding: 5px",
   ].join(";");
   console.log(
-    "%cBlog chia sẻ kiến thức, kinh nghiệm lập trình & cuộc sống\nMaster JavaScript/TypeScript Fullstack Development - Xây dựng ứng dụng web hiện đại, hiệu suất cao với NestJS Backend và React Frontend\nTuan: 0976060432",
+    "%cBlog chia sẻ kiến thức, kinh nghiệm lập trình & cuộc sống\nMaster JavaScript/TypeScript Fullstack Development - Xây dựng ứng dụng web hiện đại, hiệu suất cao với NestJS Backend và React Frontend.\nhttps://khoahoc.tuanitpro.com\nTuấn: 0976060432",
     myStyles
   );
 
