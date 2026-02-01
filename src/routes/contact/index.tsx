@@ -131,6 +131,7 @@ Message: ${variables.message}
                   </span>
                 </label>
               </p>
+               <div className="cf-turnstile" data-sitekey="0x4AAAAAACWOggNrwNIc73c4"></div>
               <button type="submit">
                 {sendMutation?.isPending ? "Đang gửi..." : "Gửi ngay"}
               </button>

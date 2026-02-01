@@ -125,9 +125,10 @@ td {
   outline: 0;
   padding: 0;
   vertical-align: baseline;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+    Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 html {
@@ -716,7 +717,9 @@ a {
   box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.2);
   color: #21759b;
   display: block;
-  font: bold 14px / normal "Noto Sans", sans-serif;
+  font:
+    bold 14px / normal "Noto Sans",
+    sans-serif;
   left: -9999em;
   outline: none;
   padding: 15px 23px 14px;
@@ -727,7 +730,9 @@ a {
 
 .logged-in .site .skip-link {
   box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6);
-  font: bold 14px / normal "Open Sans", sans-serif;
+  font:
+    bold 14px / normal "Open Sans",
+    sans-serif;
 }
 
 .site .skip-link:focus {
@@ -4588,13 +4593,25 @@ p > video {
 }
 
 .site-content ul {
-  list-style: none;
+  margin-left: 40px;
+}
+
+.site-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5em 10px; /* Top/bottom margin, left/right margin */
+  border-spacing: 0;
+}
+
+.site-content blockquote {
+  border-left: 5px solid #ccc; /* Gray left border */
+  margin: 1.5em 10px; /* Top/bottom margin, left/right margin */
+  font-style: italic; /* Italicize the text */
 }
 
 .site-content ul li {
   width: 100%;
   float: left;
-  margin-bottom: 25px;
   margin-top: 0;
   padding-top: 0;
 }
