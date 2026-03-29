@@ -126,7 +126,6 @@ const PostList = ({
             getPostMutation?.data?.post?.title ||
             "Bạn đợi chút, tôi đang tải bài viết..."
           }
-          open={open}
           onClose={() => {
             setOpen(false);
             navigate(navigateOnClose, { replace: true });

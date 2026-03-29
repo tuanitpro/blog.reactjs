@@ -4,33 +4,16 @@ type Props = {
   toggleVisibility?: () => void;
 };
 
+const menuItems = [
+  { name: "TRANG CHỦ", link: "/" },
+  { name: "TÔI LÀ AI", link: "/about" },
+  { name: "TÔI GIÚP ĐỠ", link: "/contact" },
+  { name: "TÔI LÀM VIỆC", link: "https://khoahoc.tuanitpro.com", external: true },
+  { name: "MY CV", link: "https://www.linkedin.com/in/tuanitpro/", external: true },
+];
+
 const Navigation = ({ toggleVisibility }: Props) => {
   const location = useLocation();
-
-  const menuItems = [
-    {
-      name: "TRANG CHỦ",
-      link: "/",
-    },
-    {
-      name: "TÔI LÀ AI",
-      link: "/about",
-    },
-    {
-      name: "TÔI GIÚP ĐỠ",
-      link: "/contact",
-    },
-    {
-      name: "TÔI LÀM VIỆC",
-      link: "https://khoahoc.tuanitpro.com",
-      external: true,
-    },
-    {
-      name: "MY CV",
-      link: "https://www.linkedin.com/in/tuanitpro/",
-      external: true,
-    },
-  ];
 
   return (
     <nav className="main-navigation">

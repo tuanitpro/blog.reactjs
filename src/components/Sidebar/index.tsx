@@ -15,7 +15,7 @@ const Sidebar = () => {
 
   const toggleVisibility = () => {
     if (!isMobile && !isTablet) return;
-    setIsVisible(!isVisible); // Toggles between true and false
+    setIsVisible(!isVisible);
   };
 
   return (

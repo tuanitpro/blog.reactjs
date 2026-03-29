@@ -1,8 +1,8 @@
-import { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { gql, request } from "graphql-request";
 import { Loader } from "../Loader";
 import { Link, useLocation } from "react-router";
+import { readCache, writeCache, CACHE_TTL_MS } from "@utils/cache";
 
 type node = {
   id: string;
@@ -20,7 +20,6 @@ type root = {
 };
 
 const CACHE_KEY = "categories";
-const CACHE_TTL_MS = 60 * 60 * 1000;
 
 const categoriesQuery = gql`
   {
@@ -35,28 +34,6 @@ const categoriesQuery = gql`
   }
 `;
 
-function readCache<T>(key: string): T | undefined {
-  const raw = localStorage.getItem(key);
-  if (!raw) return undefined;
-  try {
-    const { data, expiresAt } = JSON.parse(raw);
-    if (Date.now() > expiresAt) {
-      localStorage.removeItem(key);
-      return undefined;
-    }
-    return data as T;
-  } catch {
-    return undefined;
-  }
-}
-
-function writeCache(key: string, data: unknown): void {
-  localStorage.setItem(
-    key,
-    JSON.stringify({ data, expiresAt: Date.now() + CACHE_TTL_MS })
-  );
-}
-
 type Props = {
   toggleVisibility?: () => void;
 };
@@ -64,19 +41,19 @@ type Props = {
 const Category = ({ toggleVisibility }: Props) => {
   const location = useLocation();
 
-  const { data, isPending, isFetched } = useQuery<root>({
+  const { data, isPending } = useQuery<root>({
     queryKey: ["categories"],
-    queryFn: () =>
-      request(import.meta.env.VITE_GRAPHQL_ENDPOINT, categoriesQuery),
+    queryFn: async () => {
+      const result = await request(
+        import.meta.env.VITE_GRAPHQL_ENDPOINT,
+        categoriesQuery
+      );
+      writeCache(CACHE_KEY, result);
+      return result;
+    },
     initialData: () => readCache<root>(CACHE_KEY),
     staleTime: CACHE_TTL_MS,
   });
-
-  useEffect(() => {
-    if (data && isFetched) {
-      writeCache(CACHE_KEY, data);
-    }
-  }, [data, isFetched]);
 
   return (
     <aside className="widget widget_block widget_categories">
