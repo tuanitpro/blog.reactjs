@@ -28,11 +28,7 @@ const Contact = () => {
     },
   });
   async function formPost(formData: FormData) {
-    const turnstileToken = formData?.get("cf-turnstile-response") as string;
-    if (!turnstileToken) {
-      toast.error("Vui lòng hoàn thành xác minh bảo mật.");
-      return;
-    }
+    const turnstileToken = (formData?.get("cf-turnstile-response") as string) || undefined;
     const rawFormData: FormModel = {
       name: formData?.get("your-name") as string,
       email: formData?.get("your-email") as string,
@@ -40,7 +36,7 @@ const Contact = () => {
       message: formData?.get("your-message") as string,
       turnstileToken,
     };
-    sendMutation.mutateAsync(rawFormData);
+    sendMutation.mutate(rawFormData);
   }
   return (
     <PageLayout title={title}>

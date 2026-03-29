@@ -64,7 +64,9 @@ const PostList = ({
     onSuccess: (data) => {
       document.title = data?.post?.title || pageTitle;
     },
-    onError: () => {},
+    onError: () => {
+      document.title = pageTitle;
+    },
   });
 
   useEffect(() => {
@@ -72,7 +74,7 @@ const PostList = ({
       const slug = location.hash.replace("#", "");
       getPostMutation.mutate(slug);
     }
-  }, [location, isPending]);
+  }, [location, isPending, open]);
 
   return (
     <article className="hentry">
@@ -139,6 +141,9 @@ const PostList = ({
             />
           )}
           {getPostMutation.isPending && <Loader />}
+          {getPostMutation.isError && (
+            <p>Không thể tải bài viết. Vui lòng thử lại.</p>
+          )}
         </Modal>
       )}
     </article>

@@ -49,7 +49,7 @@ const Sidebar = () => {
                 <form
                   role="search"
                   method="get"
-                  action="https://blog.tuanitpro.com/"
+                  action={import.meta.env.VITE_BLOG_URL}
                 >
                   <input placeholder="Search" type="search" name="s" />
                 </form>
