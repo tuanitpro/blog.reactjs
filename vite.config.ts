@@ -10,7 +10,7 @@ export default defineConfig({
       "@components": path.resolve(__dirname, "src/components/"),
       "@static": path.resolve(__dirname, "src/static/"),
       "@hooks": path.resolve(__dirname, "src/hooks/"),
-      "@types": path.resolve(__dirname, "src/types/"),
+      "@app-types": path.resolve(__dirname, "src/types/"),
     },
   },
   assetsInclude: ["**/*.lottie"],

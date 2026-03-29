@@ -1,6 +1,6 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { gql, GraphQLClient } from "graphql-request";
-import { post, root } from "@types/posts.type";
+import { post, root } from "@app-types/posts.type";
 
 const client = new GraphQLClient(import.meta.env.VITE_GRAPHQL_ENDPOINT || "");
 

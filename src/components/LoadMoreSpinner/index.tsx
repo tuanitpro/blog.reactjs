@@ -46,7 +46,7 @@ export const LoadMoreStatus = ({
   variant = "spinner",
 }: {
   isFetchingNextPage: boolean;
-  hasNextPage: boolean;
+  hasNextPage: boolean | undefined;
   itemsLength: number;
   variant?: "spinner" | "pulse" | "bouncing";
 }) => {

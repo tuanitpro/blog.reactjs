@@ -2,7 +2,7 @@ import React from "react";
 
 type Props = {
   title: string;
-  children: React.ReactElement;
+  children: React.ReactNode;
 };
 
 const PageLayout = ({ title, children }: Readonly<Props>) => {

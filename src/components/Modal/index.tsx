@@ -1,11 +1,11 @@
-import type { ReactElement } from "react";
+import type { ReactNode } from "react";
 import "./index.css";
 
 type Props = {
   title?: string;
   open?: boolean;
   onClose?: () => void;
-  children: ReactElement;
+  children: ReactNode;
 };
 
 const Modal = ({ title, open, onClose, children }: Readonly<Props>) => {

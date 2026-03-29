@@ -8,7 +8,7 @@ import { useInfiniteScroll } from "@hooks/useInfiniteScroll";
 import Modal from "@components/Modal";
 import { Loader } from "@components/Loader";
 import { LoadMoreStatus } from "@components/LoadMoreSpinner";
-import { post } from "@types/posts.type";
+import { post } from "@app-types/posts.type";
 
 const client = new GraphQLClient(import.meta.env.VITE_GRAPHQL_ENDPOINT || "");
 

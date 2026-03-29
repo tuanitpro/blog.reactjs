@@ -28,7 +28,7 @@
       "@components/*": ["src/components/*"],
       "@static/*": ["src/static/*"],
       "@hooks/*": ["src/hooks/*"],
-      "@types/*": ["src/types/*"]
+      "@app-types/*": ["src/types/*"]
     }
   },
   "include": ["src", "src/**/*.test.ts", "src/**/*.test.tsx"]

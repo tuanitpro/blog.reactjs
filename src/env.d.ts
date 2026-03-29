@@ -1,5 +1,10 @@
 /// <reference types="@rsbuild/core/types" />
 
+declare module '*.lottie' {
+  const src: string;
+  export default src;
+}
+
 /**
  * Imports the SVG file as a React component.
  * @requires [@rsbuild/plugin-svgr](https://npmjs.com/package/@rsbuild/plugin-svgr)
