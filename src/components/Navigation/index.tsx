@@ -8,7 +8,8 @@ const menuItems = [
   { name: "TRANG CHỦ", link: "/" },
   { name: "TÔI LÀ AI", link: "/about" },
   { name: "TÔI GIÚP ĐỠ", link: "/contact" },
-  { name: "TÔI LÀM VIỆC", link: "https://khoahoc.tuanitpro.com", external: true },
+  { name: "KHOÁ HỌC", link: "https://khoahoc.tuanitpro.com", external: true },
+  { name: "TÔI LÀM VIỆC", link: "https://antt.tech", external: true },
   { name: "MY CV", link: "https://www.linkedin.com/in/tuanitpro/", external: true },
 ];
 
