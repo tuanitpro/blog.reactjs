@@ -20,6 +20,29 @@ type root = {
 };
 
 const CACHE_KEY = "menus";
+const CACHE_TTL_MS = 60 * 60 * 1000; // 1 hour
+
+function readCache<T>(key: string): T | undefined {
+  const raw = localStorage.getItem(key);
+  if (!raw) return undefined;
+  try {
+    const { data, expiresAt } = JSON.parse(raw);
+    if (Date.now() > expiresAt) {
+      localStorage.removeItem(key);
+      return undefined;
+    }
+    return data as T;
+  } catch {
+    return undefined;
+  }
+}
+
+function writeCache(key: string, data: unknown): void {
+  localStorage.setItem(
+    key,
+    JSON.stringify({ data, expiresAt: Date.now() + CACHE_TTL_MS })
+  );
+}
 
 const ExternalLink = () => {
   const menuItemsQuery = gql`
@@ -39,14 +62,12 @@ const ExternalLink = () => {
   const { data, isPending, isFetched } = useQuery<root>({
     queryKey: ["menuItems"],
     queryFn: () =>
-      request(import.meta.env.REACT_APP_GRAPHQL_ENDPOINT, menuItemsQuery),
-    initialData: localStorage.getItem(CACHE_KEY)
-      ? JSON.parse(localStorage.getItem(CACHE_KEY) as string)
-      : undefined,
+      request(import.meta.env.VITE_GRAPHQL_ENDPOINT, menuItemsQuery),
+    initialData: readCache<root>(CACHE_KEY),
   });
 
   if (data && isFetched) {
-    localStorage.setItem(CACHE_KEY, JSON.stringify(data));
+    writeCache(CACHE_KEY, data);
   }
 
   return (

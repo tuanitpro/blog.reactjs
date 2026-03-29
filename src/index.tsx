@@ -1,8 +1,8 @@
-import React, { Profiler } from "react";
+import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
-import "./globals.css";
+import "./index.css";
 
 const rootEl = document.getElementById("root");
 if (rootEl) {
@@ -22,11 +22,9 @@ if (rootEl) {
   root.render(
     <React.StrictMode>
       <BrowserRouter>
-        <Profiler id="App">
-          <div className="hfeed site">
-            <App />
-          </div>
-        </Profiler>
+        <div className="hfeed site">
+          <App />
+        </div>
       </BrowserRouter>
     </React.StrictMode>
   );

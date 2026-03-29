@@ -11,26 +11,14 @@ type FormModel = {
   email?: string;
   subject?: string;
   message?: string;
+  turnstileToken?: string;
 };
 
 const Contact = () => {
   const title = "Liên hệ";
   const sendMutation = useMutation({
     mutationFn: async (variables: FormModel) => {
-      const telegramUrl = `https://api.telegram.org/bot${
-        import.meta.env.REACT_APP_TELEGRAM_TOKEN
-      }/sendMessage`;
-
-      const text = `
-New message from ${variables.name}
-Email: ${variables.email}
-Subject: ${variables.subject}
-Message: ${variables.message}
-          `;
-      return await axios.post(telegramUrl, {
-        chat_id: import.meta.env.REACT_APP_TELEGRAM_TO,
-        text: text,
-      });
+      return await axios.post(import.meta.env.VITE_WORKER_URL, variables);
     },
     onSettled() {
       toast("🦄 Cảm ơn bạn đã để lại liên hệ.");
@@ -40,11 +28,17 @@ Message: ${variables.message}
     },
   });
   async function formPost(formData: FormData) {
+    const turnstileToken = formData?.get("cf-turnstile-response") as string;
+    if (!turnstileToken) {
+      toast.error("Vui lòng hoàn thành xác minh bảo mật.");
+      return;
+    }
     const rawFormData: FormModel = {
       name: formData?.get("your-name") as string,
       email: formData?.get("your-email") as string,
       subject: formData?.get("your-subject") as string,
       message: formData?.get("your-message") as string,
+      turnstileToken,
     };
     sendMutation.mutateAsync(rawFormData);
   }

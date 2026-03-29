@@ -21,7 +21,7 @@ export const useInfiniteScroll = ({
       },
       {
         threshold: 0.1,
-        rootMargin: "0px 0px 400px 0px", // Load when 100px from viewport
+        rootMargin: "0px 0px 150px 0px",
       }
     );
 

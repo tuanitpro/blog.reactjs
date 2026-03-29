@@ -1,0 +1,8 @@
+name = "contact-proxy"
+main = "index.ts"
+compatibility_date = "2024-09-23"
+
+# Deploy secrets via CLI (never commit these):
+#   wrangler secret put TURNSTILE_SECRET_KEY
+#   wrangler secret put TELEGRAM_TOKEN
+#   wrangler secret put TELEGRAM_TO

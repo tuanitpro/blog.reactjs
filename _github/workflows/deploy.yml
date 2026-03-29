@@ -26,9 +26,8 @@ jobs:
         uses: SpicyPizza/create-envfile@v2.0
         with:
           envkey_NODE_ENV: production
-          envkey_REACT_APP_TELEGRAM_TO: ${{ secrets.TELEGRAM_TO }}
-          envkey_REACT_APP_TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
-          envkey_REACT_APP_GRAPHQL_ENDPOINT: https://blog.tuanitpro.com/graphql
+          envkey_VITE_GRAPHQL_ENDPOINT: https://blog.tuanitpro.com/graphql
+          envkey_VITE_WORKER_URL: ${{ secrets.WORKER_URL }}
      
       - name: npm install, lint, build, and test
         run: |

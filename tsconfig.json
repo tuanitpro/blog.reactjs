@@ -21,14 +21,14 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "types": ["node", "jest", "@testing-library/jest-dom"],
-    "baseUrl": "/",
+    "types": ["node", "jest", "@testing-library/jest-dom", "vite/client"],
+    "baseUrl": ".",
     "paths": {
       "@layouts/*": ["src/layouts/*"],
       "@components/*": ["src/components/*"],
-      "@static/*": ["static/*"],
-      "@hooks/*": ["hooks/*"],
-      "@types/*": ["types/*"]
+      "@static/*": ["src/static/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@types/*": ["src/types/*"]
     }
   },
   "include": ["src", "src/**/*.test.ts", "src/**/*.test.tsx"]

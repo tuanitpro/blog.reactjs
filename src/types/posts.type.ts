@@ -8,7 +8,7 @@ export type post = {
   excerpt: string;
   content: string;
   id: string;
-  title?: string;
+  title: string;
   slug: string;
   link: string;
   featuredImage: featuredImage;
