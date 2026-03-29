@@ -70,11 +70,12 @@ const PostList = ({
   });
 
   useEffect(() => {
-    if (location?.hash && !isPending && !open) {
+    if (location?.hash && !isPending) {
       const slug = location.hash.replace("#", "");
       getPostMutation.mutate(slug);
     }
-  }, [location, isPending, open]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location, isPending]);
 
   return (
     <article className="hentry">
