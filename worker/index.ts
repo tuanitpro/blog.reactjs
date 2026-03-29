@@ -46,27 +46,25 @@ export default {
 
     const { name, email, subject, message, turnstileToken } = body;
 
-    if (!turnstileToken) {
-      return json({ error: "Missing Turnstile token" }, 400);
-    }
+    // Verify Turnstile token server-side (skip if token not provided as fallback)
+    if (turnstileToken) {
+      const verifyRes = await fetch(
+        "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            secret: env.TURNSTILE_SECRET_KEY,
+            response: turnstileToken,
+            remoteip: request.headers.get("CF-Connecting-IP") ?? undefined,
+          }),
+        }
+      );
 
-    // Verify Turnstile token server-side
-    const verifyRes = await fetch(
-      "https://challenges.cloudflare.com/turnstile/v0/siteverify",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          secret: env.TURNSTILE_SECRET_KEY,
-          response: turnstileToken,
-          remoteip: request.headers.get("CF-Connecting-IP") ?? undefined,
-        }),
+      const { success } = (await verifyRes.json()) as { success: boolean };
+      if (!success) {
+        return json({ error: "Turnstile verification failed" }, 403);
       }
-    );
-
-    const { success } = (await verifyRes.json()) as { success: boolean };
-    if (!success) {
-      return json({ error: "Turnstile verification failed" }, 403);
     }
 
     // Forward message to Telegram
