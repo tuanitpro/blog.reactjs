@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 import { IoClose, IoMenu } from "react-icons/io5";
 import { useMediaQuery } from "react-responsive";
@@ -19,14 +19,12 @@ const Sidebar = () => {
   };
 
   return (
-    <React.Suspense fallback={<>Loading...</>}>
-      <div className="sidebar" style={{ bottom: "auto" }}>
-        <div className="sidebar-scroll-container">
-          <header className="site-header">
-            <div className="site-branding">
-              <Logo />
-              <Hero />
-          
+    <div className="sidebar" style={{ bottom: "auto" }}>
+      <div className="sidebar-scroll-container">
+        <header className="site-header">
+          <div className="site-branding">
+            <Logo />
+            <Hero />
             {(isMobile || isTablet) && (
               <div className="navigation-icon">
                 {isVisible ? (
@@ -36,31 +34,26 @@ const Sidebar = () => {
                 )}
               </div>
             )}
-              </div>
-          </header>
-          {isVisible && (
-            <div className="secondary">
-              <div className="navigation-icon">
-              <IoClose size={48} onClick={toggleVisibility} />
-              </div>
-              <Navigation toggleVisibility={toggleVisibility} />
-
-              <aside className="widget widget_block widget_search">
-                <form
-                  role="search"
-                  method="get"
-                  action={import.meta.env.VITE_BLOG_URL}
-                >
-                  <input placeholder="Search" type="search" name="s" />
-                </form>
-              </aside>
-              <Category toggleVisibility={toggleVisibility} />
-              <ExternalLink />
-            </div>
-          )}
-        </div>
+          </div>
+        </header>
+        {isVisible && (
+          <div className="secondary">
+            <Navigation toggleVisibility={toggleVisibility} />
+            <aside className="widget widget_block widget_search">
+              <form
+                role="search"
+                method="get"
+                action={import.meta.env.VITE_BLOG_URL}
+              >
+                <input placeholder="Search" type="search" name="s" />
+              </form>
+            </aside>
+            <Category toggleVisibility={toggleVisibility} />
+            <ExternalLink />
+          </div>
+        )}
       </div>
-    </React.Suspense>
+    </div>
   );
 };
 

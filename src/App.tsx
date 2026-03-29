@@ -13,8 +13,9 @@ import About from "./pages/about";
 import Contact from "./pages/contact";
 import Category from "./pages/category";
 
+const queryClient = new QueryClient();
+
 const App = () => {
-  const queryClient = new QueryClient();
   return (
     <QueryClientProvider client={queryClient}>
       <Sidebar />

@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { gql, request } from "graphql-request";
 import { Loader } from "../Loader";
@@ -20,7 +20,20 @@ type root = {
 };
 
 const CACHE_KEY = "categories";
-const CACHE_TTL_MS = 60 * 60 * 1000; // 1 hour
+const CACHE_TTL_MS = 60 * 60 * 1000;
+
+const categoriesQuery = gql`
+  {
+    categories {
+      nodes {
+        id
+        name
+        link
+        slug
+      }
+    }
+  }
+`;
 
 function readCache<T>(key: string): T | undefined {
   const raw = localStorage.getItem(key);
@@ -50,58 +63,47 @@ type Props = {
 
 const Category = ({ toggleVisibility }: Props) => {
   const location = useLocation();
-  const categoriesQuery = gql`
-    {
-      categories {
-        nodes {
-          id
-          name
-          link
-          slug
-        }
-      }
-    }
-  `;
 
   const { data, isPending, isFetched } = useQuery<root>({
     queryKey: ["categories"],
     queryFn: () =>
       request(import.meta.env.VITE_GRAPHQL_ENDPOINT, categoriesQuery),
-    initialData: readCache<root>(CACHE_KEY),
+    initialData: () => readCache<root>(CACHE_KEY),
+    staleTime: CACHE_TTL_MS,
   });
 
-  if (data && isFetched) {
-    writeCache(CACHE_KEY, data);
-  }
+  useEffect(() => {
+    if (data && isFetched) {
+      writeCache(CACHE_KEY, data);
+    }
+  }, [data, isFetched]);
 
   return (
-    <React.Suspense fallback={<>Loading...</>}>
-      <aside className="widget widget_block widget_categories">
-        <h2 className="widget-title">Blog</h2>
+    <aside className="widget widget_block widget_categories">
+      <h2 className="widget-title">Blog</h2>
 
-        {isPending && <Loader />}
-        <nav className="menu-blog-hay-container" aria-label="Blog">
-          {data && (
-            <ul className="wp-block-categories-list wp-block-categories">
-              {data?.categories?.nodes?.map((c) => {
-                return (
-                  <li
-                    key={c.id}
-                    className={`menu-item ${
-                      location?.pathname.includes(c.slug) ? "menu-active" : ""
-                    }`}
-                  >
-                    <Link to={c.slug} onClick={() => toggleVisibility?.()}>
-                      {c.name}
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
-          )}
-        </nav>
-      </aside>
-    </React.Suspense>
+      {isPending && <Loader />}
+      <nav className="menu-blog-hay-container" aria-label="Blog">
+        {data && (
+          <ul className="wp-block-categories-list wp-block-categories">
+            {data?.categories?.nodes?.map((c) => {
+              return (
+                <li
+                  key={c.id}
+                  className={`menu-item ${
+                    location?.pathname.includes(c.slug) ? "menu-active" : ""
+                  }`}
+                >
+                  <Link to={c.slug} onClick={() => toggleVisibility?.()}>
+                    {c.name}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        )}
+      </nav>
+    </aside>
   );
 };
 

@@ -1,13 +1,13 @@
-import React from "react";
+import type { ReactNode } from "react";
 
 type Props = {
   title: string;
-  children: React.ReactNode;
+  children: ReactNode;
 };
 
 const PageLayout = ({ title, children }: Readonly<Props>) => {
   return (
-    <React.Suspense fallback={<>Loading...</>}>
+    <>
       <title>{title}</title>
       <meta name="author" content="Tuấn" />
       <meta
@@ -19,7 +19,7 @@ const PageLayout = ({ title, children }: Readonly<Props>) => {
         content="Hãy theo đuổi đam mê, nợ nần sẽ theo đuổi bạn"
       />
       <div className="__Layout">{children}</div>
-    </React.Suspense>
+    </>
   );
 };
 

@@ -1,4 +1,3 @@
-import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { gql, request } from "graphql-request";
 import { Loader } from "../Loader";
@@ -20,7 +19,21 @@ type root = {
 };
 
 const CACHE_KEY = "menus";
-const CACHE_TTL_MS = 60 * 60 * 1000; // 1 hour
+const CACHE_TTL_MS = 60 * 60 * 1000;
+
+const menuItemsQuery = gql`
+  {
+    menu(id: "dGVybToxMw==") {
+      menuItems {
+        nodes {
+          id
+          label
+          url
+        }
+      }
+    }
+  }
+`;
 
 function readCache<T>(key: string): T | undefined {
   const raw = localStorage.getItem(key);
@@ -45,20 +58,6 @@ function writeCache(key: string, data: unknown): void {
 }
 
 const ExternalLink = () => {
-  const menuItemsQuery = gql`
-    {
-      menu(id: "dGVybToxMw==") {
-        menuItems {
-          nodes {
-            id
-            label
-            url
-          }
-        }
-      }
-    }
-  `;
-
   const { data, isPending, isFetched } = useQuery<root>({
     queryKey: ["menuItems"],
     queryFn: () =>
@@ -71,28 +70,26 @@ const ExternalLink = () => {
   }
 
   return (
-    <React.Suspense fallback={<>Loading...</>}>
-      <aside className="widget widget_block widget_nav_menu">
-        <h2 className="widget-title">Liên kết</h2>
+    <aside className="widget widget_block widget_nav_menu">
+      <h2 className="widget-title">Liên kết</h2>
 
-        {isPending && <Loader />}
-        <nav className="menu-blog-hay-container" aria-label="Liên kết">
-          {data && (
-            <ul className="menu">
-              {data?.menu?.menuItems?.nodes?.map((c) => {
-                return (
-                  <li key={c.id} className={`menu-item-${c.id}`}>
-                    <a href={c.url} target="_blank" rel="noreferrer nofollow">
-                      {c.label}
-                    </a>
-                  </li>
-                );
-              })}
-            </ul>
-          )}
-        </nav>
-      </aside>
-    </React.Suspense>
+      {isPending && <Loader />}
+      <nav className="menu-blog-hay-container" aria-label="Liên kết">
+        {data && (
+          <ul className="menu">
+            {data?.menu?.menuItems?.nodes?.map((c) => {
+              return (
+                <li key={c.id} className={`menu-item-${c.id}`}>
+                  <a href={c.url} target="_blank" rel="noreferrer nofollow">
+                    {c.label}
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+        )}
+      </nav>
+    </aside>
   );
 };
 
