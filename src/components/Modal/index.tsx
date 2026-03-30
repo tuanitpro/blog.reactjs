@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
+import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "motion/react";
-import {X} from "lucide-react";
+import { X } from "lucide-react";
 type Props = {
   title?: string;
   open?: boolean;
@@ -9,7 +10,7 @@ type Props = {
 };
 
 const Modal = ({ title, open, onClose, children }: Readonly<Props>) => {
-  return (
+  return createPortal(
     <AnimatePresence>
       {open && (
         <motion.div
@@ -49,7 +50,8 @@ const Modal = ({ title, open, onClose, children }: Readonly<Props>) => {
           </motion.div>
         </motion.div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   );
 };
 

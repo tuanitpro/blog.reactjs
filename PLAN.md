@@ -257,10 +257,10 @@ Delete `src/hooks/useInfiniteScroll.tsx` after migration.
 
 ```
 [x] Phase 1  Install deps
-[x] Phase 5  Scroll to top — useScrollToTop hook in src/hooks/
-[ ] Phase 2  Tailwind migration (component by component)
-[x] Phase 3  Framer Motion (after Tailwind classes are in place)
-[x] Phase 4  Virtual scroll PostList refactor
+[x] Phase 2  Tailwind migration (all CSS files removed, Tailwind utilities in place)
+[x] Phase 3  Framer Motion (AnimatePresence + page transitions + micro-interactions)
+[x] Phase 4  Virtual scroll PostList refactor (useVirtualizer, useInfiniteScroll deleted)
+[x] Phase 5  Scroll to top — handled via <ScrollRestoration /> from react-router-dom
 [ ] Polish    Visual refinement pass
 ```
 
@@ -268,11 +268,13 @@ Delete `src/hooks/useInfiniteScroll.tsx` after migration.
 
 ## Files to Delete After Migration
 
-- `src/styles/App.css`
-- `src/styles/media-query.css`
-- `src/components/LoadMoreSpinner/index.css`
-- `src/components/Modal/index.css`
-- `src/hooks/useInfiniteScroll.tsx`
+All deleted. ✓
+
+---
+
+## Known Issues
+
+_None._
 
 ---
 

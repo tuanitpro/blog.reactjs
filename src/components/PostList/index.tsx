@@ -105,7 +105,7 @@ const PostList = ({
         </p>
       )}
 
-      <div ref={listRef} className="divide-y divide-border">
+      <div ref={listRef}>
         <div
           style={{ height: rowVirtualizer.getTotalSize(), position: "relative" }}
         >
@@ -125,9 +125,6 @@ const PostList = ({
                 className="border-b border-border"
               >
               <motion.div
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, ease: "easeOut" }}
                 whileHover={{ scale: 1.01 }}
                 className="flex gap-4 py-5"
               >
