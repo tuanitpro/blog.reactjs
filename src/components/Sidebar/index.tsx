@@ -73,7 +73,7 @@ const Sidebar = () => {
             transition={{ type: "tween", duration: 0.25 }}
           >
             <div className="flex items-center h-16 px-4 gap-3 border-b border-border shrink-0">
-              <Logo imgClassName="w-9 h-9" />
+              <Logo />
               <div className="flex-1 min-w-0">
                 <Hero />
               </div>
