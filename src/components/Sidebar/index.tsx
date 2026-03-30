@@ -1,70 +1,132 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 
-import { IoClose, IoMenu } from "react-icons/io5";
+import { X, Menu } from "lucide-react";
 import { useMediaQuery } from "react-responsive";
 import Logo from "@components/Logo";
 import Hero from "@components/Hero";
 import Navigation from "@components/Navigation";
+import Footer from "@layouts/Footer";
 import Category from "./Category";
 import ExternalLink from "./ExternalLink";
 
 const Sidebar = () => {
   const isMobile = useMediaQuery({ maxWidth: 767 });
-  const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1024 });
-  const [isVisible, setIsVisible] = useState(!(isMobile || isTablet));
-
-  const toggleVisibility = () => {
-    if (!isMobile && !isTablet) return;
-    setIsVisible(!isVisible);
-  };
-
+  const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1023 });
   const isSmall = isMobile || isTablet;
+  const [isOpen, setIsOpen] = useState(false);
+
+  const open = () => setIsOpen(true);
+  const close = () => setIsOpen(false);
 
   return (
-    <div className="sidebar" style={{ bottom: "auto" }}>
-      <div className="sidebar-scroll-container">
-        <header className="site-header">
-          <div className="site-branding">
+    <>
+      {/* ── Desktop sidebar — real flex item, NOT fixed ─────────────────── */}
+      <aside className="hidden lg:flex flex-col flex-none w-72 h-screen bg-bg-primary border-r border-border shadow-sm">
+        <header className="flex-none px-6 py-6 border-b border-border">
+          <div className="flex flex-col items-start gap-4">
             <Logo />
             <Hero />
-            {isSmall && (
-              <div className="navigation-icon">
-                {isVisible ? (
-                  <IoClose size={48} onClick={toggleVisibility} />
-                ) : (
-                  <IoMenu size={48} onClick={toggleVisibility} />
-                )}
-              </div>
-            )}
           </div>
         </header>
-        <AnimatePresence>
-          {isVisible && (
-            <motion.div
-              className="secondary"
-              initial={{ opacity: 0, x: isSmall ? "-100%" : 0 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: isSmall ? "-100%" : 0 }}
-              transition={{ type: "tween", duration: 0.3 }}
+
+        <div className="flex-1 overflow-y-auto">
+          <Navigation toggleVisibility={() => {}} />
+
+          <div className="px-6 py-4 border-t border-border">
+            <form role="search" method="get" action={import.meta.env.VITE_BLOG_URL}>
+              <input
+                placeholder="Search…"
+                type="search"
+                name="s"
+                className="w-full bg-box border border-border rounded px-3 py-2 text-sm text-foreground outline-none focus:border-foreground/40 placeholder:text-foreground/40 transition-colors"
+              />
+            </form>
+          </div>
+
+          <Category />
+          <ExternalLink />
+        </div>
+
+        <Footer />
+      </aside>
+
+      {/* ── Mobile / tablet fixed top bar ───────────────────────────────── */}
+      {isSmall && (
+        <div className="fixed top-0 left-0 w-full z-40 bg-bg-primary border-b border-border">
+          <div className="flex items-center gap-3 px-6 py-4">
+            <Logo />
+            <Hero />
+            <button
+              className="ml-auto text-foreground/70 hover:text-foreground transition-colors cursor-pointer"
+              onClick={open}
+              aria-label="Open menu"
             >
-              <Navigation toggleVisibility={toggleVisibility} />
-              <aside className="widget widget_block widget_search">
-                <form
-                  role="search"
-                  method="get"
-                  action={import.meta.env.VITE_BLOG_URL}
-                >
-                  <input placeholder="Search" type="search" name="s" />
+              <Menu size={28} />
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* ── Mobile drawer ───────────────────────────────────────────────── */}
+      <AnimatePresence>
+        {isSmall && isOpen && (
+          <motion.div
+            className="fixed top-0 left-0 h-screen w-72 bg-bg-primary border-r border-border z-50 flex flex-col"
+            initial={{ x: "-100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "-100%" }}
+            transition={{ type: "tween", duration: 0.25 }}
+          >
+            <div className="flex-none flex items-center gap-3 px-6 py-5 border-b border-border">
+              <Logo />
+              <Hero />
+              <button
+                className="ml-auto text-foreground/70 hover:text-foreground transition-colors cursor-pointer"
+                onClick={close}
+                aria-label="Close menu"
+              >
+                <X size={28} />
+              </button>
+            </div>
+
+            <div className="flex-1 overflow-y-auto">
+              <Navigation toggleVisibility={close} />
+
+              <div className="px-6 py-4 border-t border-border">
+                <form role="search" method="get" action={import.meta.env.VITE_BLOG_URL}>
+                  <input
+                    placeholder="Search…"
+                    type="search"
+                    name="s"
+                    className="w-full bg-box border border-border rounded px-3 py-2 text-sm text-foreground outline-none focus:border-foreground/40 placeholder:text-foreground/40 transition-colors"
+                  />
                 </form>
-              </aside>
-              <Category toggleVisibility={toggleVisibility} />
+              </div>
+
+              <Category toggleVisibility={close} />
               <ExternalLink />
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-    </div>
+            </div>
+
+            <Footer />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* ── Backdrop ────────────────────────────────────────────────────── */}
+      <AnimatePresence>
+        {isSmall && isOpen && (
+          <motion.div
+            className="fixed inset-0 bg-black/40 z-[49]"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            onClick={close}
+          />
+        )}
+      </AnimatePresence>
+    </>
   );
 };
 

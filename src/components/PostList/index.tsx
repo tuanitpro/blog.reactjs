@@ -1,15 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
 import DOMPurify from "dompurify";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { gql, GraphQLClient } from "graphql-request";
-import { useMediaQuery } from "react-responsive";
-import { useInfiniteScroll } from "@hooks/useInfiniteScroll";
+import { useVirtualizer } from "@tanstack/react-virtual";
 import Modal from "@components/Modal";
 import { Loader } from "@components/Loader";
 import { LoadMoreStatus } from "@components/LoadMoreSpinner";
 import { post } from "@app-types/posts.type";
+import { useScrollContext } from "../../contexts/ScrollContext";
 
 const client = new GraphQLClient(import.meta.env.VITE_GRAPHQL_ENDPOINT || "");
 
@@ -22,15 +22,6 @@ const singlePostQuery = gql`
     }
   }
 `;
-
-const fadeUpVariants = {
-  hidden: { opacity: 0, y: 24 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: i * 0.08, duration: 0.4, ease: "easeOut" as const },
-  }),
-};
 
 type Props = {
   posts: post[];
@@ -53,16 +44,37 @@ const PostList = ({
   navigateOnClose,
   showEmptyMessage = false,
 }: Props) => {
-  const isMobile = useMediaQuery({ maxWidth: 767 });
   const location = useLocation();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
+  const listRef = useRef<HTMLDivElement>(null);
+  const scrollEl = useScrollContext();
+  const [scrollMargin, setScrollMargin] = useState(0);
 
-  const loaderRef = useInfiniteScroll({
-    hasNextPage,
-    fetchNextPage,
-    isFetchingNextPage,
+  useLayoutEffect(() => {
+    if (!listRef.current || !scrollEl.current) return;
+    const listTop = listRef.current.getBoundingClientRect().top;
+    const containerTop = scrollEl.current.getBoundingClientRect().top;
+    setScrollMargin(scrollEl.current.scrollTop + listTop - containerTop);
+  }, [isPending, posts.length]);
+
+  const rowVirtualizer = useVirtualizer({
+    count: posts.length,
+    getScrollElement: () => scrollEl.current,
+    estimateSize: () => 120,
+    overscan: 5,
+    scrollMargin,
   });
+
+  // Trigger next page when last virtual item approaches the end
+  useEffect(() => {
+    const virtualItems = rowVirtualizer.getVirtualItems();
+    const lastItem = virtualItems.at(-1);
+    if (!lastItem) return;
+    if (lastItem.index >= posts.length - 1 && hasNextPage && !isFetchingNextPage) {
+      fetchNextPage();
+    }
+  }, [rowVirtualizer.getVirtualItems(), hasNextPage, isFetchingNextPage, posts.length, fetchNextPage]);
 
   const getPostMutation = useMutation({
     mutationFn: async (slug: string) =>
@@ -88,50 +100,72 @@ const PostList = ({
   }, [location, isPending]);
 
   return (
-    <article className="hentry">
-      <div className={isMobile ? "" : "entry-content"}>
-        {isPending && <Loader />}
-        {showEmptyMessage && !isPending && posts.length === 0 && (
-          <>Không tìm thấy bài viết nào</>
-        )}
-        <ul>
-          {posts.map((post, index) => (
-            <motion.li
-              key={post.id}
-              custom={index}
-              variants={fadeUpVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              whileHover={{ scale: 1.02 }}
-              transition={{ type: "tween" }}
-            >
-              {post?.featuredImage?.node?.mediaItemUrl && (
-                <div className="my-thumbnail">
-                  <img
-                    width={150}
-                    height={150}
-                    src={post.featuredImage.node.mediaItemUrl}
-                    alt={post.title}
+    <article className="w-full">
+      {isPending && <Loader />}
+      {showEmptyMessage && !isPending && posts.length === 0 && (
+        <p className="text-foreground/50 text-sm py-8 text-center">
+          Không tìm thấy bài viết nào
+        </p>
+      )}
+
+      <div ref={listRef} className="divide-y divide-border">
+        <div
+          style={{ height: rowVirtualizer.getTotalSize(), position: "relative" }}
+        >
+          {rowVirtualizer.getVirtualItems().map((virtualItem) => {
+            const post = posts[virtualItem.index];
+            return (
+              <div
+                key={virtualItem.key}
+                data-index={virtualItem.index}
+                ref={rowVirtualizer.measureElement}
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  width: "100%",
+                  transform: `translateY(${virtualItem.start - rowVirtualizer.options.scrollMargin}px)`,
+                }}
+                className="border-b border-border"
+              >
+              <motion.div
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
+                whileHover={{ scale: 1.01 }}
+                className="flex gap-4 py-5"
+              >
+                {post?.featuredImage?.node?.mediaItemUrl && (
+                  <div className="shrink-0">
+                    <img
+                      width={80}
+                      height={80}
+                      src={post.featuredImage.node.mediaItemUrl}
+                      alt={post.title}
+                      className="w-20 h-20 object-cover"
+                    />
+                  </div>
+                )}
+                <div className="flex-1 min-w-0">
+                  <a
+                    href={`#${post.slug}`}
+                    className="block text-sm font-semibold text-foreground hover:text-foreground/70 transition-colors leading-snug mb-2"
+                  >
+                    {post.title}
+                  </a>
+                  <div
+                    className="text-xs text-foreground/60 line-clamp-3 leading-relaxed [&>p]:m-0"
+                    dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.excerpt) }}
                   />
                 </div>
-              )}
-              <a href={`#${post.slug}`} style={{ cursor: "pointer" }}>
-                {post.title}
-              </a>
-              <div
-                className="description"
-                dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.excerpt) }}
-              />
-            </motion.li>
-          ))}
-        </ul>
+              </motion.div>
+              </div>
+            );
+          })}
+        </div>
       </div>
+
       {!isPending && posts.length > 0 && (
-        <div
-          ref={loaderRef}
-          style={{ paddingBottom: "100px", textAlign: "center" }}
-        >
+        <div className="pb-24 text-center">
           <LoadMoreStatus
             isFetchingNextPage={isFetchingNextPage}
             hasNextPage={hasNextPage}
@@ -140,6 +174,7 @@ const PostList = ({
           />
         </div>
       )}
+
       <Modal
         title={
           getPostMutation?.data?.post?.title ||

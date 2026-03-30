@@ -56,22 +56,30 @@ const Category = ({ toggleVisibility }: Props) => {
   });
 
   return (
-    <aside className="widget widget_block widget_categories">
-      <h2 className="widget-title">Blog</h2>
+    <aside className="px-5 py-4 border-t border-border">
+      <h2 className="text-[10px] font-bold tracking-widest uppercase text-foreground/40 mb-3">
+        Blog
+      </h2>
 
       {isPending && <Loader />}
-      <nav className="menu-blog-hay-container" aria-label="Blog">
+      <nav aria-label="Blog">
         {data && (
-          <ul className="wp-block-categories-list wp-block-categories">
+          <ul className="space-y-1 list-none m-0 p-0">
             {data?.categories?.nodes?.map((c) => {
+              const isActive = location?.pathname.includes(c.slug);
               return (
-                <li
-                  key={c.id}
-                  className={`menu-item ${
-                    location?.pathname.includes(c.slug) ? "menu-active" : ""
-                  }`}
-                >
-                  <Link to={c.slug} onClick={() => toggleVisibility?.()}>
+                <li key={c.id}>
+                  <Link
+                    to={c.slug}
+                    onClick={() => toggleVisibility?.()}
+                    className={`
+                      block py-1 text-xs font-medium tracking-wide transition-colors
+                      ${isActive
+                        ? "text-foreground border-l-2 border-foreground pl-3 -ml-px"
+                        : "text-foreground/60 hover:text-foreground"
+                      }
+                    `}
+                  >
                     {c.name}
                   </Link>
                 </li>

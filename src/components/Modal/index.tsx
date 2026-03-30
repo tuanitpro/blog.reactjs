@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import "./index.css";
-
+import {X} from "lucide-react";
 type Props = {
   title?: string;
   open?: boolean;
@@ -14,35 +13,39 @@ const Modal = ({ title, open, onClose, children }: Readonly<Props>) => {
     <AnimatePresence>
       {open && (
         <motion.div
-          className="modal-background"
+          className="fixed inset-0 bg-black/50 z-[9998] flex items-center justify-center p-4"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.2 }}
+          onClick={(e) => e.target === e.currentTarget && onClose?.()}
         >
           <motion.div
-            className="modal"
+            className="relative w-full max-w-3xl h-[80vh] max-sm:h-[90vh] bg-bg-secondary z-[9999] flex flex-col"
             initial={{ scale: 0.95, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.95, opacity: 0 }}
             transition={{ duration: 0.2 }}
           >
-            <div className="modal-header">
-              <h3>{title}</h3>
+            {/* Header */}
+            <div className="flex items-center bg-bg-secondary border-b border-border shrink-0">
+              <h3 className="flex-1 min-w-0 px-4 text-sm font-semibold truncate text-foreground">
+                {title}
+              </h3>
               <motion.button
                 onClick={() => onClose?.()}
                 whileTap={{ scale: 0.97 }}
                 transition={{ type: "tween", duration: 0.1 }}
+                className="h-full px-4 border-l border-border cursor-pointer bg-transparent hover:bg-foreground/5 transition-colors"
               >
-                <img
-                  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAdVBMVEUAAABNTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU0N3NIOAAAAJnRSTlMAAQIDBAUGBwgRFRYZGiEjQ3l7hYaqtLm8vsDFx87a4uvv8fP1+bbY9ZEAAAB8SURBVBhXXY5LFoJAAMOCIP4VBRXEv5j7H9HFDOizu2TRFljedgCQHeocWHVaAWStXnKyl2oVWI+kd1XLvFV1D7Ng3qrWKYMZ+MdEhk3gbhw59KvlH0eTnf2mgiRwvQ7NW6aqNmncukKhnvo/zzlQ2PR/HgsAJkncH6XwAcr0FUY5BVeFAAAAAElFTkSuQmCC"
-                  width="16"
-                  height="16"
-                  alt="Close"
-                />
+                <X size={20} />
               </motion.button>
             </div>
-            <div className="modal-content">{children}</div>
+
+            {/* Content */}
+            <div className="flex-1 overflow-y-auto p-4 prose dark:prose-invert max-w-none">
+              {children}
+            </div>
           </motion.div>
         </motion.div>
       )}

@@ -18,7 +18,7 @@ const PageLayout = ({ title, children }: Readonly<Props>) => {
         name="description"
         content="Hãy theo đuổi đam mê, nợ nần sẽ theo đuổi bạn"
       />
-      <div className="__Layout">{children}</div>
+      <div>{children}</div>
     </>
   );
 };

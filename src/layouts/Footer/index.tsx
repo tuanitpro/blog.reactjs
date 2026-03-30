@@ -3,17 +3,14 @@ import React from "react";
 const Footer = () => {
   return (
     <React.Suspense fallback={<>Loading...</>}>
-      <footer id="colophon" className="site-footer">
-        <div className="site-info">
+      <footer className="mt-auto px-5 py-4 border-t border-border">
+        <div className="flex flex-col gap-1">
           <a
-            className="privacy-policy-link"
+            className="text-xs text-foreground/50 hover:text-foreground transition-colors"
             href="https://tuanitpro.com/privacy-policy/"
             rel="privacy-policy"
           >
             Privacy Policy
-          </a>
-          <a href="https://wordpress.org/" className="imprint">
-            Proudly powered by WordPress{" "}
           </a>
         </div>
       </footer>

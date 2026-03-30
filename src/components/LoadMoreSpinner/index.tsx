@@ -1,5 +1,4 @@
 import { motion } from "motion/react";
-import "./index.css";
 
 export const Spinner = ({
   size = 40,
@@ -10,8 +9,8 @@ export const Spinner = ({
 }) => {
   return (
     <motion.div
-      className="spinner"
-      style={{ width: size, height: size, borderColor: color }}
+      className="rounded-full border-[3px] border-gray-200 dark:border-gray-700 border-t-blue-500"
+      style={{ width: size, height: size, borderTopColor: color }}
       animate={{ rotate: 360 }}
       transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
     />
@@ -20,11 +19,11 @@ export const Spinner = ({
 
 export const PulseLoader = () => {
   return (
-    <div className="pulse-loader">
+    <div className="flex items-center justify-center gap-1">
       {[0, 1, 2].map((i) => (
         <motion.div
           key={i}
-          className="pulse-dot"
+          className="w-4 h-4 rounded-full bg-blue-500"
           animate={{ scale: [0.8, 1, 0.8], opacity: [0.5, 1, 0.5] }}
           transition={{ duration: 1.4, repeat: Infinity, delay: i * 0.16, ease: "easeInOut" }}
         />
@@ -35,10 +34,11 @@ export const PulseLoader = () => {
 
 export const BouncingLoader = () => {
   return (
-    <div className="bouncing-loader">
+    <div className="flex items-center justify-center gap-1">
       {[0, 1, 2].map((i) => (
         <motion.div
           key={i}
+          className="w-4 h-4 rounded-full bg-blue-500"
           animate={{ y: [0, -10, 0] }}
           transition={{ duration: 1.4, repeat: Infinity, delay: i * 0.16, ease: "easeInOut" }}
         />
@@ -60,27 +60,27 @@ export const LoadMoreStatus = ({
 }) => {
   if (isFetchingNextPage) {
     return (
-      <div className="load-more-status loading">
+      <div className="flex flex-col items-center justify-center py-8 gap-3 text-foreground/50">
         {variant === "spinner" && <Spinner />}
         {variant === "pulse" && <PulseLoader />}
         {variant === "bouncing" && <BouncingLoader />}
-        <span className="loading-text">Bạn đợi chút, tôi đang tải thêm bài viết...</span>
+        <span className="text-sm">Bạn đợi chút, tôi đang tải thêm bài viết...</span>
       </div>
     );
   }
 
   if (!hasNextPage && itemsLength > 0) {
     return (
-      <div className="load-more-status end">
+      <div className="flex flex-col items-center justify-center py-8 gap-3 text-foreground/50">
         <motion.div
-          className="end-icon"
+          className="text-4xl"
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, ease: "easeOut" }}
         >
           ✓
         </motion.div>
-        <span className="end-text">Bạn ơi, không còn bài viết nào nữa rồi!</span>
+        <span className="text-sm">Bạn ơi, không còn bài viết nào nữa rồi!</span>
       </div>
     );
   }

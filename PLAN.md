@@ -256,11 +256,11 @@ Delete `src/hooks/useInfiniteScroll.tsx` after migration.
 ## Implementation Order
 
 ```
-[ ] Phase 1  Install deps
+[x] Phase 1  Install deps
 [x] Phase 5  Scroll to top — useScrollToTop hook in src/hooks/
 [ ] Phase 2  Tailwind migration (component by component)
-[ ] Phase 3  Framer Motion (after Tailwind classes are in place)
-[ ] Phase 4  Virtual scroll PostList refactor
+[x] Phase 3  Framer Motion (after Tailwind classes are in place)
+[x] Phase 4  Virtual scroll PostList refactor
 [ ] Polish    Visual refinement pass
 ```
 

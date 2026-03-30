@@ -51,22 +51,27 @@ const ExternalLink = () => {
   });
 
   return (
-    <aside className="widget widget_block widget_nav_menu">
-      <h2 className="widget-title">Liên kết</h2>
+    <aside className="px-5 py-4 border-t border-border">
+      <h2 className="text-[10px] font-bold tracking-widest uppercase text-foreground/40 mb-3">
+        Liên kết
+      </h2>
 
       {isPending && <Loader />}
-      <nav className="menu-blog-hay-container" aria-label="Liên kết">
+      <nav aria-label="Liên kết">
         {data && (
-          <ul className="menu">
-            {data?.menu?.menuItems?.nodes?.map((c) => {
-              return (
-                <li key={c.id} className={`menu-item-${c.id}`}>
-                  <a href={c.url} target="_blank" rel="noreferrer nofollow">
-                    {c.label}
-                  </a>
-                </li>
-              );
-            })}
+          <ul className="space-y-1 list-none m-0 p-0">
+            {data?.menu?.menuItems?.nodes?.map((c) => (
+              <li key={c.id}>
+                <a
+                  href={c.url}
+                  target="_blank"
+                  rel="noreferrer nofollow"
+                  className="block py-1 text-xs font-medium text-foreground/60 hover:text-foreground transition-colors tracking-wide"
+                >
+                  {c.label}
+                </a>
+              </li>
+            ))}
           </ul>
         )}
       </nav>

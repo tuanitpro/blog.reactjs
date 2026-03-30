@@ -40,25 +40,21 @@ const Category = () => {
   return (
     <motion.div variants={pageVariants} initial="initial" animate="animate" exit="exit">
       <PageLayout title={pageTitle}>
-        <>
-          <header className="page-title">
-            <article className="hentry">
-              <div className="entry-content">
-                <h1>{category?.name || "..."}</h1>
-              </div>
-            </article>
-          </header>
-          <PostList
-            posts={posts}
-            isPending={isPending}
-            fetchNextPage={fetchNextPage}
-            hasNextPage={hasNextPage}
-            isFetchingNextPage={isFetchingNextPage}
-            pageTitle={pageTitle}
-            navigateOnClose={`/${slug}`}
-            showEmptyMessage
-          />
-        </>
+        <header className="mb-8 pb-6 border-b border-border">
+          <h1 className="text-3xl font-bold tracking-tight text-foreground">
+            {category?.name || "…"}
+          </h1>
+        </header>
+        <PostList
+          posts={posts}
+          isPending={isPending}
+          fetchNextPage={fetchNextPage}
+          hasNextPage={hasNextPage}
+          isFetchingNextPage={isFetchingNextPage}
+          pageTitle={pageTitle}
+          navigateOnClose={`/${slug}`}
+          showEmptyMessage
+        />
       </PageLayout>
     </motion.div>
   );
