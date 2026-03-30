@@ -25,16 +25,12 @@ const Layout = () => {
   const outlet = useOutlet();
 
   return (
-    <div className="flex min-h-screen bg-background text-foreground">
-      {/* Desktop Sidebar Spacer - reserves space for the fixed sidebar */}
-      <div className="hidden lg:block w-72 flex-none" aria-hidden="true" />
+    <div className="flex flex-col lg:flex-row min-h-screen bg-background text-foreground">
+      {/* Mobile: reserves height for fixed top bar. Desktop: reserves width for fixed sidebar. */}
+      <div className="h-16 shrink-0 lg:h-auto lg:w-72 lg:flex-none" aria-hidden="true" />
 
       <Sidebar />
-      <div
-        className="lg:hidden h-80 fixed top-0 left-0 right-0 z-40 pointer-events-none"
-        aria-hidden="true"
-      />
-      <main className="flex-1 min-w-0 max-w-3xl px-0 py-12 lg:py-6 mt-20 lg:mt-0 relative z-10">
+      <main className="flex-1 min-w-0 max-w-3xl px-0 py-8 lg:py-6 relative z-10">
         <ErrorBoundary>
           <ScrollRestoration />
           <AnimatePresence mode="wait">

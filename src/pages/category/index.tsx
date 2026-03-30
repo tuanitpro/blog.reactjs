@@ -19,7 +19,11 @@ const categoryQuery = gql`
 
 const pageVariants = {
   initial: { opacity: 0, y: 16 },
-  animate: { opacity: 1, y: 0, transition: { duration: 0.3, ease: "easeOut" as const } },
+  animate: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.3, ease: "easeOut" as const },
+  },
   exit: { opacity: 0, y: -8, transition: { duration: 0.2 } },
 };
 
@@ -38,23 +42,28 @@ const Category = () => {
   const pageTitle = category?.name || "Category";
 
   return (
-    <motion.div variants={pageVariants} initial="initial" animate="animate" exit="exit">
+    <motion.div
+      variants={pageVariants}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+    >
       <PageLayout title={pageTitle}>
-        <header className="mb-8 pb-6 border-b border-border">
-          <h1 className="text-3xl font-bold tracking-tight text-foreground">
-            {category?.name || "…"}
-          </h1>
-        </header>
-        <PostList
-          posts={posts}
-          isPending={isPending}
-          fetchNextPage={fetchNextPage}
-          hasNextPage={hasNextPage}
-          isFetchingNextPage={isFetchingNextPage}
-          pageTitle={pageTitle}
-          navigateOnClose={`/${slug}`}
-          showEmptyMessage
-        />
+        <article className="prose dark:prose-invert max-w-none">
+          <header className="border-b border-border">
+            <h1>{category?.name || "…"}</h1>
+          </header>
+          <PostList
+            posts={posts}
+            isPending={isPending}
+            fetchNextPage={fetchNextPage}
+            hasNextPage={hasNextPage}
+            isFetchingNextPage={isFetchingNextPage}
+            pageTitle={pageTitle}
+            navigateOnClose={`/${slug}`}
+            showEmptyMessage
+          />
+        </article>
       </PageLayout>
     </motion.div>
   );

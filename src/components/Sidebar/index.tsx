@@ -48,18 +48,18 @@ const Sidebar = () => {
       </aside>
 
       {/* ── Mobile / tablet fixed top bar ───────────────────────────────── */}
-      <div className="lg:hidden fixed top-0 left-0 w-full z-40 bg-bg-primary border-b border-border ">
-        <div className="flex items-center justify-between w-full px-6 py-6">
-          <Logo />
+      <div className="lg:hidden fixed top-0 left-0 w-full h-16 z-40 bg-bg-primary border-b border-border flex items-center px-4 gap-3">
+        <Logo />
+        <div className="flex-1 min-w-0">
           <Hero />
-          <button
-            className="ml-auto text-foreground/70 hover:text-foreground transition-colors cursor-pointer"
-            onClick={open}
-            aria-label="Open menu"
-          >
-            <Menu size={28} />
-          </button>
         </div>
+        <button
+          className="shrink-0 text-foreground/70 hover:text-foreground transition-colors cursor-pointer"
+          onClick={open}
+          aria-label="Open menu"
+        >
+          <Menu size={20} />
+        </button>
       </div>
 
       {/* ── Mobile drawer ───────────────────────────────────────────────── */}
@@ -72,15 +72,17 @@ const Sidebar = () => {
             exit={{ x: "-100%" }}
             transition={{ type: "tween", duration: 0.25 }}
           >
-            <div className="flex items-center justify-between w-full px-6 py-6">
-              <Logo />
-              <Hero />
+            <div className="flex items-center h-16 px-4 gap-3 border-b border-border shrink-0">
+              <Logo imgClassName="w-9 h-9" />
+              <div className="flex-1 min-w-0">
+                <Hero />
+              </div>
               <button
-                className="ml-auto text-foreground/70 hover:text-foreground transition-colors cursor-pointer"
+                className="shrink-0 text-foreground/70 hover:text-foreground transition-colors cursor-pointer"
                 onClick={close}
                 aria-label="Close menu"
               >
-                <X size={28} />
+                <X size={20} />
               </button>
             </div>
 

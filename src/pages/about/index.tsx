@@ -8,28 +8,47 @@ import { Mail, Phone, ExternalLink } from "lucide-react";
 
 const pageVariants = {
   initial: { opacity: 0, y: 16 },
-  animate: { opacity: 1, y: 0, transition: { duration: 0.3, ease: "easeOut" as const } },
+  animate: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.3, ease: "easeOut" as const },
+  },
   exit: { opacity: 0, y: -8, transition: { duration: 0.2 } },
 };
 
 const sectionVariants = {
   hidden: { opacity: 0, y: 24 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" as const } },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.4, ease: "easeOut" as const },
+  },
 };
 
 const About = () => {
   const title = "Về tôi";
   return (
-    <motion.div variants={pageVariants} initial="initial" animate="animate" exit="exit">
+    <motion.div
+      variants={pageVariants}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+    >
       <PageLayout title={title}>
         <article className="prose dark:prose-invert max-w-none">
-          <h1>{title}</h1>
+          <header className="border-b border-border">
+            <h1>{title}</h1>
+          </header>
           <div>
             <p>
               Tôi là Tuấn, và tôi chia sẻ những điều mình cho rằng nó là thú vị,
               hay giúp ích cho bạn!
               <br />
-              <img className="float-right ml-6 mb-4 w-40 h-40 rounded-full object-cover" src={logo} alt="Tuấn" />
+              <img
+                className="float-right ml-6 mb-4 w-40 h-40 rounded-full object-cover"
+                src={logo}
+                alt="Tuấn"
+              />
               <br />
               Tôi làm quen với máy tính bắt đầu vào năm 2007, khi vào Đại học.
               Các trang web là niềm say mê của tôi, bắt đầu bằng Yahoo Blog.
@@ -56,7 +75,6 @@ const About = () => {
               đỡ người khác.
             </p>
             <p>—</p>
-
             {[
               {
                 title: "1. Technical Expertise:",
@@ -122,13 +140,14 @@ const About = () => {
                 </ul>
               </motion.div>
             ))}
-
             <p>
               … và một số chủ đề khác.&nbsp;
               <Link to="http://cv.tuanitpro.com/">Nhiều hơn về tôi?</Link>
             </p>
             <h2>Tôi có thể làm được gì giúp bạn?</h2>
-            <p>Chiếc máy tính của bạn không hoạt động, bị virut,.. Hãy gọi tôi.</p>
+            <p>
+              Chiếc máy tính của bạn không hoạt động, bị virut,.. Hãy gọi tôi.
+            </p>
             <p>
               Bạn là người yêu thích lập trình, thích khám phá thế giới lập
               trình, bạn chưa biết bắt đầu từ đâu? Tôi có thể giúp bạn.
@@ -137,8 +156,14 @@ const About = () => {
               Bạn muốn tự tay thiết kế, lập trình một website, hay phần mềm? Bạn
               có thể làm được. Tôi sẽ giúp bạn.
             </p>
-            <p>Bạn cần một phần mềm quản lý lĩnh vực của bạn. Tôi có thể làm được.</p>
-            <p>Bạn cần một ứng dụng Android cho điện thoại của bạn. Tôi có thể làm được.</p>
+            <p>
+              Bạn cần một phần mềm quản lý lĩnh vực của bạn. Tôi có thể làm
+              được.
+            </p>
+            <p>
+              Bạn cần một ứng dụng Android cho điện thoại của bạn. Tôi có thể
+              làm được.
+            </p>
             <p>
               Bạn cần thiết kế website chuyên nghiệp, phần mềm quản lý, ứng dụng
               di động.., chất lượng và hiệu quả? Hãy gọi tôi.

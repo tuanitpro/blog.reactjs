@@ -17,7 +17,11 @@ type FormModel = {
 
 const pageVariants = {
   initial: { opacity: 0, y: 16 },
-  animate: { opacity: 1, y: 0, transition: { duration: 0.3, ease: "easeOut" as const } },
+  animate: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.3, ease: "easeOut" as const },
+  },
   exit: { opacity: 0, y: -8, transition: { duration: 0.2 } },
 };
 
@@ -39,7 +43,8 @@ const Contact = () => {
   });
 
   async function formPost(formData: FormData) {
-    const turnstileToken = (formData?.get("cf-turnstile-response") as string) || undefined;
+    const turnstileToken =
+      (formData?.get("cf-turnstile-response") as string) || undefined;
     const rawFormData: FormModel = {
       name: formData?.get("your-name") as string,
       email: formData?.get("your-email") as string,
@@ -51,9 +56,14 @@ const Contact = () => {
   }
 
   return (
-    <motion.div variants={pageVariants} initial="initial" animate="animate" exit="exit">
+    <motion.div
+      variants={pageVariants}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+    >
       <PageLayout title={title}>
-        <article>
+        <article className="prose dark:prose-invert max-w-none">
           {/* Featured image */}
           <div className="mb-8 -mx-4 lg:-mx-8">
             <img
@@ -65,17 +75,17 @@ const Contact = () => {
             />
           </div>
 
-          <header className="mb-6">
-            <h1 className="text-3xl font-bold tracking-tight text-foreground">{title}</h1>
+         <header className="border-b border-border">
+            <h1>{title}</h1>
           </header>
 
           <div className="prose dark:prose-invert max-w-none mb-8">
             <p>
-              Nếu bạn có bất kỳ thắc mắc nào về blog hoặc các trang web nói chung,
-              xin đừng ngần ngại liên hệ với tôi. Nếu bạn có một câu hỏi kỹ thuật,
-              hãy chắc chắn để bao gồm càng nhiều chi tiết càng tốt để tôi có thể
-              cung cấp sự hỗ trợ tốt nhất cho bạn. Nếu bạn muốn tôi thiết kế
-              website hay cài đặt blog của bạn, hãy liên hệ với tôi.
+              Nếu bạn có bất kỳ thắc mắc nào về blog hoặc các trang web nói
+              chung, xin đừng ngần ngại liên hệ với tôi. Nếu bạn có một câu hỏi
+              kỹ thuật, hãy chắc chắn để bao gồm càng nhiều chi tiết càng tốt để
+              tôi có thể cung cấp sự hỗ trợ tốt nhất cho bạn. Nếu bạn muốn tôi
+              thiết kế website hay cài đặt blog của bạn, hãy liên hệ với tôi.
               <br />
               Tôi trả lời cho tất cả các email phản hồi.{" "}
               <span className="inline-flex items-center gap-1">
@@ -138,7 +148,10 @@ const Contact = () => {
                 transition={{ delay: 0.2, duration: 0.4 }}
               >
                 <label className="block text-sm font-medium text-foreground mb-1">
-                  Tiêu đề <span className="text-foreground/40 font-normal">(Tuỳ chọn)</span>
+                  Tiêu đề{" "}
+                  <span className="text-foreground/40 font-normal">
+                    (Tuỳ chọn)
+                  </span>
                 </label>
                 <input
                   size={40}
@@ -166,7 +179,10 @@ const Contact = () => {
                 />
               </motion.div>
 
-              <div className="cf-turnstile" data-sitekey="0x4AAAAAACWOggNrwNIc73c4" />
+              <div
+                className="cf-turnstile"
+                data-sitekey="0x4AAAAAACWOggNrwNIc73c4"
+              />
 
               <motion.button
                 type="submit"

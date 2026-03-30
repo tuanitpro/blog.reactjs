@@ -1,6 +1,8 @@
 import { Link } from "react-router";
 import logo from "@static/image/logo.jpg";
 
+ 
+
 const Logo = () => {
   return (
     <Link to="/" rel="home" className="block shrink-0">
