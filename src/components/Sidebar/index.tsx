@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 
-import { X, Menu } from "lucide-react";
+import { X, Menu, Search } from "lucide-react";
 import Logo from "@components/Logo";
 import Hero from "@components/Hero";
 import Navigation from "@components/Navigation";
@@ -29,14 +29,17 @@ const Sidebar = () => {
         <div className="flex-1 overflow-y-auto">
           <Navigation toggleVisibility={() => {}} />
 
-          <div className="px-6 py-4 border-t border-border">
+          <div className="px-5 py-4 border-t border-border">
             <form role="search" method="get" action={import.meta.env.VITE_BLOG_URL}>
-              <input
-                placeholder="Search…"
-                type="search"
-                name="s"
-                className="w-full bg-box border border-border rounded px-3 py-2 text-sm text-foreground outline-none focus:border-foreground/40 placeholder:text-foreground/40 transition-colors"
-              />
+              <div className="relative">
+                <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-foreground/35 pointer-events-none" />
+                <input
+                  placeholder="Tìm kiếm…"
+                  type="search"
+                  name="s"
+                  className="w-full bg-box border border-border pl-8 pr-3 py-2 text-xs text-foreground outline-none focus:border-accent/50 placeholder:text-foreground/35 transition-colors duration-200"
+                />
+              </div>
             </form>
           </div>
 
@@ -89,14 +92,17 @@ const Sidebar = () => {
             <div className="flex-1 overflow-y-auto">
               <Navigation toggleVisibility={close} />
 
-              <div className="px-6 py-4 border-t border-border">
+              <div className="px-5 py-4 border-t border-border">
                 <form role="search" method="get" action={import.meta.env.VITE_BLOG_URL}>
-                  <input
-                    placeholder="Search…"
-                    type="search"
-                    name="s"
-                    className="w-full bg-box border border-border rounded px-3 py-2 text-sm text-foreground outline-none focus:border-foreground/40 placeholder:text-foreground/40 transition-colors"
-                  />
+                  <div className="relative">
+                    <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-foreground/35 pointer-events-none" />
+                    <input
+                      placeholder="Search…"
+                      type="search"
+                      name="s"
+                      className="w-full bg-box border border-border pl-8 pr-3 py-2 text-xs text-foreground outline-none focus:border-accent/50 placeholder:text-foreground/35 transition-colors duration-200"
+                    />
+                  </div>
                 </form>
               </div>
 

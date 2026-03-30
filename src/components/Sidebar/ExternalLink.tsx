@@ -52,23 +52,24 @@ const ExternalLink = () => {
 
   return (
     <aside className="px-5 py-4 border-t border-border">
-      <h2 className="text-[10px] font-bold tracking-widest uppercase text-foreground/40 mb-3">
+      <h2 className="text-[9px] font-bold tracking-[0.15em] uppercase text-foreground/35 mb-3">
         Liên kết
       </h2>
 
       {isPending && <Loader />}
       <nav aria-label="Liên kết">
         {data && (
-          <ul className="space-y-1 list-none m-0 p-0">
+          <ul className="space-y-0.5 list-none m-0 p-0">
             {data?.menu?.menuItems?.nodes?.map((c) => (
               <li key={c.id}>
                 <a
                   href={c.url}
                   target="_blank"
                   rel="noreferrer nofollow"
-                  className="block py-1 text-xs font-medium text-foreground/60 hover:text-foreground transition-colors tracking-wide"
+                  className="group flex items-center justify-between py-1 text-xs font-medium text-foreground/55 hover:text-foreground transition-colors duration-200 tracking-wide"
                 >
                   {c.label}
+                  <span className="opacity-0 group-hover:opacity-40 transition-opacity text-[10px]">↗</span>
                 </a>
               </li>
             ))}

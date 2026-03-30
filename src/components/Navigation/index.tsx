@@ -29,19 +29,22 @@ const Navigation = ({ toggleVisibility }: Props) => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: index * 0.08, duration: 0.3, ease: "easeOut" }}
             >
-              <motion.div whileHover={{ x: 4 }} transition={{ type: "tween", duration: 0.15 }}>
+              <motion.div whileHover={{ x: 3 }} transition={{ type: "tween", duration: 0.15 }}>
                 <Link
                   to={item.link}
                   onClick={() => (item?.external ? undefined : toggleVisibility?.())}
                   className={`
-                    block py-1.5 text-xs font-semibold tracking-widest transition-colors
+                    group flex items-center gap-2 py-1.5 text-[11px] font-semibold tracking-widest transition-colors duration-200
                     ${isActive
-                      ? "text-foreground border-l-2 border-foreground pl-3 -ml-px"
-                      : "text-foreground/60 hover:text-foreground pl-0"
+                      ? "text-accent border-l-2 border-accent pl-3 -ml-px"
+                      : "text-foreground/50 hover:text-foreground pl-0"
                     }
                   `}
                 >
                   {item.name}
+                  {item.external && (
+                    <span className="opacity-0 group-hover:opacity-60 transition-opacity text-[9px] translate-y-px">↗</span>
+                  )}
                 </Link>
               </motion.div>
             </motion.li>

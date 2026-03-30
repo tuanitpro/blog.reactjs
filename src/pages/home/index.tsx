@@ -27,8 +27,13 @@ const Home = () => {
     >
       <PageLayout title={title}>
         <article className="prose dark:prose-invert max-w-none">
-         <header className="border-b border-border">
-            <h1>code, eat, sleep, repeat</h1>
+          <header className="border-b border-border pb-5 mb-0 not-prose">
+            <h1
+              className="text-2xl font-bold text-foreground/80 tracking-tight leading-none"
+              style={{ fontFamily: "var(--font-display)", fontStyle: "italic" }}
+            >
+              code, eat, sleep, repeat
+            </h1>
           </header>
           <PostList
             posts={posts}

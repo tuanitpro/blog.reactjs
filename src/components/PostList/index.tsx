@@ -125,29 +125,35 @@ const PostList = ({
                 className="border-b border-border"
               >
               <motion.div
-                whileHover={{ scale: 1.01 }}
-                className="flex gap-4 py-5"
+                whileHover={{ x: 2 }}
+                transition={{ type: "tween", duration: 0.15 }}
+                className="group flex gap-4 py-5"
               >
                 {post?.featuredImage?.node?.mediaItemUrl && (
                   <div className="shrink-0">
-                    <img
-                      width={80}
-                      height={80}
-                      src={post.featuredImage.node.mediaItemUrl}
-                      alt={post.title}
-                      className="w-20 h-20 object-cover"
-                    />
+                    <div className="w-20 h-20 overflow-hidden">
+                      <motion.img
+                        width={80}
+                        height={80}
+                        src={post.featuredImage.node.mediaItemUrl}
+                        alt={post.title}
+                        className="w-20 h-20 object-cover"
+                        whileHover={{ scale: 1.06 }}
+                        transition={{ duration: 0.4, ease: "easeOut" }}
+                      />
+                    </div>
                   </div>
                 )}
                 <div className="flex-1 min-w-0">
                   <a
                     href={`#${post.slug}`}
-                    className="block text-sm font-semibold text-foreground hover:text-foreground/70 transition-colors leading-snug mb-2"
+                    className="block text-sm font-semibold text-foreground group-hover:text-accent transition-colors duration-200 leading-snug mb-2"
+                    style={{ fontFamily: "var(--font-display)" }}
                   >
                     {post.title}
                   </a>
                   <div
-                    className="text-xs text-foreground/60 line-clamp-3 leading-relaxed [&>p]:m-0"
+                    className="text-xs text-foreground/55 line-clamp-2 leading-relaxed [&>p]:m-0"
                     dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.excerpt) }}
                   />
                 </div>

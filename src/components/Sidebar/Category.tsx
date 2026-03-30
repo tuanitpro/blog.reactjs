@@ -57,14 +57,14 @@ const Category = ({ toggleVisibility }: Props) => {
 
   return (
     <aside className="px-5 py-4 border-t border-border">
-      <h2 className="text-[10px] font-bold tracking-widest uppercase text-foreground/40 mb-3">
-        Blog
+      <h2 className="text-[9px] font-bold tracking-[0.15em] uppercase text-foreground/35 mb-3">
+        Chuyên mục
       </h2>
 
       {isPending && <Loader />}
       <nav aria-label="Blog">
         {data && (
-          <ul className="space-y-1 list-none m-0 p-0">
+          <ul className="space-y-0.5 list-none m-0 p-0">
             {data?.categories?.nodes?.map((c) => {
               const isActive = location?.pathname.includes(c.slug);
               return (
@@ -73,14 +73,15 @@ const Category = ({ toggleVisibility }: Props) => {
                     to={c.slug}
                     onClick={() => toggleVisibility?.()}
                     className={`
-                      block py-1 text-xs font-medium tracking-wide transition-colors
+                      group flex items-center justify-between py-1 text-xs font-medium tracking-wide transition-colors duration-200
                       ${isActive
-                        ? "text-foreground border-l-2 border-foreground pl-3 -ml-px"
-                        : "text-foreground/60 hover:text-foreground"
+                        ? "text-accent border-l-2 border-accent pl-3 -ml-px"
+                        : "text-foreground/55 hover:text-foreground"
                       }
                     `}
                   >
                     {c.name}
+                    <span className="opacity-0 group-hover:opacity-40 transition-opacity text-[10px]">→</span>
                   </Link>
                 </li>
               );
