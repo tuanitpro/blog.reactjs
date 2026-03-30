@@ -9,7 +9,6 @@ import Modal from "@components/Modal";
 import { Loader } from "@components/Loader";
 import { LoadMoreStatus } from "@components/LoadMoreSpinner";
 import { post } from "@app-types/posts.type";
-import { useScrollContext } from "../../contexts/ScrollContext";
 
 const client = new GraphQLClient(import.meta.env.VITE_GRAPHQL_ENDPOINT || "");
 
@@ -48,33 +47,31 @@ const PostList = ({
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const listRef = useRef<HTMLDivElement>(null);
-  const scrollEl = useScrollContext();
   const [scrollMargin, setScrollMargin] = useState(0);
 
   useLayoutEffect(() => {
-    if (!listRef.current || !scrollEl.current) return;
+    if (!listRef.current) return;
     const listTop = listRef.current.getBoundingClientRect().top;
-    const containerTop = scrollEl.current.getBoundingClientRect().top;
-    setScrollMargin(scrollEl.current.scrollTop + listTop - containerTop);
+    setScrollMargin(window.scrollY + listTop);
   }, [isPending, posts.length]);
 
   const rowVirtualizer = useVirtualizer({
     count: posts.length,
-    getScrollElement: () => scrollEl.current,
+    getScrollElement: () => document.documentElement,
     estimateSize: () => 120,
     overscan: 5,
     scrollMargin,
   });
 
   // Trigger next page when last virtual item approaches the end
+  const virtualItems = rowVirtualizer.getVirtualItems();
   useEffect(() => {
-    const virtualItems = rowVirtualizer.getVirtualItems();
     const lastItem = virtualItems.at(-1);
     if (!lastItem) return;
     if (lastItem.index >= posts.length - 1 && hasNextPage && !isFetchingNextPage) {
       fetchNextPage();
     }
-  }, [rowVirtualizer.getVirtualItems(), hasNextPage, isFetchingNextPage, posts.length, fetchNextPage]);
+  }, [virtualItems, hasNextPage, isFetchingNextPage, posts.length, fetchNextPage]);
 
   const getPostMutation = useMutation({
     mutationFn: async (slug: string) =>

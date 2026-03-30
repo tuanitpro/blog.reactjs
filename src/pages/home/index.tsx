@@ -17,7 +17,7 @@ const Home = () => {
   return (
     <motion.div variants={pageVariants} initial="initial" animate="animate" exit="exit">
       <PageLayout title={title}>
-        <header className="mb-8 pb-6 border-b border-border">
+        <header className="mb-8 pb-6 border-b border-border px-6 md:max-xl:flex">
           <h1 className="text-3xl font-bold tracking-tight text-foreground">
             code, eat, sleep, repeat
           </h1>

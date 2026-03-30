@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
-import { BrowserRouter } from "react-router-dom";
 import "./index.css";
 
 const rootEl = document.getElementById("root");
@@ -21,11 +20,9 @@ if (rootEl) {
 
   root.render(
     <React.StrictMode>
-      <BrowserRouter>
-        <div className="hfeed site">
-          <App />
-        </div>
-      </BrowserRouter>
+      <div className="hfeed site">
+        <App />
+      </div>
     </React.StrictMode>
   );
 }

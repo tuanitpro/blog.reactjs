@@ -2,7 +2,6 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 
 import { X, Menu } from "lucide-react";
-import { useMediaQuery } from "react-responsive";
 import Logo from "@components/Logo";
 import Hero from "@components/Hero";
 import Navigation from "@components/Navigation";
@@ -11,9 +10,6 @@ import Category from "./Category";
 import ExternalLink from "./ExternalLink";
 
 const Sidebar = () => {
-  const isMobile = useMediaQuery({ maxWidth: 767 });
-  const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1023 });
-  const isSmall = isMobile || isTablet;
   const [isOpen, setIsOpen] = useState(false);
 
   const open = () => setIsOpen(true);
@@ -21,8 +17,8 @@ const Sidebar = () => {
 
   return (
     <>
-      {/* ── Desktop sidebar — real flex item, NOT fixed ─────────────────── */}
-      <aside className="hidden lg:flex flex-col flex-none w-72 h-screen bg-bg-primary border-r border-border shadow-sm">
+      {/* ── Desktop sidebar — fixed ─────────────────── */}
+      <aside className="hidden lg:flex flex-col fixed top-0 left-0 w-72 h-screen bg-bg-primary border-r border-border shadow-sm z-30">
         <header className="flex-none px-6 py-6 border-b border-border">
           <div className="flex flex-col items-start gap-4">
             <Logo />
@@ -52,33 +48,31 @@ const Sidebar = () => {
       </aside>
 
       {/* ── Mobile / tablet fixed top bar ───────────────────────────────── */}
-      {isSmall && (
-        <div className="fixed top-0 left-0 w-full z-40 bg-bg-primary border-b border-border">
-          <div className="flex items-center gap-3 px-6 py-4">
-            <Logo />
-            <Hero />
-            <button
-              className="ml-auto text-foreground/70 hover:text-foreground transition-colors cursor-pointer"
-              onClick={open}
-              aria-label="Open menu"
-            >
-              <Menu size={28} />
-            </button>
-          </div>
+      <div className="lg:hidden fixed top-0 left-0 w-full z-40 bg-bg-primary border-b border-border ">
+        <div className="flex items-center justify-between w-full px-6 py-6">
+          <Logo />
+          <Hero />
+          <button
+            className="ml-auto text-foreground/70 hover:text-foreground transition-colors cursor-pointer"
+            onClick={open}
+            aria-label="Open menu"
+          >
+            <Menu size={28} />
+          </button>
         </div>
-      )}
+      </div>
 
       {/* ── Mobile drawer ───────────────────────────────────────────────── */}
       <AnimatePresence>
-        {isSmall && isOpen && (
+        {isOpen && (
           <motion.div
-            className="fixed top-0 left-0 h-screen w-72 bg-bg-primary border-r border-border z-50 flex flex-col"
+            className="lg:hidden fixed top-0 left-0 h-screen w-72 bg-bg-primary border-r border-border z-50 flex flex-col"
             initial={{ x: "-100%" }}
             animate={{ x: 0 }}
             exit={{ x: "-100%" }}
             transition={{ type: "tween", duration: 0.25 }}
           >
-            <div className="flex-none flex items-center gap-3 px-6 py-5 border-b border-border">
+            <div className="flex items-center justify-between w-full px-6 py-6">
               <Logo />
               <Hero />
               <button
@@ -115,9 +109,9 @@ const Sidebar = () => {
 
       {/* ── Backdrop ────────────────────────────────────────────────────── */}
       <AnimatePresence>
-        {isSmall && isOpen && (
+        {isOpen && (
           <motion.div
-            className="fixed inset-0 bg-black/40 z-[49]"
+            className="lg:hidden fixed inset-0 bg-black/40 z-[49]"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}

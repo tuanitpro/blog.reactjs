@@ -1,2 +1,1 @@
 test("renders App", () => { });
-export {};
