@@ -69,7 +69,7 @@ const About = () => {
                 <p dir="auto">
                   Mobile app Development: Ability to work in the area of mobile
                   app development with platform: Android (Google Play), iOS (App
-                  Store) React Native, Flutter..
+                  Store) React Native, Flutter.
                 </p>
               </li>
               <li>
@@ -98,6 +98,38 @@ const About = () => {
                   containerization (Docker), and orchestration tools like
                   Kubernetes. ArgoCD, k8s Terraform (AWS, Azure), Docker,
                   Jenkins, Gitlab CI, GitHub Action…
+                </p>
+              </li>
+              <li>
+                <p dir="auto">
+                  AI-Powered Development: Experienced in leveraging AI tools to
+                  accelerate and enhance the development workflow — including
+                  Claude AI, Google Gemini, and GitHub Copilot for intelligent
+                  code completion, review, and generation.
+                </p>
+              </li>
+              <li>
+                <p dir="auto">
+                  AI Chatbot Development: Capable of designing and building
+                  conversational AI chatbots, integrating large language models
+                  into real-world applications to deliver smart, context-aware
+                  user experiences.
+                </p>
+              </li>
+              <li>
+                <p dir="auto">
+                  AI Workflow Orchestration: Proficient with Langflow for
+                  visually composing and managing AI pipelines and chatbot
+                  servers, enabling rapid prototyping of complex LLM-driven
+                  workflows without deep infrastructure overhead.
+                </p>
+              </li>
+              <li>
+                <p dir="auto">
+                  AI Content Generation Systems: Skilled in building automated
+                  content writer systems powered by AI — combining prompt
+                  engineering, model APIs, and workflow automation to produce
+                  high-quality, structured content at scale.
                 </p>
               </li>
             </ul>
