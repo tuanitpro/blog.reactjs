@@ -1,3 +1,4 @@
+import { motion } from "motion/react";
 import "./index.css";
 
 export const Spinner = ({
@@ -8,23 +9,26 @@ export const Spinner = ({
   color?: string;
 }) => {
   return (
-    <div
+    <motion.div
       className="spinner"
-      style={{
-        width: size,
-        height: size,
-        borderColor: color,
-      }}
-    ></div>
+      style={{ width: size, height: size, borderColor: color }}
+      animate={{ rotate: 360 }}
+      transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+    />
   );
 };
 
 export const PulseLoader = () => {
   return (
     <div className="pulse-loader">
-      <div className="pulse-dot"></div>
-      <div className="pulse-dot"></div>
-      <div className="pulse-dot"></div>
+      {[0, 1, 2].map((i) => (
+        <motion.div
+          key={i}
+          className="pulse-dot"
+          animate={{ scale: [0.8, 1, 0.8], opacity: [0.5, 1, 0.5] }}
+          transition={{ duration: 1.4, repeat: Infinity, delay: i * 0.16, ease: "easeInOut" }}
+        />
+      ))}
     </div>
   );
 };
@@ -32,9 +36,13 @@ export const PulseLoader = () => {
 export const BouncingLoader = () => {
   return (
     <div className="bouncing-loader">
-      <div></div>
-      <div></div>
-      <div></div>
+      {[0, 1, 2].map((i) => (
+        <motion.div
+          key={i}
+          animate={{ y: [0, -10, 0] }}
+          transition={{ duration: 1.4, repeat: Infinity, delay: i * 0.16, ease: "easeInOut" }}
+        />
+      ))}
     </div>
   );
 };
@@ -64,7 +72,14 @@ export const LoadMoreStatus = ({
   if (!hasNextPage && itemsLength > 0) {
     return (
       <div className="load-more-status end">
-        <div className="end-icon">✓</div>
+        <motion.div
+          className="end-icon"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+        >
+          ✓
+        </motion.div>
         <span className="end-text">Bạn ơi, không còn bài viết nào nữa rồi!</span>
       </div>
     );

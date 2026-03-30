@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 
 type Props = {
   hasNextPage: boolean | undefined;
-  fetchNextPage: () => Promise<any>;
+  fetchNextPage: () => Promise<unknown>;
   isFetchingNextPage: boolean;
 };
 export const useInfiniteScroll = ({

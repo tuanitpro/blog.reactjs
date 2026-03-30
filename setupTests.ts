@@ -11,7 +11,10 @@ const localStorageMock = {
 };
 
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 (global as any).localStorage = localStorageMock;
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 (global as any).TextEncoder = TextEncoder;
-(global as any).TextDecoder = TextDecoder as unknown as typeof globalThis.TextDecoder;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+(global as any).TextDecoder = TextDecoder;

@@ -1,3 +1,4 @@
+import { motion } from "motion/react";
 import { Link, useLocation } from "react-router";
 
 type Props = {
@@ -20,25 +21,24 @@ const Navigation = ({ toggleVisibility }: Props) => {
     <nav className="main-navigation">
       <div className="menu-main-menu-container">
         <ul id="menu-main-menu" className="nav-menu">
-          {menuItems?.map((i) => {
-            return (
-              <li
-                key={i.name}
-                className={`menu-item ${
-                  location?.pathname === i.link ? "menu-active" : ""
-                }`}
-              >
+          {menuItems?.map((i, index) => (
+            <motion.li
+              key={i.name}
+              className={`menu-item ${location?.pathname === i.link ? "menu-active" : ""}`}
+              initial={{ opacity: 0, x: -16 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: index * 0.08, duration: 0.3, ease: "easeOut" }}
+            >
+              <motion.div whileHover={{ x: 4 }} transition={{ type: "tween", duration: 0.15 }}>
                 <Link
                   to={i.link}
-                  onClick={() =>
-                    i?.external ? undefined : toggleVisibility?.()
-                  }
+                  onClick={() => (i?.external ? undefined : toggleVisibility?.())}
                 >
                   {i.name}
                 </Link>
-              </li>
-            );
-          })}
+              </motion.div>
+            </motion.li>
+          ))}
         </ul>
       </div>
     </nav>

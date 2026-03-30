@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { motion } from "motion/react";
 import DOMPurify from "dompurify";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
@@ -22,10 +23,19 @@ const singlePostQuery = gql`
   }
 `;
 
+const fadeUpVariants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: i * 0.08, duration: 0.4, ease: "easeOut" as const },
+  }),
+};
+
 type Props = {
   posts: post[];
   isPending: boolean;
-  fetchNextPage: () => Promise<any>;
+  fetchNextPage: () => Promise<unknown>;
   hasNextPage: boolean | undefined;
   isFetchingNextPage: boolean;
   pageTitle: string;
@@ -85,8 +95,17 @@ const PostList = ({
           <>Không tìm thấy bài viết nào</>
         )}
         <ul>
-          {posts.map((post) => (
-            <li key={post.id}>
+          {posts.map((post, index) => (
+            <motion.li
+              key={post.id}
+              custom={index}
+              variants={fadeUpVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              whileHover={{ scale: 1.02 }}
+              transition={{ type: "tween" }}
+            >
               {post?.featuredImage?.node?.mediaItemUrl && (
                 <div className="my-thumbnail">
                   <img
@@ -104,7 +123,7 @@ const PostList = ({
                 className="description"
                 dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.excerpt) }}
               />
-            </li>
+            </motion.li>
           ))}
         </ul>
       </div>
@@ -121,32 +140,30 @@ const PostList = ({
           />
         </div>
       )}
-      {open && (
-        <Modal
-          title={
-            getPostMutation?.data?.post?.title ||
-            "Bạn đợi chút, tôi đang tải bài viết..."
-          }
-          open={open}
-          onClose={() => {
-            setOpen(false);
-            navigate(navigateOnClose, { replace: true });
-            document.title = pageTitle;
-          }}
-        >
-          {getPostMutation.isSuccess && getPostMutation?.data?.post && (
-            <div
-              dangerouslySetInnerHTML={{
-                __html: DOMPurify.sanitize(getPostMutation.data.post.content),
-              }}
-            />
-          )}
-          {getPostMutation.isPending && <Loader />}
-          {getPostMutation.isError && (
-            <p>Không thể tải bài viết. Vui lòng thử lại.</p>
-          )}
-        </Modal>
-      )}
+      <Modal
+        title={
+          getPostMutation?.data?.post?.title ||
+          "Bạn đợi chút, tôi đang tải bài viết..."
+        }
+        open={open}
+        onClose={() => {
+          setOpen(false);
+          navigate(navigateOnClose, { replace: true });
+          document.title = pageTitle;
+        }}
+      >
+        {getPostMutation.isSuccess && getPostMutation?.data?.post && (
+          <div
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(getPostMutation.data.post.content),
+            }}
+          />
+        )}
+        {getPostMutation.isPending && <Loader />}
+        {getPostMutation.isError && (
+          <p>Không thể tải bài viết. Vui lòng thử lại.</p>
+        )}
+      </Modal>
     </article>
   );
 };

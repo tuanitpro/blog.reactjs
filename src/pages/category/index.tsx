@@ -1,3 +1,4 @@
+import { motion } from "motion/react";
 import { useQuery } from "@tanstack/react-query";
 import { gql, GraphQLClient } from "graphql-request";
 import { useParams } from "react-router";
@@ -16,6 +17,12 @@ const categoryQuery = gql`
   }
 `;
 
+const pageVariants = {
+  initial: { opacity: 0, y: 16 },
+  animate: { opacity: 1, y: 0, transition: { duration: 0.3, ease: "easeOut" as const } },
+  exit: { opacity: 0, y: -8, transition: { duration: 0.2 } },
+};
+
 const Category = () => {
   const { slug } = useParams<{ slug: string }>();
 
@@ -31,27 +38,29 @@ const Category = () => {
   const pageTitle = category?.name || "Category";
 
   return (
-    <PageLayout title={pageTitle}>
-      <>
-        <header className="page-title">
-          <article className="hentry">
-            <div className="entry-content">
-              <h1>{category?.name || "..."}</h1>
-            </div>
-          </article>
-        </header>
-        <PostList
-          posts={posts}
-          isPending={isPending}
-          fetchNextPage={fetchNextPage}
-          hasNextPage={hasNextPage}
-          isFetchingNextPage={isFetchingNextPage}
-          pageTitle={pageTitle}
-          navigateOnClose={`/${slug}`}
-          showEmptyMessage
-        />
-      </>
-    </PageLayout>
+    <motion.div variants={pageVariants} initial="initial" animate="animate" exit="exit">
+      <PageLayout title={pageTitle}>
+        <>
+          <header className="page-title">
+            <article className="hentry">
+              <div className="entry-content">
+                <h1>{category?.name || "..."}</h1>
+              </div>
+            </article>
+          </header>
+          <PostList
+            posts={posts}
+            isPending={isPending}
+            fetchNextPage={fetchNextPage}
+            hasNextPage={hasNextPage}
+            isFetchingNextPage={isFetchingNextPage}
+            pageTitle={pageTitle}
+            navigateOnClose={`/${slug}`}
+            showEmptyMessage
+          />
+        </>
+      </PageLayout>
+    </motion.div>
   );
 };
 
