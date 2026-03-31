@@ -67,13 +67,19 @@ const About = () => {
           <div className="space-y-10">
             {[
               {
-                title: "01. Technical Expertise",
+                title: "1. Technical Expertise:",
                 items: [
                   "Frontend Proficiency: Deep knowledge of frontend technologies like HTML, CSS, JavaScript, and frameworks such as React, NextJS and Vue.js.",
-                  "Backend Development: Experience in backend technologies like Node.js, C#, ADO.NET NET Core, MVC, LINQ, Entity Framework, Dapper, WebServices, RESTful API, IdentityServer4, RabbitMQ, Redis, NextJS, NestJS.",
+                  "Backend Development: Experience in backend technologies like Node.js, C#, ADO.NET NET Core, MVC, LINQ, Entity Framework, Dapper, WebServices, RESTful API, IdentityServer4, RabbitMQ, Redis, NextJS, NestJS. Knowledge of some well-known Unit Test with xUnit, NSubtitue. (The art of unit testing)",
                   "Mobile app Development: Ability to work in the area of mobile app development with platform: Android (Google Play), iOS (App Store) React Native, Flutter.",
                   "Database Management: Familiarity with both relational (SQL) and non-relational (NoSQL) databases like SQL Server, PostgreSQL, MySQL, MongoDB.",
-                  "AI-Powered Development: Experienced in leveraging AI tools to accelerate and enhance the development workflow.",
+                  "API Design: Expertise in designing and developing RESTful or GraphQL APIs.",
+                  "Cloud Services: Familiarity with cloud platforms like AWS, Azure and experience with deploying applications on these platforms.",
+                  "DevOps Knowledge: Familiarity with CI/CD pipelines, containerization (Docker), and orchestration tools like Kubernetes. ArgoCD, k8s Terraform (AWS, Azure), Docker, Jenkins, Gitlab CI, GitHub Action…",
+                  "AI-Powered Development: Experienced in leveraging AI tools to accelerate and enhance the development workflow — including Claude AI, Google Gemini, and GitHub Copilot for intelligent code completion, review, and generation.",
+                  "AI Chatbot Development: Capable of designing and building conversational AI chatbots, integrating large language models into real-world applications to deliver smart, context-aware user experiences.",
+                  "AI Workflow Orchestration: Proficient with Langflow for visually composing and managing AI pipelines and chatbot servers, enabling rapid prototyping of complex LLM-driven workflows without deep infrastructure overhead.",
+                  "AI Content Generation Systems: Skilled in building automated content writer systems powered by AI — combining prompt engineering, model APIs, and workflow automation to produce high-quality, structured content at scale.",
                 ],
               },
               {
