@@ -2,31 +2,40 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+:root {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f9f9f9;
+  --background: #ffffff;
+  --foreground: #111111;
+  --box: #f3f4f6;
+  --border: #e5e7eb;
+  --accent: #c9973a;
+  --ink: #111111;
+}
+
+.dark {
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #141414;
+  --background: #050505;
+  --foreground: #ede9e2;
+  --box: #1a1a1a;
+  --border: #262626;
+  --accent: #f27d26;
+}
+
 @theme {
-  --color-bg-primary: #fefcf8;
-  --color-bg-secondary: #f5f2ec;
-  --color-background: #fefcf8;
-  --color-foreground: #1c1814;
-  --color-box: #f5f2ec;
-  --color-border: #e2ddd6;
-  --color-accent: #c9973a;
-  --color-ink: #141414;
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-box: var(--box);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-ink: var(--ink);
 
   --font-display: 'Anton', sans-serif;
   --font-body: 'Inter', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
-}
-
-@media (prefers-color-scheme: dark) {
-  @theme {
-    --color-bg-primary: #0a0a0a;
-    --color-bg-secondary: #141414;
-    --color-background: #050505;
-    --color-foreground: #ede9e2;
-    --color-box: #1a1a1a;
-    --color-border: #262626;
-    --color-accent: #f27d26;
-  }
 }
 
 @layer base {

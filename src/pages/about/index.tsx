@@ -33,15 +33,15 @@ const About = () => {
     >
       <PageLayout title={title}>
         <article className="prose dark:prose-invert max-w-none">
-          <header className="mb-12 not-prose">
+          <header className="mb-8 not-prose">
             <span className="micro-label text-accent mb-2 block">About Me</span>
             <h1 className="text-7xl lg:text-9xl font-bold tracking-tighter text-display leading-[0.85] italic">
               PASSION &<br />EXPERTISE
             </h1>
-            <div className="h-1 w-24 bg-accent mt-8" />
+            <div className="h-1 w-24 bg-accent mt-6" />
           </header>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start mb-20">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start mb-12">
             <div className="relative">
               <img
                 className="w-full aspect-square object-cover grayscale hover:grayscale-0 transition-all duration-700 rounded-sm"
@@ -64,7 +64,7 @@ const About = () => {
             </div>
           </div>
 
-          <div className="space-y-16">
+          <div className="space-y-10">
             {[
               {
                 title: "01. Technical Expertise",
@@ -113,10 +113,10 @@ const About = () => {
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
-                className="border-t border-border/30 pt-8"
+                className="border-t border-border/30 pt-6"
               >
-                <h3 className="text-display text-4xl mb-4 italic">{section.title}</h3>
-                <ul className="grid grid-cols-1 gap-2 list-none p-0">
+                <h3 className="text-display text-4xl mb-2 italic">{section.title}</h3>
+                <ul className="grid grid-cols-1 gap-1 list-none p-0">
                   {section.items.map((item, i) => (
                     <li key={i} className="group">
                       <p className="text-foreground/60 group-hover:text-foreground transition-colors duration-300 leading-relaxed">

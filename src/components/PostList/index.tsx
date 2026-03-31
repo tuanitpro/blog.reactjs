@@ -100,9 +100,15 @@ const PostList = ({
     <article className="w-full">
       {isPending && <Loader />}
       {showEmptyMessage && !isPending && posts.length === 0 && (
-        <p className="text-foreground/50 text-sm py-8 text-center">
-          Không tìm thấy bài viết nào
-        </p>
+        <div className="py-24 text-center border-y border-border/30 my-12">
+          <span className="micro-label text-accent mb-4 block">Archive</span>
+          <h2 className="text-4xl font-bold text-display italic tracking-tight text-foreground/20">
+            No articles found in this collection.
+          </h2>
+          <p className="mt-4 text-foreground/40 font-medium">
+            Please check back later or explore other categories.
+          </p>
+        </div>
       )}
 
       <div ref={listRef}>
@@ -127,42 +133,49 @@ const PostList = ({
               <motion.div
                 whileHover={{ x: 8 }}
                 transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                className="group flex flex-col md:flex-row gap-6 py-10"
+                className="group flex flex-col md:flex-row gap-8 py-12"
               >
-                <div className="flex-none flex items-start gap-4">
-                  <span className="text-display text-4xl text-foreground/10 group-hover:text-accent/20 transition-colors duration-500">
-                    {(virtualItem.index + 1).toString().padStart(2, '0')}
-                  </span>
-                  {post?.featuredImage?.node?.mediaItemUrl && (
-                    <div className="shrink-0">
-                      <div className="w-24 h-24 overflow-hidden rounded-sm grayscale group-hover:grayscale-0 transition-all duration-700">
-                        <motion.img
-                          width={96}
-                          height={96}
-                          src={post.featuredImage.node.mediaItemUrl}
-                          alt={post.title}
-                          className="w-24 h-24 object-cover"
-                          whileHover={{ scale: 1.1 }}
-                          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                        />
-                      </div>
+                {/* Image Section */}
+                {post?.featuredImage?.node?.mediaItemUrl && (
+                  <div className="w-full md:w-56 shrink-0 -mx-4 md:mx-0">
+                    <div className="w-full aspect-[16/9] md:aspect-square md:w-56 md:h-56 overflow-hidden rounded-sm grayscale group-hover:grayscale-0 transition-all duration-700">
+                      <motion.img
+                        width={640}
+                        height={360}
+                        src={post.featuredImage.node.mediaItemUrl}
+                        alt={post.title}
+                        className="w-full h-full object-cover"
+                        whileHover={{ scale: 1.1 }}
+                        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                      />
                     </div>
-                  )}
-                </div>
-                <div className="flex-1 min-w-0">
-                  <a
-                    href={`#${post.slug}`}
-                    className="block text-2xl font-bold text-foreground group-hover:text-accent transition-all duration-300 leading-tight mb-3 text-display tracking-tight"
-                  >
-                    {post.title}
-                  </a>
-                  <div
-                    className="text-sm text-foreground/60 line-clamp-3 leading-relaxed [&>p]:m-0 font-medium"
-                    dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.excerpt) }}
-                  />
-                  <div className="mt-6 flex items-center gap-4">
-                    <span className="micro-label text-foreground/30">Read Article</span>
-                    <div className="h-[1px] flex-1 bg-border/30 group-hover:bg-accent/30 transition-colors duration-500" />
+                  </div>
+                )}
+
+                <div className="flex flex-col md:flex-row gap-6 flex-1 min-w-0">
+                  {/* Index Section */}
+                  <div className="shrink-0">
+                    <span className="text-display text-5xl md:text-4xl text-foreground/5 md:text-foreground/10 group-hover:text-accent/20 transition-colors duration-500 block leading-none">
+                      {(virtualItem.index + 1).toString().padStart(2, '0')}
+                    </span>
+                  </div>
+
+                  {/* Content Section */}
+                  <div className="flex-1 min-w-0">
+                    <a
+                      href={`#${post.slug}`}
+                      className="block text-3xl md:text-2xl font-bold text-foreground group-hover:text-accent transition-all duration-300 leading-tight mb-4 text-display tracking-tight italic"
+                    >
+                      {post.title}
+                    </a>
+                    <div
+                      className="text-base md:text-sm text-foreground/60 line-clamp-3 leading-relaxed [&>p]:m-0 font-medium"
+                      dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.excerpt) }}
+                    />
+                    <div className="mt-8 flex items-center gap-4">
+                      <span className="micro-label text-foreground/30">Read Article</span>
+                      <div className="h-[1px] flex-1 bg-border/30 group-hover:bg-accent/30 transition-colors duration-500" />
+                    </div>
                   </div>
                 </div>
               </motion.div>

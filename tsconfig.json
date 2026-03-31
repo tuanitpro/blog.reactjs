@@ -19,7 +19,8 @@
       "@static/*": ["src/static/*"],
       "@hooks/*": ["src/hooks/*"],
       "@app-types/*": ["src/types/*"],
-      "@utils/*": ["src/utils/*"]
+      "@utils/*": ["src/utils/*"],
+      "@contexts/*": ["src/contexts/*"]
     },
     "allowImportingTsExtensions": true,
     "noEmit": true

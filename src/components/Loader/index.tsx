@@ -4,11 +4,15 @@ import loader from "@static/image/loader.lottie";
 
 export const Loader = () => {
   return (
-    <DotLottieReact
-      src={loader}
-      loop
-      autoplay
-      renderConfig={{ autoResize: true,  }}
-    />
+    <div className="flex items-center justify-center py-12">
+      <div className="w-48 h-48">
+        <DotLottieReact
+          src={loader}
+          loop
+          autoplay
+          renderConfig={{ autoResize: true }}
+        />
+      </div>
+    </div>
   );
 };

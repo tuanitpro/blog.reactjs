@@ -51,8 +51,8 @@ const ExternalLink = () => {
   });
 
   return (
-    <aside className="px-5 py-4 border-t border-border">
-      <h2 className="text-[9px] font-bold tracking-[0.15em] uppercase text-foreground/35 mb-3">
+    <aside className="px-8 py-6 border-t border-border/30">
+      <h2 className="text-[10px] font-bold tracking-[0.2em] uppercase text-foreground/30 mb-4">
         Liên kết
       </h2>
 

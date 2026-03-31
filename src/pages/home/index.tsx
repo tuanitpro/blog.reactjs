@@ -34,7 +34,7 @@ const Home = () => {
               transition={{ duration: 0.6, delay: 0.2 }}
             >
               <span className="micro-label text-accent mb-2 block">Personal Blog</span>
-              <h1 className="text-7xl lg:text-9xl font-bold tracking-tighter text-display leading-[0.85] italic">
+              <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-9xl font-bold tracking-tighter text-display leading-[0.85] italic">
                 CODE, EAT,<br />SLEEP, REPEAT
               </h1>
               <div className="h-1 w-24 bg-accent mt-8" />

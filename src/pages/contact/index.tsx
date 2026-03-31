@@ -72,6 +72,8 @@ const Contact = () => {
             <div>
               <p className="text-xl font-medium leading-relaxed italic text-foreground/80 mb-8">
                 Nếu bạn đang tìm kiếm giải pháp về phần mềm, AI, website hay chatbot thông minh, đừng ngần ngại kết nối với tôi để cùng hiện thực hóa những ý tưởng đột phá.
+                <br />
+                <br />(If you are looking for solutions in software, AI, website or intelligent chatbot, don&apos;t hesitate to connect with me to realize breakthrough ideas together.)
               </p>
               <div className="space-y-6 not-prose">
                 <div className="flex items-center gap-4 group">

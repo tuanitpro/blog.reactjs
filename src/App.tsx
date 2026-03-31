@@ -8,10 +8,11 @@ import {
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, useScroll, useSpring } from "motion/react";
 
 import Sidebar from "@components/Sidebar";
 import ErrorBoundary from "@components/ErrorBoundary";
+import { ThemeProvider } from "@contexts/ThemeContext";
 
 import Home from "./pages/home";
 import About from "./pages/about";
@@ -23,9 +24,19 @@ const queryClient = new QueryClient();
 const Layout = () => {
   const location = useLocation();
   const outlet = useOutlet();
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
 
   return (
     <div className="flex flex-col lg:flex-row min-h-screen bg-background text-foreground selection:bg-accent selection:text-white">
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-1 bg-accent origin-left z-[100]"
+        style={{ scaleX }}
+      />
       {/* Mobile: reserves height for fixed top bar. Desktop: reserves width for fixed sidebar. */}
       <div className="h-16 shrink-0 lg:h-auto lg:w-80 lg:flex-none" aria-hidden="true" />
 
@@ -80,7 +91,9 @@ const router = createBrowserRouter([
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <RouterProvider router={router} />
+    <ThemeProvider>
+      <RouterProvider router={router} />
+    </ThemeProvider>
   </QueryClientProvider>
 );
 
