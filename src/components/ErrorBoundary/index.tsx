@@ -32,6 +32,7 @@ class ErrorBoundary extends React.Component<Props, State> {
 
   handleReset = () => {
     this.setState({ hasError: false, error: null, errorInfo: null });
+    localStorage.clear();
     window.location.reload();
   };
 

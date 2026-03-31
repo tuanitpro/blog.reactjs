@@ -31,10 +31,8 @@ const Category = ({ toggleVisibility }: Props) => {
           },
         },
       ).then((res) => res.json());
-      writeCache(CACHE_KEY, result);
       return result;
     },
-    initialData: () => readCache<category[]>(CACHE_KEY),
     staleTime: CACHE_TTL_MS,
   });
 
