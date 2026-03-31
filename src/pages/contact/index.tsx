@@ -2,7 +2,6 @@ import { motion } from "motion/react";
 import { ToastContainer, toast } from "react-toastify";
 import { Mail, Phone } from "lucide-react";
 import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
 import PageLayout from "@layouts/PageLayout";
 import { Loader } from "@components/Loader";
 
@@ -28,9 +27,15 @@ const Contact = () => {
   const title = "Liên hệ";
   const sendMutation = useMutation({
     mutationFn: async (variables: FormModel) => {
-      return await axios.post(import.meta.env.VITE_API_ENDPOINT+'/contacts', variables);
+      return await fetch(import.meta.env.VITE_API_ENDPOINT+'/contacts', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(variables),
+      }).then((res) => res.json());
     },
-    onSettled() {
+    onSuccess() {
       toast("🦄 Cảm ơn bạn đã để lại liên hệ.");
     },
     onError() {
