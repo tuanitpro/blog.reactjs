@@ -28,7 +28,7 @@ const Contact = () => {
   const title = "Liên hệ";
   const sendMutation = useMutation({
     mutationFn: async (variables: FormModel) => {
-      return await axios.post(import.meta.env.VITE_WORKER_URL, variables);
+      return await axios.post(import.meta.env.VITE_API_ENDPOINT+'/contacts', variables);
     },
     onSettled() {
       toast("🦄 Cảm ơn bạn đã để lại liên hệ.");
