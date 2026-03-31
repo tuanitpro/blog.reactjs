@@ -4,19 +4,19 @@ import { Link } from "react-router";
 const Hero = () => {
   return (
     <div className="min-w-0">
-      <h2 className="leading-none" style={{ fontFamily: "var(--font-display)" }}>
+      <h2 className="leading-none">
         <Link
           to="/"
           rel="home"
-          className="text-foreground hover:text-accent transition-colors duration-300 text-3xl font-bold tracking-tight italic"
+          className="text-foreground hover:text-accent transition-colors duration-300 text-4xl font-bold tracking-tighter text-display italic"
         >
           Tuấn
         </Link>
       </h2>
       <motion.p
-        className="mt-1.5 text-[11px] text-foreground/45 leading-snug hidden lg:block font-medium tracking-wide"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
+        className="mt-2 text-[10px] text-foreground/50 leading-snug hidden lg:block font-semibold tracking-[0.1em] uppercase"
+        initial={{ opacity: 0, y: 5 }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4, duration: 0.6 }}
       >
         Hãy theo đuổi đam mê, nợ nần sẽ theo đuổi bạn

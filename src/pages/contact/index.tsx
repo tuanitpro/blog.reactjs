@@ -1,7 +1,6 @@
 import { motion } from "motion/react";
 import { ToastContainer, toast } from "react-toastify";
 import { Mail, Phone } from "lucide-react";
-import contact from "@static/image/contact.jpg";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import PageLayout from "@layouts/PageLayout";
@@ -24,9 +23,6 @@ const pageVariants = {
   },
   exit: { opacity: 0, y: -8, transition: { duration: 0.2 } },
 };
-
-const inputClass =
-  "w-full bg-box border border-border px-3 py-2 text-sm text-foreground outline-none focus:border-foreground/40 placeholder:text-foreground/30 transition-colors";
 
 const Contact = () => {
   const title = "Liên hệ";
@@ -64,142 +60,98 @@ const Contact = () => {
     >
       <PageLayout title={title}>
         <article className="prose dark:prose-invert max-w-none">
-          {/* Featured image */}
-          <div className="mb-8 -mx-4 lg:-mx-8">
-            <img
-              width="100%"
-              height="510"
-              src={contact}
-              alt="Blog of Tuan"
-              className="w-full h-48 sm:h-64 object-cover"
-            />
-          </div>
-
-         <header className="border-b border-border">
-            <h1>{title}</h1>
+          <header className="mb-12 not-prose">
+            <span className="micro-label text-accent mb-2 block">Contact</span>
+            <h1 className="text-7xl lg:text-9xl font-bold tracking-tighter text-display leading-[0.85] italic">
+              GET IN<br />TOUCH
+            </h1>
+            <div className="h-1 w-24 bg-accent mt-8" />
           </header>
 
-          <div className="prose dark:prose-invert max-w-none mb-8">
-            <p>
-              Nếu bạn có bất kỳ thắc mắc nào về blog hoặc các trang web nói
-              chung, xin đừng ngần ngại liên hệ với tôi. Nếu bạn có một câu hỏi
-              kỹ thuật, hãy chắc chắn để bao gồm càng nhiều chi tiết càng tốt để
-              tôi có thể cung cấp sự hỗ trợ tốt nhất cho bạn. Nếu bạn muốn tôi
-              thiết kế website hay cài đặt blog của bạn, hãy liên hệ với tôi.
-              <br />
-              Tôi trả lời cho tất cả các email phản hồi.{" "}
-              <span className="inline-flex items-center gap-1">
-                <Mail size={14} /> tuanitpro@gmail.com
-              </span>{" "}
-              hoặc:{" "}
-              <span className="inline-flex items-center gap-1">
-                <Phone size={14} /> 097 6060 432
-              </span>
-            </p>
-          </div>
-
-          <hr className="border-border mb-8" />
-
-          {/* Contact form */}
-          <div className="relative">
-            <form action={formPost} className="space-y-5">
-              <motion.div
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0, duration: 0.4 }}
-              >
-                <label className="block text-sm font-medium text-foreground mb-1">
-                  Tên bạn
-                </label>
-                <input
-                  size={40}
-                  maxLength={400}
-                  required
-                  type="text"
-                  name="your-name"
-                  className={inputClass}
-                />
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.1, duration: 0.4 }}
-              >
-                <label className="block text-sm font-medium text-foreground mb-1">
-                  Email
-                </label>
-                <input
-                  size={40}
-                  maxLength={400}
-                  type="email"
-                  name="your-email"
-                  required
-                  className={inputClass}
-                />
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.2, duration: 0.4 }}
-              >
-                <label className="block text-sm font-medium text-foreground mb-1">
-                  Tiêu đề{" "}
-                  <span className="text-foreground/40 font-normal">
-                    (Tuỳ chọn)
-                  </span>
-                </label>
-                <input
-                  size={40}
-                  maxLength={400}
-                  type="text"
-                  name="your-subject"
-                  className={inputClass}
-                />
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.3, duration: 0.4 }}
-              >
-                <label className="block text-sm font-medium text-foreground mb-1">
-                  Nội dung
-                </label>
-                <textarea
-                  name="your-message"
-                  rows={5}
-                  maxLength={2000}
-                  className={`${inputClass} resize-none`}
-                />
-              </motion.div>
-
-              <div
-                className="cf-turnstile"
-                data-sitekey="0x4AAAAAACWOggNrwNIc73c4"
-              />
-
-              <motion.button
-                type="submit"
-                whileTap={{ scale: 0.97 }}
-                transition={{ type: "tween", duration: 0.1 }}
-                className="px-6 py-2.5 bg-foreground text-background text-sm font-semibold tracking-wide hover:opacity-90 transition-opacity cursor-pointer disabled:opacity-50"
-                disabled={sendMutation?.isPending}
-              >
-                {sendMutation?.isPending ? "Đang gửi..." : "Gửi ngay"}
-              </motion.button>
-            </form>
-
-            {sendMutation?.isPending && (
-              <div className="absolute inset-0 flex items-center justify-center bg-background/60 z-10 cursor-wait">
-                <Loader />
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start mb-20">
+            <div>
+              <p className="text-xl font-medium leading-relaxed italic text-foreground/80 mb-8">
+                Nếu bạn đang tìm kiếm giải pháp về phần mềm, AI, website hay chatbot thông minh, đừng ngần ngại kết nối với tôi để cùng hiện thực hóa những ý tưởng đột phá.
+              </p>
+              <div className="space-y-6 not-prose">
+                <div className="flex items-center gap-4 group">
+                  <div className="w-12 h-12 rounded-full border border-border/30 flex items-center justify-center group-hover:bg-accent group-hover:text-white transition-all duration-300">
+                    <Mail size={18} />
+                  </div>
+                  <div>
+                    <span className="micro-label block opacity-40">Email</span>
+                    <span className="text-lg font-medium">tuanitpro@gmail.com</span>
+                  </div>
+                </div>
+                <div className="flex items-center gap-4 group">
+                  <div className="w-12 h-12 rounded-full border border-border/30 flex items-center justify-center group-hover:bg-accent group-hover:text-white transition-all duration-300">
+                    <Phone size={18} />
+                  </div>
+                  <div>
+                    <span className="micro-label block opacity-40">Phone</span>
+                    <span className="text-lg font-medium">097 6060 432</span>
+                  </div>
+                </div>
               </div>
-            )}
+            </div>
+
+            <div className="relative p-8 bg-box/30 border border-border/30 rounded-sm">
+              <form action={formPost} className="space-y-8">
+                <div className="space-y-2">
+                  <label className="micro-label opacity-60">Your Name</label>
+                  <input
+                    required
+                    type="text"
+                    name="your-name"
+                    className="w-full bg-transparent border-b border-border/50 py-2 text-lg outline-none focus:border-accent transition-colors placeholder:text-foreground/20"
+                    placeholder="John Doe"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <label className="micro-label opacity-60">Email Address</label>
+                  <input
+                    type="email"
+                    name="your-email"
+                    required
+                    className="w-full bg-transparent border-b border-border/50 py-2 text-lg outline-none focus:border-accent transition-colors placeholder:text-foreground/20"
+                    placeholder="john@example.com"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <label className="micro-label opacity-60">Message</label>
+                  <textarea
+                    name="your-message"
+                    rows={4}
+                    required
+                    className="w-full bg-transparent border-b border-border/50 py-2 text-lg outline-none focus:border-accent transition-colors placeholder:text-foreground/20 resize-none"
+                    placeholder="Tell me about your project..."
+                  />
+                </div>
+
+                <div
+                  className="cf-turnstile"
+                  data-sitekey="0x4AAAAAACWOggNrwNIc73c4"
+                />
+
+                <motion.button
+                  type="submit"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="w-full py-4 bg-foreground text-background text-xs font-bold tracking-[0.2em] uppercase hover:bg-accent hover:text-white transition-all duration-300 disabled:opacity-50"
+                  disabled={sendMutation?.isPending}
+                >
+                  {sendMutation?.isPending ? "Sending..." : "Send Message"}
+                </motion.button>
+              </form>
+
+              {sendMutation?.isPending && (
+                <div className="absolute inset-0 flex items-center justify-center bg-background/60 backdrop-blur-sm z-10">
+                  <Loader />
+                </div>
+              )}
+            </div>
           </div>
         </article>
         <ToastContainer />

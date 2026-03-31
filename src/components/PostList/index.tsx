@@ -122,40 +122,48 @@ const PostList = ({
                   width: "100%",
                   transform: `translateY(${virtualItem.start - rowVirtualizer.options.scrollMargin}px)`,
                 }}
-                className="border-b border-border"
+                className="border-b border-border/30"
               >
               <motion.div
-                whileHover={{ x: 2 }}
-                transition={{ type: "tween", duration: 0.15 }}
-                className="group flex gap-4 py-5"
+                whileHover={{ x: 8 }}
+                transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                className="group flex flex-col md:flex-row gap-6 py-10"
               >
-                {post?.featuredImage?.node?.mediaItemUrl && (
-                  <div className="shrink-0">
-                    <div className="w-20 h-20 overflow-hidden">
-                      <motion.img
-                        width={80}
-                        height={80}
-                        src={post.featuredImage.node.mediaItemUrl}
-                        alt={post.title}
-                        className="w-20 h-20 object-cover"
-                        whileHover={{ scale: 1.06 }}
-                        transition={{ duration: 0.4, ease: "easeOut" }}
-                      />
+                <div className="flex-none flex items-start gap-4">
+                  <span className="text-display text-4xl text-foreground/10 group-hover:text-accent/20 transition-colors duration-500">
+                    {(virtualItem.index + 1).toString().padStart(2, '0')}
+                  </span>
+                  {post?.featuredImage?.node?.mediaItemUrl && (
+                    <div className="shrink-0">
+                      <div className="w-24 h-24 overflow-hidden rounded-sm grayscale group-hover:grayscale-0 transition-all duration-700">
+                        <motion.img
+                          width={96}
+                          height={96}
+                          src={post.featuredImage.node.mediaItemUrl}
+                          alt={post.title}
+                          className="w-24 h-24 object-cover"
+                          whileHover={{ scale: 1.1 }}
+                          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                        />
+                      </div>
                     </div>
-                  </div>
-                )}
+                  )}
+                </div>
                 <div className="flex-1 min-w-0">
                   <a
                     href={`#${post.slug}`}
-                    className="block text-sm font-semibold text-foreground group-hover:text-accent transition-colors duration-200 leading-snug mb-2"
-                    style={{ fontFamily: "var(--font-display)" }}
+                    className="block text-2xl font-bold text-foreground group-hover:text-accent transition-all duration-300 leading-tight mb-3 text-display tracking-tight"
                   >
                     {post.title}
                   </a>
                   <div
-                    className="text-xs text-foreground/55 line-clamp-2 leading-relaxed [&>p]:m-0"
+                    className="text-sm text-foreground/60 line-clamp-3 leading-relaxed [&>p]:m-0 font-medium"
                     dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.excerpt) }}
                   />
+                  <div className="mt-6 flex items-center gap-4">
+                    <span className="micro-label text-foreground/30">Read Article</span>
+                    <div className="h-[1px] flex-1 bg-border/30 group-hover:bg-accent/30 transition-colors duration-500" />
+                  </div>
                 </div>
               </motion.div>
               </div>

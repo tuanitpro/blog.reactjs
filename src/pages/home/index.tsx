@@ -27,13 +27,18 @@ const Home = () => {
     >
       <PageLayout title={title}>
         <article className="prose dark:prose-invert max-w-none">
-          <header className="border-b border-border pb-5 mb-0 not-prose">
-            <h1
-              className="text-2xl font-bold text-foreground/80 tracking-tight leading-none"
-              style={{ fontFamily: "var(--font-display)", fontStyle: "italic" }}
+          <header className="mb-12 not-prose">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
             >
-              code, eat, sleep, repeat
-            </h1>
+              <span className="micro-label text-accent mb-2 block">Personal Blog</span>
+              <h1 className="text-7xl lg:text-9xl font-bold tracking-tighter text-display leading-[0.85] italic">
+                CODE, EAT,<br />SLEEP, REPEAT
+              </h1>
+              <div className="h-1 w-24 bg-accent mt-8" />
+            </motion.div>
           </header>
           <PostList
             posts={posts}
