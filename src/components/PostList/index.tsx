@@ -155,7 +155,7 @@ const PostList = ({
                 <div className="flex flex-col md:flex-row gap-6 flex-1 min-w-0">
                   {/* Index Section */}
                   <div className="shrink-0">
-                    <span className="text-display text-6xl md:text-5xl text-foreground/5 md:text-foreground/10 group-hover:text-accent/20 transition-colors duration-500 block leading-none">
+                    <span className="text-display text-6xl md:text-5xl text-foreground/10 md:text-foreground/15 dark:text-foreground/20 group-hover:text-accent/30 transition-colors duration-500 block leading-none">
                       {(virtualItem.index + 1).toString().padStart(2, '0')}
                     </span>
                   </div>
