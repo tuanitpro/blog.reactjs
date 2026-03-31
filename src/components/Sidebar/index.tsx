@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, FormEvent } from "react";
 import { AnimatePresence, motion } from "motion/react";
 
 import { X, Menu, Search } from "lucide-react";
@@ -9,12 +9,38 @@ import Footer from "@layouts/Footer";
 import ThemeToggle from "@components/ThemeToggle";
 import Category from "./Category";
 import ExternalLink from "./ExternalLink";
+import SearchModal from "@components/SearchModal";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const open = () => setIsOpen(true);
   const close = () => setIsOpen(false);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+        e.preventDefault();
+        setSearchQuery("");
+        setIsSearchOpen(true);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
+  const handleSearch = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const s = formData.get("s") as string;
+    if (s) {
+      setSearchQuery(s);
+      setIsSearchOpen(true);
+      e.currentTarget.reset();
+    }
+  };
 
   return (
     <>
@@ -34,15 +60,18 @@ const Sidebar = () => {
           <Navigation toggleVisibility={() => {}} />
 
           <div className="px-6 py-6 mt-4 border-t border-border/30">
-            <form role="search" method="get" action={import.meta.env.VITE_BLOG_URL}>
+            <form role="search" onSubmit={handleSearch}>
               <div className="relative group">
                 <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-foreground/30 group-focus-within:text-accent transition-colors pointer-events-none" />
                 <input
                   placeholder="Tìm kiếm…"
                   type="search"
                   name="s"
-                  className="w-full bg-box/50 border border-border/50 pl-9 pr-3 py-2.5 text-sm text-foreground outline-none focus:border-accent/50 focus:bg-box placeholder:text-foreground/30 transition-all duration-300 rounded-sm"
+                  className="w-full bg-box/50 border border-border/50 pl-9 pr-12 py-2.5 text-sm text-foreground outline-none focus:border-accent/50 focus:bg-box placeholder:text-foreground/30 transition-all duration-300 rounded-sm"
                 />
+                <kbd className="absolute right-3 top-1/2 -translate-y-1/2 px-1.5 py-0.5 rounded border border-border/50 bg-bg-primary text-[10px] font-mono text-foreground/30 pointer-events-none group-focus-within:opacity-0 transition-opacity">
+                  ⌘K
+                </kbd>
               </div>
             </form>
           </div>
@@ -101,7 +130,7 @@ const Sidebar = () => {
               <Navigation toggleVisibility={close} />
 
               <div className="px-8 py-6 mt-4 border-t border-border/30">
-                <form role="search" method="get" action={import.meta.env.VITE_BLOG_URL}>
+                <form role="search" onSubmit={(e) => { handleSearch(e); close(); }}>
                   <div className="relative group">
                     <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-foreground/30 group-focus-within:text-accent transition-colors pointer-events-none" />
                     <input
@@ -138,6 +167,11 @@ const Sidebar = () => {
           />
         )}
       </AnimatePresence>
+      <SearchModal
+        isOpen={isSearchOpen}
+        onClose={() => setIsSearchOpen(false)}
+        initialQuery={searchQuery}
+      />
     </>
   );
 };
