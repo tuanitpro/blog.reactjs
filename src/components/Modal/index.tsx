@@ -32,7 +32,7 @@ const Modal = ({ title, open, onClose, children }: Readonly<Props>) => {
             <div className="flex items-start bg-background border-b border-border/30 shrink-0 px-4 py-4 md:px-8 md:py-8 gap-4 md:gap-8">
               <div className="flex-1 min-w-0">
                 <span className="micro-label text-accent mb-1 md:mb-2 block">Article</span>
-                <h3 className="text-xl md:text-3xl lg:text-4xl font-bold leading-tight text-foreground text-display tracking-tight italic">
+                <h3 className="text-3xl font-bold leading-tight text-foreground text-display tracking-tight italic">
                   {title}
                 </h3>
               </div>

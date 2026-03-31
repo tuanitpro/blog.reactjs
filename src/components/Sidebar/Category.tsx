@@ -39,8 +39,8 @@ const Category = ({ toggleVisibility }: Props) => {
   });
 
   return (
-    <aside className="px-8 py-6 border-t border-border/30">
-      <h2 className="text-[10px] font-bold tracking-[0.2em] uppercase text-foreground/30 mb-4">
+    <aside className="px-6 py-6 border-t border-border/30">
+      <h2 className="text-xs font-bold tracking-[0.2em] uppercase text-foreground/30 mb-4">
         Chuyên mục
       </h2>
 
@@ -56,7 +56,7 @@ const Category = ({ toggleVisibility }: Props) => {
                     to={c.slug}
                     onClick={() => toggleVisibility?.()}
                     className={`
-                      group flex items-center justify-between py-1 text-xs font-medium tracking-wide transition-colors duration-200
+                      group flex items-center justify-between py-1 text-sm font-medium tracking-wide transition-colors duration-200
                       ${
                         isActive
                           ? "text-accent border-l-2 border-accent pl-3 -ml-px"
@@ -65,7 +65,7 @@ const Category = ({ toggleVisibility }: Props) => {
                     `}
                   >
                     {c.name}
-                    <span className="opacity-0 group-hover:opacity-40 transition-opacity text-[10px]">
+                    <span className="opacity-0 group-hover:opacity-40 transition-opacity text-xs">
                       →
                     </span>
                   </Link>

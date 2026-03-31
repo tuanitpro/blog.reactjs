@@ -67,7 +67,7 @@ const Contact = () => {
         <article className="prose dark:prose-invert max-w-none">
           <header className="mb-12 not-prose">
             <span className="micro-label text-accent mb-2 block">Contact</span>
-            <h1 className="text-7xl lg:text-9xl font-bold tracking-tighter text-display leading-[0.85] italic">
+            <h1 className="text-5xl lg:text-8xl xl:text-9xl font-bold tracking-tighter text-display leading-[0.85] italic">
               GET IN<br />TOUCH
             </h1>
             <div className="h-1 w-24 bg-accent mt-8" />

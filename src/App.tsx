@@ -38,7 +38,7 @@ const Layout = () => {
         style={{ scaleX }}
       />
       {/* Mobile: reserves height for fixed top bar. Desktop: reserves width for fixed sidebar. */}
-      <div className="h-16 shrink-0 lg:h-auto lg:w-80 lg:flex-none" aria-hidden="true" />
+      <div className="h-16 shrink-0 lg:h-auto lg:w-64 lg:flex-none" aria-hidden="true" />
 
       <Sidebar />
       

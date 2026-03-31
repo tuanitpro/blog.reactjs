@@ -19,8 +19,8 @@ const Sidebar = () => {
   return (
     <>
       {/* ── Desktop sidebar — fixed ─────────────────── */}
-      <aside className="hidden lg:flex flex-col fixed top-0 left-0 w-80 h-screen bg-bg-primary/80 backdrop-blur-xl border-r border-border/50 z-30">
-        <header className="flex-none px-8 py-10 border-b border-border/30">
+      <aside className="hidden lg:flex flex-col fixed top-0 left-0 w-64 h-screen bg-bg-primary/80 backdrop-blur-xl border-r border-border/50 z-30">
+        <header className="flex-none px-6 py-10 border-b border-border/30">
           <div className="flex flex-col items-start gap-6">
             <div className="w-full flex items-center justify-between">
               <Logo />
@@ -33,7 +33,7 @@ const Sidebar = () => {
         <div className="flex-1 overflow-y-auto py-6">
           <Navigation toggleVisibility={() => {}} />
 
-          <div className="px-8 py-6 mt-4 border-t border-border/30">
+          <div className="px-6 py-6 mt-4 border-t border-border/30">
             <form role="search" method="get" action={import.meta.env.VITE_BLOG_URL}>
               <div className="relative group">
                 <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-foreground/30 group-focus-within:text-accent transition-colors pointer-events-none" />
@@ -41,7 +41,7 @@ const Sidebar = () => {
                   placeholder="Tìm kiếm…"
                   type="search"
                   name="s"
-                  className="w-full bg-box/50 border border-border/50 pl-9 pr-3 py-2.5 text-xs text-foreground outline-none focus:border-accent/50 focus:bg-box placeholder:text-foreground/30 transition-all duration-300 rounded-sm"
+                  className="w-full bg-box/50 border border-border/50 pl-9 pr-3 py-2.5 text-sm text-foreground outline-none focus:border-accent/50 focus:bg-box placeholder:text-foreground/30 transition-all duration-300 rounded-sm"
                 />
               </div>
             </form>
@@ -51,7 +51,7 @@ const Sidebar = () => {
           <ExternalLink />
         </div>
 
-        <div className="p-8 border-t border-border/30">
+        <div className="p-6 border-t border-border/30">
           <Footer />
         </div>
       </aside>

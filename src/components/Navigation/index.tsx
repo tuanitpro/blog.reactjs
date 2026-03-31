@@ -18,7 +18,7 @@ const Navigation = ({ toggleVisibility }: Props) => {
   const location = useLocation();
 
   return (
-    <nav className="px-8 py-6">
+    <nav className="px-6 py-6">
       <ul className="space-y-4 list-none m-0 p-0">
         {menuItems?.map((item, index) => {
           const isActive = location?.pathname === item.link;
@@ -33,7 +33,7 @@ const Navigation = ({ toggleVisibility }: Props) => {
                 to={item.link}
                 onClick={() => (item?.external ? undefined : toggleVisibility?.())}
                 className={`
-                  group flex items-center justify-between py-1 text-[10px] font-bold tracking-[0.2em] uppercase transition-all duration-300
+                  group flex items-center justify-between py-1 text-xs font-bold tracking-[0.2em] uppercase transition-all duration-300
                   ${isActive
                     ? "text-accent"
                     : "text-foreground/40 hover:text-foreground"
@@ -51,7 +51,7 @@ const Navigation = ({ toggleVisibility }: Props) => {
                   />
                 </span>
                 {item.external && (
-                  <span className="text-[8px] opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-[-4px] group-hover:translate-x-0">
+                  <span className="text-[10px] opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-[-4px] group-hover:translate-x-0">
                     ↗
                   </span>
                 )}

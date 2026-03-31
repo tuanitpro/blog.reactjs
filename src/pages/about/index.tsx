@@ -35,7 +35,7 @@ const About = () => {
         <article className="prose dark:prose-invert max-w-none">
           <header className="mb-8 not-prose">
             <span className="micro-label text-accent mb-2 block">About Me</span>
-            <h1 className="text-7xl lg:text-9xl font-bold tracking-tighter text-display leading-[0.85] italic">
+            <h1 className="text-5xl lg:text-8xl xl:text-9xl font-bold tracking-tighter text-display leading-[0.85] italic">
               PASSION &<br />EXPERTISE
             </h1>
             <div className="h-1 w-24 bg-accent mt-6" />
@@ -121,7 +121,7 @@ const About = () => {
                 viewport={{ once: true }}
                 className="border-t border-border/30 pt-6"
               >
-                <h3 className="text-display text-4xl mb-2 italic">{section.title}</h3>
+                <h3 className="text-display text-3xl mb-2 italic">{section.title}</h3>
                 <ul className="grid grid-cols-1 gap-1 list-none p-0">
                   {section.items.map((item, i) => (
                     <li key={i} className="group">

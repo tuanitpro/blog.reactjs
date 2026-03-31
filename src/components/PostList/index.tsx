@@ -102,7 +102,7 @@ const PostList = ({
       {showEmptyMessage && !isPending && posts.length === 0 && (
         <div className="py-24 text-center border-y border-border/30 my-12">
           <span className="micro-label text-accent mb-4 block">Archive</span>
-          <h2 className="text-4xl font-bold text-display italic tracking-tight text-foreground/20">
+          <h2 className="text-3xl font-bold text-display italic tracking-tight text-foreground/20">
             No articles found in this collection.
           </h2>
           <p className="mt-4 text-foreground/40 font-medium">
@@ -155,7 +155,7 @@ const PostList = ({
                 <div className="flex flex-col md:flex-row gap-6 flex-1 min-w-0">
                   {/* Index Section */}
                   <div className="shrink-0">
-                    <span className="text-display text-5xl md:text-4xl text-foreground/5 md:text-foreground/10 group-hover:text-accent/20 transition-colors duration-500 block leading-none">
+                    <span className="text-display text-6xl md:text-5xl text-foreground/5 md:text-foreground/10 group-hover:text-accent/20 transition-colors duration-500 block leading-none">
                       {(virtualItem.index + 1).toString().padStart(2, '0')}
                     </span>
                   </div>
@@ -164,12 +164,12 @@ const PostList = ({
                   <div className="flex-1 min-w-0">
                     <a
                       href={`#${post.slug}`}
-                      className="block text-3xl md:text-2xl font-bold text-foreground group-hover:text-accent transition-all duration-300 leading-tight mb-4 text-display tracking-tight italic"
+                      className="block text-3xl font-bold text-foreground group-hover:text-accent transition-all duration-300 leading-tight mb-4 text-display tracking-tight italic"
                     >
                       {post.title}
                     </a>
                     <div
-                      className="text-base md:text-sm text-foreground/60 line-clamp-3 leading-relaxed [&>p]:m-0 font-medium"
+                      className="text-lg md:text-base text-foreground/60 line-clamp-3 leading-relaxed [&>p]:m-0 font-medium"
                       dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.excerpt) }}
                     />
                     <div className="mt-8 flex items-center gap-4">
