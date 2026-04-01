@@ -8,7 +8,6 @@ import { Loader } from "@components/Loader";
 type FormModel = {
   name?: string;
   email?: string;
-  subject?: string;
   message?: string;
   turnstileToken?: string;
 };
@@ -24,17 +23,13 @@ const pageVariants = {
 };
 
 const Contact = () => {
-  const title = "Liên hệ";
   const sendMutation = useMutation({
-    mutationFn: async (variables: FormModel) => {
-      return await fetch(import.meta.env.VITE_API_ENDPOINT+'/contacts', {
+    mutationFn: (variables: FormModel) =>
+      fetch(import.meta.env.VITE_API_ENDPOINT + "/contacts", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(variables),
-      }).then((res) => res.json());
-    },
+      }).then((res) => res.json()),
     onSuccess() {
       toast("🦄 Cảm ơn bạn đã để lại liên hệ.");
     },
@@ -43,17 +38,15 @@ const Contact = () => {
     },
   });
 
-  async function formPost(formData: FormData) {
+  function formPost(formData: FormData) {
     const turnstileToken =
-      (formData?.get("cf-turnstile-response") as string) || undefined;
-    const rawFormData: FormModel = {
-      name: formData?.get("your-name") as string,
-      email: formData?.get("your-email") as string,
-      subject: formData?.get("your-subject") as string,
-      message: formData?.get("your-message") as string,
+      (formData.get("cf-turnstile-response") as string) || undefined;
+    sendMutation.mutate({
+      name: formData.get("your-name") as string,
+      email: formData.get("your-email") as string,
+      message: formData.get("your-message") as string,
       turnstileToken,
-    };
-    sendMutation.mutate(rawFormData);
+    });
   }
 
   return (
@@ -63,7 +56,7 @@ const Contact = () => {
       animate="animate"
       exit="exit"
     >
-      <PageLayout title={title}>
+      <PageLayout title="Liên hệ">
         <article className="prose dark:prose-invert max-w-none">
           <header className="mb-12 not-prose">
             <span className="micro-label text-accent mb-2 block">Contact</span>
@@ -147,13 +140,13 @@ const Contact = () => {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   className="w-full py-4 bg-foreground text-background text-xs font-bold tracking-[0.2em] uppercase hover:bg-accent hover:text-white transition-all duration-300 disabled:opacity-50 cursor-pointer"
-                  disabled={sendMutation?.isPending}
+                  disabled={sendMutation.isPending}
                 >
-                  {sendMutation?.isPending ? "Sending..." : "Send Message"}
+                  {sendMutation.isPending ? "Sending..." : "Send Message"}
                 </motion.button>
               </form>
 
-              {sendMutation?.isPending && (
+              {sendMutation.isPending && (
                 <div className="absolute inset-0 flex items-center justify-center bg-background/60 backdrop-blur-sm z-10">
                   <Loader />
                 </div>
