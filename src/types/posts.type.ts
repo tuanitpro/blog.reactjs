@@ -1,27 +1,39 @@
-export type featuredImage = {
-  node: {
-    mediaItemUrl: string;
-  };
-};
-
 export type post = {
-  excerpt: string;
-  content: string;
   id: string;
   title: string;
   slug: string;
-  link: string;
-  featuredImage: featuredImage;
-};
-
-export type root = {
-  posts: {
-    nodes: post[];
-    pageInfo: pageInfo;
+  image: string;
+  excerpt: string;
+  content: string;
+  createdAt: string;
+  updatedAt: string;
+  category: {
+    id: string;
+    name: string;
+    slug: string;
+    image: string;
   };
 };
 
-export type pageInfo = {
-  hasNextPage: boolean;
-  endCursor: string;
+export type ApiPagination = {
+  page: number;
+  limit: number;
+  total: number;
+  totalPages: number;
+  hasNext: boolean;
+  hasPrev: boolean;
+};
+
+export type ApiPostsResponse = {
+  items: post[];
+  pagination: ApiPagination;
+};
+
+export type ApiCategory = {
+  id: string;
+  name: string;
+  slug: string;
+  image: string;
+  order: number;
+  parent: ApiCategory | null;
 };

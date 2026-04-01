@@ -92,13 +92,16 @@ const Sidebar = () => {
           <Hero />
         </div>
         <ThemeToggle />
-        <button
+        <motion.button
           className="shrink-0 text-foreground/70 hover:text-foreground transition-colors cursor-pointer"
           onClick={open}
+          whileHover={{ rotate: 90, scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          transition={{ type: "spring", stiffness: 400, damping: 20 }}
           aria-label="Open menu"
         >
           <Menu size={20} />
-        </button>
+        </motion.button>
       </div>
 
       {/* ── Mobile drawer ───────────────────────────────────────────────── */}
@@ -117,13 +120,16 @@ const Sidebar = () => {
                 <Hero />
               </div>
               <ThemeToggle />
-              <button
+              <motion.button
                 className="shrink-0 w-10 h-10 flex items-center justify-center text-foreground/40 hover:text-foreground hover:bg-foreground/5 rounded-full transition-colors cursor-pointer"
                 onClick={close}
+                whileHover={{ rotate: 90, scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                transition={{ type: "spring", stiffness: 400, damping: 20 }}
                 aria-label="Close menu"
               >
                 <X size={20} />
-              </button>
+              </motion.button>
             </div>
 
             <div className="flex-1 overflow-y-auto py-4">

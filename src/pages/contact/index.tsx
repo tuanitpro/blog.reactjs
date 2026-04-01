@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import { ToastContainer, toast } from "react-toastify";
+import { Toaster, toast } from "sonner";
 import { Mail, Phone } from "lucide-react";
 import { useMutation } from "@tanstack/react-query";
 import PageLayout from "@layouts/PageLayout";
@@ -146,7 +146,7 @@ const Contact = () => {
                   type="submit"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="w-full py-4 bg-foreground text-background text-xs font-bold tracking-[0.2em] uppercase hover:bg-accent hover:text-white transition-all duration-300 disabled:opacity-50"
+                  className="w-full py-4 bg-foreground text-background text-xs font-bold tracking-[0.2em] uppercase hover:bg-accent hover:text-white transition-all duration-300 disabled:opacity-50 cursor-pointer"
                   disabled={sendMutation?.isPending}
                 >
                   {sendMutation?.isPending ? "Sending..." : "Send Message"}
@@ -161,7 +161,7 @@ const Contact = () => {
             </div>
           </div>
         </article>
-        <ToastContainer />
+        <Toaster position="top-right" />
       </PageLayout>
     </motion.div>
   );

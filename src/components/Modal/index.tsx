@@ -41,7 +41,7 @@ const Modal = ({ title, open, onClose, children }: Readonly<Props>) => {
           </div>
 
           {/* Content */}
-          <div className="flex-1 overflow-y-auto px-6 py-12 md:px-12 md:py-20">
+          <div className="flex-1 overflow-y-auto px-6 pt-8 pb-12 md:px-12 md:pt-12 md:pb-20">
             <div className="max-w-4xl mx-auto prose dark:prose-invert max-w-none prose-headings:text-display prose-headings:italic prose-headings:tracking-tight prose-p:text-foreground/80 prose-p:leading-relaxed prose-p:text-xl">
               {children}
             </div>

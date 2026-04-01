@@ -3,24 +3,13 @@ import { motion } from "motion/react";
 import DOMPurify from "dompurify";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
-import { gql, GraphQLClient } from "graphql-request";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import Modal from "@components/Modal";
 import { Loader } from "@components/Loader";
 import { LoadMoreStatus } from "@components/LoadMoreSpinner";
 import { post } from "@app-types/posts.type";
 
-const client = new GraphQLClient(import.meta.env.VITE_GRAPHQL_ENDPOINT || "");
-
-const singlePostQuery = gql`
-  query getSinglePost($id: ID!) {
-    post(id: $id, idType: SLUG) {
-      id
-      title
-      content
-    }
-  }
-`;
+const API_ENDPOINT = import.meta.env.VITE_API_ENDPOINT || "";
 
 type Props = {
   posts: post[];
@@ -63,25 +52,35 @@ const PostList = ({
     scrollMargin,
   });
 
-  // Trigger next page when last virtual item approaches the end
-  const virtualItems = rowVirtualizer.getVirtualItems();
+  // Trigger next page when bottom sentinel scrolls into view
+  const sentinelRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    const lastItem = virtualItems.at(-1);
-    if (!lastItem) return;
-    if (lastItem.index >= posts.length - 1 && hasNextPage && !isFetchingNextPage) {
-      fetchNextPage();
-    }
-  }, [virtualItems, hasNextPage, isFetchingNextPage, posts.length, fetchNextPage]);
+    const el = sentinelRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && hasNextPage && !isFetchingNextPage) {
+          fetchNextPage();
+        }
+      },
+      { rootMargin: "200px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
 
   const getPostMutation = useMutation({
-    mutationFn: async (slug: string) =>
-      client.request<{ post: post }>(singlePostQuery, { id: slug }),
+    mutationFn: async (slug: string) => {
+      const res = await fetch(`${API_ENDPOINT}/posts/slug/${slug}`);
+      if (!res.ok) throw new Error("Failed to fetch post");
+      return res.json() as Promise<post>;
+    },
     onMutate: () => {
       document.title = "Đang tải bài viết...";
       setOpen(true);
     },
     onSuccess: (data) => {
-      document.title = data?.post?.title || pageTitle;
+      document.title = data?.title || pageTitle;
     },
     onError: () => {
       document.title = pageTitle;
@@ -136,13 +135,13 @@ const PostList = ({
                 className="group flex flex-col md:flex-row gap-8 py-12"
               >
                 {/* Image Section */}
-                {post?.featuredImage?.node?.mediaItemUrl && (
+                {post?.image && (
                   <div className="w-full md:w-56 shrink-0 -mx-4 md:mx-0">
                     <div className="w-full aspect-[16/9] md:aspect-square md:w-56 md:h-56 overflow-hidden rounded-sm grayscale group-hover:grayscale-0 transition-all duration-700">
                       <motion.img
                         width={640}
                         height={360}
-                        src={post.featuredImage.node.mediaItemUrl}
+                        src={post.image}
                         alt={post.title}
                         className="w-full h-full object-cover"
                         whileHover={{ scale: 1.1 }}
@@ -184,6 +183,7 @@ const PostList = ({
           })}
         </div>
       </div>
+      <div ref={sentinelRef} />
 
       {!isPending && posts.length > 0 && (
         <div className="pb-24 text-center">
@@ -198,7 +198,7 @@ const PostList = ({
 
       <Modal
         title={
-          getPostMutation?.data?.post?.title ||
+          getPostMutation?.data?.title ||
           "Bạn đợi chút, tôi đang tải bài viết..."
         }
         open={open}
@@ -208,10 +208,10 @@ const PostList = ({
           document.title = pageTitle;
         }}
       >
-        {getPostMutation.isSuccess && getPostMutation?.data?.post && (
+        {getPostMutation.isSuccess && getPostMutation?.data && (
           <div
             dangerouslySetInnerHTML={{
-              __html: DOMPurify.sanitize(getPostMutation.data.post.content),
+              __html: DOMPurify.sanitize(getPostMutation.data.content),
             }}
           />
         )}

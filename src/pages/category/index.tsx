@@ -1,21 +1,9 @@
 import { motion } from "motion/react";
-import { useQuery } from "@tanstack/react-query";
-import { gql, GraphQLClient } from "graphql-request";
 import { useParams } from "react-router";
 import PageLayout from "@layouts/PageLayout";
 import PostList from "@components/PostList";
 import { usePostsQuery } from "@hooks/usePostsQuery";
-
-const client = new GraphQLClient(import.meta.env.VITE_GRAPHQL_ENDPOINT || "");
-
-const categoryQuery = gql`
-  query getSingleCategory($id: ID!) {
-    category(id: $id, idType: SLUG) {
-      id
-      name
-    }
-  }
-`;
+import { useCategoryQuery } from "@hooks/useCategoryQuery";
 
 const pageVariants = {
   initial: { opacity: 0, y: 16 },
@@ -30,14 +18,10 @@ const pageVariants = {
 const Category = () => {
   const { slug } = useParams<{ slug: string }>();
 
-  const { data: category } = useQuery({
-    queryKey: ["category", slug],
-    queryFn: () => client.request(categoryQuery, { id: slug }),
-    select: (data) => data?.category,
-  });
+  const { data: category } = useCategoryQuery(slug);
 
   const { posts, isPending, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    usePostsQuery({ categoryName: slug });
+    usePostsQuery({ categoryId: category?.id });
 
   const pageTitle = category?.name || "Category";
 

@@ -1,85 +1,35 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { gql, GraphQLClient } from "graphql-request";
-import { post, root } from "@app-types/posts.type";
+import { post, ApiPostsResponse } from "@app-types/posts.type";
 
-const client = new GraphQLClient(import.meta.env.VITE_GRAPHQL_ENDPOINT || "");
-
-const homePostsQuery = gql`
-  query getManyPosts($first: Int!, $after: String) {
-    posts(first: $first, after: $after) {
-      pageInfo {
-        hasNextPage
-        endCursor
-      }
-      nodes {
-        excerpt
-        id
-        title
-        slug
-        link
-        featuredImage {
-          node {
-            mediaItemUrl
-          }
-        }
-      }
-    }
-  }
-`;
-
-const categoryPostsQuery = gql`
-  query getManyPosts($categoryName: String!, $first: Int!, $after: String) {
-    posts(
-      where: { categoryName: $categoryName }
-      first: $first
-      after: $after
-    ) {
-      pageInfo {
-        hasNextPage
-        endCursor
-      }
-      nodes {
-        excerpt
-        id
-        title
-        slug
-        link
-        featuredImage {
-          node {
-            mediaItemUrl
-          }
-        }
-      }
-    }
-  }
-`;
+const API_ENDPOINT = import.meta.env.VITE_API_ENDPOINT || "";
 
 type Options = {
-  categoryName?: string;
+  categoryId?: string;
 };
 
-export const usePostsQuery = ({ categoryName }: Options = {}) => {
-  const query = categoryName ? categoryPostsQuery : homePostsQuery;
-  const queryKey = categoryName ? ["posts", categoryName] : ["posts"];
+export const usePostsQuery = ({ categoryId }: Options = {}) => {
+  const queryKey = categoryId ? ["posts", categoryId] : ["posts"];
 
   const { data, isPending, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useInfiniteQuery({
+    useInfiniteQuery<ApiPostsResponse>({
       queryKey,
-      queryFn: ({ pageParam = "" }) =>
-        client.request<root>(query, {
-          ...(categoryName ? { categoryName } : {}),
-          first: 10,
-          after: pageParam,
-        }),
-      getNextPageParam: (lastPage) =>
-        lastPage?.posts?.pageInfo?.hasNextPage
-          ? lastPage?.posts?.pageInfo?.endCursor
-          : undefined,
-      initialPageParam: "",
+      queryFn: async ({ pageParam = 1 }) => {
+        const params = new URLSearchParams({
+          page: String(pageParam),
+          limit: "10",
+        });
+        if (categoryId) params.set("categoryId", categoryId);
+        const res = await fetch(`${API_ENDPOINT}/posts?${params}`);
+        if (!res.ok) throw new Error("Failed to fetch posts");
+        return res.json();
+      },
+      getNextPageParam: (lastPage, _allPages, lastPageParam) =>
+        lastPage?.pagination?.hasNext ? (lastPageParam as number) + 1 : undefined,
+      initialPageParam: 1,
       staleTime: 5 * 60 * 1000,
     });
 
-  const posts: post[] = data?.pages?.flatMap((p) => p.posts.nodes) ?? [];
+  const posts: post[] = data?.pages?.flatMap((p) => p.items) ?? [];
 
   return { posts, isPending, fetchNextPage, hasNextPage, isFetchingNextPage };
 };

@@ -12,15 +12,14 @@
     "allowJs": true,
     "jsx": "react-jsx",
     "types": ["vite/client"],
-    "baseUrl": ".",
     "paths": {
-      "@layouts/*": ["src/layouts/*"],
-      "@components/*": ["src/components/*"],
-      "@static/*": ["src/static/*"],
-      "@hooks/*": ["src/hooks/*"],
-      "@app-types/*": ["src/types/*"],
-      "@utils/*": ["src/utils/*"],
-      "@contexts/*": ["src/contexts/*"]
+      "@layouts/*": ["./src/layouts/*"],
+      "@components/*": ["./src/components/*"],
+      "@static/*": ["./src/static/*"],
+      "@hooks/*": ["./src/hooks/*"],
+      "@app-types/*": ["./src/types/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@contexts/*": ["./src/contexts/*"]
     },
     "allowImportingTsExtensions": true,
     "noEmit": true

@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { Loader } from "../Loader";
 import { Link, useLocation } from "react-router";
-import { readCache, writeCache, CACHE_TTL_MS } from "@utils/cache";
+import { CACHE_TTL_MS } from "@utils/cache";
 
 type category = {
   id: string;
@@ -9,8 +9,6 @@ type category = {
   link: string;
   slug: string;
 };
-
-const CACHE_KEY = "categories";
 
 type Props = {
   toggleVisibility?: () => void;
