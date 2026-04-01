@@ -18,10 +18,10 @@ const pageVariants = {
 const Category = () => {
   const { slug } = useParams<{ slug: string }>();
 
-  const { data: category } = useCategoryQuery(slug);
+  const { data: category, isPending: isCategoryPending } = useCategoryQuery(slug);
 
   const { posts, isPending, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    usePostsQuery({ categoryId: category?.id });
+    usePostsQuery({ categoryId: category?.id, enabled: !isCategoryPending });
 
   const pageTitle = category?.name || "Category";
 
