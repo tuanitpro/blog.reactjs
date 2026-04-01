@@ -2,14 +2,21 @@ import type { ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "motion/react";
 import { X } from "lucide-react";
+import { marked } from "marked";
+import DOMPurify from "dompurify";
+
 type Props = {
   title?: string;
   open?: boolean;
   onClose?: () => void;
-  children: ReactNode;
+  children?: ReactNode;
+  content?: string;
 };
 
-const Modal = ({ title, open, onClose, children }: Readonly<Props>) => {
+const Modal = ({ title, open, onClose, children, content }: Readonly<Props>) => {
+  const html = content
+    ? DOMPurify.sanitize(marked(content) as string)
+    : null;
   return createPortal(
     <AnimatePresence>
       {open && (
@@ -43,7 +50,9 @@ const Modal = ({ title, open, onClose, children }: Readonly<Props>) => {
           {/* Content */}
           <div className="flex-1 overflow-y-auto px-6 pt-8 pb-12 md:px-12 md:pt-12 md:pb-20">
             <div className="max-w-4xl mx-auto prose dark:prose-invert max-w-none prose-headings:text-display prose-headings:italic prose-headings:tracking-tight prose-p:text-foreground/80 prose-p:leading-relaxed prose-p:text-xl">
-              {children}
+              {html
+                ? <div dangerouslySetInnerHTML={{ __html: html }} />
+                : children}
             </div>
           </div>
         </motion.div>

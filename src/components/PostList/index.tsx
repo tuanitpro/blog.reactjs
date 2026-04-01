@@ -202,19 +202,13 @@ const PostList = ({
           "Bạn đợi chút, tôi đang tải bài viết..."
         }
         open={open}
+        content={getPostMutation.isSuccess ? getPostMutation.data?.content : undefined}
         onClose={() => {
           setOpen(false);
           navigate(navigateOnClose, { replace: true });
           document.title = pageTitle;
         }}
       >
-        {getPostMutation.isSuccess && getPostMutation?.data && (
-          <div
-            dangerouslySetInnerHTML={{
-              __html: DOMPurify.sanitize(getPostMutation.data.content),
-            }}
-          />
-        )}
         {getPostMutation.isPending && <Loader />}
         {getPostMutation.isError && (
           <p>Không thể tải bài viết. Vui lòng thử lại.</p>
