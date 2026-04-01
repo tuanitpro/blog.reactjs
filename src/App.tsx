@@ -13,8 +13,13 @@ import { AnimatePresence, motion, useScroll, useSpring } from "motion/react";
 
 import Sidebar from "@components/Sidebar";
 import ErrorBoundary from "@components/ErrorBoundary";
-import { Loader } from "@components/Loader";
 import { ThemeProvider } from "@contexts/ThemeContext";
+
+const PageFallback = () => (
+  <div className="flex items-center justify-center py-12">
+    <div className="w-8 h-8 rounded-full border-2 border-accent border-t-transparent animate-spin" />
+  </div>
+);
 
 const Home = lazy(() => import("./pages/home"));
 const About = lazy(() => import("./pages/about"));
@@ -47,7 +52,7 @@ const Layout = () => {
       <main className="flex-1 min-w-0 px-4 py-8 lg:px-12 lg:py-12 relative z-10 max-w-5xl">
         <ErrorBoundary>
           <ScrollRestoration />
-          <Suspense fallback={<Loader />}>
+          <Suspense fallback={<PageFallback />}>
             <AnimatePresence mode="wait">
               <motion.div
                 key={location.pathname}
