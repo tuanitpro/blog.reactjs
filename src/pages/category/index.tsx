@@ -35,7 +35,7 @@ const Category = () => {
       <PageLayout title={pageTitle}>
         <article className="prose dark:prose-invert max-w-none">
           <header className="border-b border-border">
-            <h1>{category?.name || "…"}</h1>
+            <h1 className="text-foreground">{category?.name || "…"}</h1>
           </header>
           <PostList
             posts={posts}
