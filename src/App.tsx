@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import {
   createBrowserRouter,
   RouterProvider,
@@ -12,12 +13,13 @@ import { AnimatePresence, motion, useScroll, useSpring } from "motion/react";
 
 import Sidebar from "@components/Sidebar";
 import ErrorBoundary from "@components/ErrorBoundary";
+import { Loader } from "@components/Loader";
 import { ThemeProvider } from "@contexts/ThemeContext";
 
-import Home from "./pages/home";
-import About from "./pages/about";
-import Contact from "./pages/contact";
-import Category from "./pages/category";
+const Home = lazy(() => import("./pages/home"));
+const About = lazy(() => import("./pages/about"));
+const Contact = lazy(() => import("./pages/contact"));
+const Category = lazy(() => import("./pages/category"));
 
 const queryClient = new QueryClient();
 
@@ -45,17 +47,19 @@ const Layout = () => {
       <main className="flex-1 min-w-0 px-4 py-8 lg:px-12 lg:py-12 relative z-10 max-w-5xl">
         <ErrorBoundary>
           <ScrollRestoration />
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={location.pathname}
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -20 }}
-              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-            >
-              {outlet}
-            </motion.div>
-          </AnimatePresence>
+          <Suspense fallback={<Loader />}>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={location.pathname}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+              >
+                {outlet}
+              </motion.div>
+            </AnimatePresence>
+          </Suspense>
         </ErrorBoundary>
       </main>
 
