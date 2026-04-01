@@ -31,7 +31,7 @@ const Sidebar = () => {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
-  const handleSearch = (e: React.InputEvent<HTMLFormElement>) => {
+  const handleSearch = (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const s = formData.get("s") as string;
