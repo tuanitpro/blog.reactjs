@@ -1,40 +1,36 @@
-
 type node = {
-  id: string;
   url: string;
   label: string;
 };
 
 const menus: node[] = [
   {
-    id: "dGVybToxMw==",
     label: "GitHub",
     url: "https://github.com/tuanitpro",
   },
   {
-    id: "dGVybToxNA==",
     label: "LinkedIn",
     url: "https://www.linkedin.com/in/tuanitpro/",
   },
   {
-    id: "dGVybToxNQ==",
     label: "Twitter",
     url: "https://x.com/tuanitpro",
   },
   {
-    id: "dGVybToxNg==",
     label: "Facebook",
     url: "https://www.facebook.com/tuanitpro",
   },
   {
-    id: "dGVybToxNw==",
     label: "ANTT.Tech",
     url: "https://antt.tech",
   },
   {
-    id: "dGVybToxOA==",
     label: "NICEONE.vn",
     url: "https://niceone.vn",
+  },
+  {
+    label: "ChatBot AI",
+    url: "https://chat.antt.tech",
   },
 ];
 
@@ -48,7 +44,7 @@ const ExternalLink = () => {
       <nav aria-label="Liên kết">
         <ul className="space-y-0.5 list-none m-0 p-0">
           {menus.map((c) => (
-            <li key={c.id}>
+            <li key={crypto.randomUUID()}>
               <a
                 href={c.url}
                 target="_blank"
